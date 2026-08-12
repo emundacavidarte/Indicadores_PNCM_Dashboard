@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Control HIS - Gestantes y Niños | Programa Nacional Cuna Más</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Leaflet.js CSS & JS for Peru Interactive GIS Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css?v=20260810_flex_fix">
+</head>
+<body class="theme-todos">
+
+    <!-- APP HEADER (PINNED STICKY AT TOP 0 WITH INTEGRATED NAV TOOLBAR) -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand-logos">
+                <img src="Logo MIDIS - transparente.png" alt="MIDIS - Cuna Más" class="header-logo logo-midis">
+                <div class="logo-divider"></div>
+                <img src="Logo Cuidador 360°-04.png" alt="Cuidador 360°" class="header-logo logo-cuidador">
+            </div>
+            
+            <div class="header-title-container">
+                <h1>INDICADORES PNCM - SEGUIMIENTO NOMINAL</h1>
+                <p>Monitoreo Nominal de Indicadores de Niños y Gestantes - Programa Nacional Cuna Más</p>
+            </div>
+
+            <div class="header-right-controls">
+                <div id="headerPeriodContainer" class="header-badge">
+                    <i class="fa-regular fa-calendar-check badge-icon"></i>
+                    <span>Cierre de Evaluación: <strong id="headerPeriodLabel">JUNIO 2026</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTEGRATED NAVIGATION TOOLBAR ROW -->
+        <div class="header-nav-toolbar">
+            <div class="header-nav-container">
+                <div class="header-nav-left">
+                    <button type="button" id="btnToggleSidebar" class="btn-toggle-sidebar" title="Consola de Filtros" aria-label="Abrir consola de filtros">
+                        <i class="fa-solid fa-bars"></i>
+                        <span class="btn-filter-label">Filtros</span>
+                    </button>
+                    <div class="nav-tabs-divider"></div>
+                    <div class="nav-tabs-scroll">
+                        <button type="button" class="tab-btn active" data-tab="tabNinos">
+                            <i class="fa-solid fa-child"></i>
+                            <span>Niños y Niñas</span>
+                        </button>
+                        <button type="button" class="tab-btn" data-tab="tabGestantes">
+                            <i class="fa-solid fa-person-pregnant"></i>
+                            <span>Gestantes</span>
+                        </button>
+                        <button type="button" class="tab-btn" data-tab="tabComparativo">
+                            <i class="fa-solid fa-code-compare"></i>
+                            <span>Comparación de Periodos</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SUB-FILTER FOR AGE GROUPS (INTEGRATED IN HEADER TOOLBAR) -->
+                <div class="age-filter-bar">
+                    <div class="age-filter-label">
+                        <i class="fa-solid fa-shapes icon-purple"></i>
+                        <span>Grupo de Edad:</span>
+                    </div>
+                    <div class="age-pills">
+                        <button type="button" class="age-pill active" data-age="Todos">
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                            <span>Todos</span>
+                        </button>
+                        <button type="button" class="age-pill" data-age="[00-05] Meses">
+                            <i class="fa-solid fa-baby"></i>
+                            <span>0 a 5 Meses</span>
+                        </button>
+                        <button type="button" class="age-pill" data-age="[06-11] Meses">
+                            <i class="fa-solid fa-child-reaching"></i>
+                            <span>6 a 11 Meses</span>
+                        </button>
+                        <button type="button" class="age-pill" data-age="[12-23] Meses">
+                            <i class="fa-solid fa-child"></i>
+                            <span>12 a 23 Meses</span>
+                        </button>
+                        <button type="button" class="age-pill" data-age="[24-35] Meses">
+                            <i class="fa-solid fa-children"></i>
+                            <span>24 a 35 Meses</span>
+                        </button>
+                        <button type="button" class="age-pill" data-age="[36] Meses">
+                            <i class="fa-solid fa-user-graduate"></i>
+                            <span>36 Meses</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT (SIDEBAR COLLAPSED BY DEFAULT FOR 100% WIDE FRAMING) -->
+    <div id="mainLayout" class="main-layout sidebar-collapsed">
+        
+        <!-- SIDEBAR FILTERS (CONSOLA DE FILTRADO) -->
+        <aside id="sidebarFilters" class="sidebar-filters" aria-label="Consola de Filtrado">
+            <div class="sidebar-header">
+                <div class="purple-bar"></div>
+                <h2>CONSOLA DE FILTRADO</h2>
+                <button type="button" id="btnSidebarCloseMobile" class="btn-sidebar-close-mobile" aria-label="Cerrar filtros">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="filterForm" class="filter-form" onsubmit="return false;">
+                
+                <!-- AÑO DE EVALUACIÓN -->
+                <div class="filter-group">
+                    <label for="filterAnio">
+                        <span class="label-indicator"></span> AÑO DE EVALUACIÓN
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterAnio" class="filter-select period-select">
+                            <!-- Populated dynamically -->
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- MES DE EVALUACIÓN -->
+                <div class="filter-group">
+                    <label for="filterMes">
+                        <span class="label-indicator"></span> MES DE EVALUACIÓN
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterMes" class="filter-select period-select">
+                            <!-- Populated dynamically -->
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- SERVICIO -->
+                <div class="filter-group">
+                    <label for="filterServicio">
+                        <span class="label-indicator"></span> SERVICIO
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterServicio" class="filter-select">
+                            <option value="Todos">Todos</option>
+                            <option value="SAF">SAF</option>
+                            <option value="SCD">SCD</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- UNIDAD TERRITORIAL -->
+                <div class="filter-group">
+                    <label for="filterUT">
+                        <span class="label-indicator"></span> UT / OCT
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterUT" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- DEPARTAMENTO -->
+                <div class="filter-group">
+                    <label for="filterDepartamento">
+                        <span class="label-indicator"></span> DEPARTAMENTO
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterDepartamento" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- PROVINCIA -->
+                <div class="filter-group">
+                    <label for="filterProvincia">
+                        <span class="label-indicator"></span> PROVINCIA
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterProvincia" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- DISTRITO -->
+                <div class="filter-group">
+                    <label for="filterDistrito">
+                        <span class="label-indicator"></span> DISTRITO
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterDistrito" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- COMITÉ DE GESTIÓN -->
+                <div class="filter-group">
+                    <label for="filterCG">
+                        <span class="label-indicator"></span> COMITÉ DE GESTIÓN
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterCG" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- CIAI / LOCAL (SCD) -->
+                <div class="filter-group" id="filterLocalGroup">
+                    <label for="filterLocal">
+                        <span class="label-indicator"></span> CIAI / LOCAL
+                    </label>
+                    <div class="select-wrapper">
+                        <select id="filterLocal" class="filter-select">
+                            <option value="Todos">Todos</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <!-- FORM BUTTONS -->
+                <div class="filter-actions">
+                    <button type="button" id="btnBuscar" class="btn-buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i> BUSCAR
+                    </button>
+                    <button type="button" id="btnLimpiar" class="btn-limpiar">
+                        <i class="fa-solid fa-rotate-left"></i> LIMPIAR
+                    </button>
+                </div>
+
+            </form>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="content-area">
+
+            <!-- INSTITUTIONAL ROLE NOTICE (PARTE INFORMATIVA AMARILLA DIT) -->
+            <div id="topInstitutionalBanner" class="institutional-banner banner-green" style="margin-bottom: 16px;">
+                <i id="topBannerIcon" class="fa-solid fa-hands-holding-child banner-icon"></i>
+                <div class="banner-text">
+                    <strong id="topBannerTitle">Monitoreo Nominal del Desarrollo Infantil Temprano (DIT)</strong>
+                    <p id="topBannerDesc">Cuna Más <em>promueve, articula, gestiona y acompaña</em> la vigilancia nominal de CRED, dosaje de hemoglobina, vacunación y entrega oportuna de hierro en coordinación con el sector Salud.</p>
+                </div>
+            </div>
+
+            <!-- SERVICE PASTEL BADGE SUMMARY -->
+            <div id="serviceBadgeBar" class="service-badge-bar">
+                <div class="service-badge-info">
+                    <span id="serviceBadgeIcon" class="service-badge-icon"><i class="fa-solid fa-layer-group"></i></span>
+                    <span id="serviceBadgeTitle" class="service-badge-title">Todos los Servicios (SAF + SCD)</span>
+                </div>
+                <div id="serviceBadgeSub" class="service-badge-sub">
+                    Monitoreo Integral de Indicadores HIS PNCM
+                </div>
+            </div>
+
+            <!-- MAP CARD CONTAINER (INTERACTIVE PERU GIS MONITOR) -->
+            <div class="map-card-container">
+                <div class="map-card-header">
+                    <div class="map-header-title">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <h2 id="mapHeaderTitle">MONITOREO GEOGRÁFICO DE COBERTURA Y GEOLOCALIZACIÓN DE CIAI / SAF</h2>
+                    </div>
+                    <span id="mapHeaderSubtitle" class="map-header-subtitle">
+                        Desglose regional por departamento y geolocalización nominal de locales CIAI / SAF
+                    </span>
+                </div>
+
+                <div class="map-wrapper">
+                    <div id="peruMapCanvas" class="map-canvas"></div>
+                    
+                    <!-- CHOROPLETH LEGEND BAR -->
+                    <div class="map-legend-bar">
+                        <span class="legend-label">Categoría Frecuencia de Anemia:</span>
+                        <div class="legend-items">
+                            <span class="legend-item"><span class="legend-box" style="background:#F1F5F9"></span> Sin registros</span>
+                            <span class="legend-item"><span class="legend-box" style="background:#DCFCE7"></span> Cobertura Excelente (&lt;10%)</span>
+                            <span class="legend-item"><span class="legend-box" style="background:#FEF3C7"></span> Leve (10% - 19%)</span>
+                            <span class="legend-item"><span class="legend-box" style="background:#FED7AA"></span> Moderada (20% - 29%)</span>
+                            <span class="legend-item"><span class="legend-box" style="background:#FCA5A5"></span> Severa (30% - 39%)</span>
+                            <span class="legend-item"><span class="legend-box" style="background:#991B1B"></span> Crítica (&ge;40%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB GESTANTES -->
+            <section id="tabGestantes" class="tab-pane">
+                
+                <!-- KPI CARDS CONTAINER (GESTANTES) -->
+                <div class="kpi-sections-container">
+                    
+                    <!-- PANEL 1: MONITOREO PRINCIPAL DE GESTANTES, REGISTRO HIS Y ANEMIA -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-users icon-purple"></i>
+                            <span>Monitoreo Principal de Gestantes, Registro HIS y Anemia</span>
+                        </div>
+                        <div class="kpi-grid grid-3col">
+                            <div class="kpi-card bg-purple" data-kpi="g_total">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-users"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label">Gestantes Usuarias</span>
+                                    <span id="gTotal" class="kpi-value">0</span>
+                                    <span class="kpi-sub">Padrón Nominal (SAF)</span>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card bg-orange" data-kpi="g_sin_atencion_his">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-user-slash"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Gestantes usuarias del Padrón Nominal del servicio SAF que no cuentan o no registran atención médica o evaluación de salud en el sistema HIS MINSA para el periodo seleccionado.">
+                                        Sin Registro HIS <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="gSinAtencionPct" class="kpi-value">0.0%</span>
+                                        <span class="kpi-badge badge-danger">Sin Atención</span>
+                                    </div>
+                                    <span id="gSinAtencionSub" class="kpi-sub">0 usu. sin atención HIS</span>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card bg-danger active-kpi" data-kpi="gestantes_anemia">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-droplet"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Gestantes con tamizaje/dosaje positivo a anemia sobre el total con dosaje">
+                                        Frecuencia de Anemia <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="gAnemiaPct" class="kpi-value">0.0%</span>
+                                        <span class="kpi-badge badge-warning">HIS MINSA</span>
+                                    </div>
+                                    <span id="gAnemiaSub" class="kpi-sub">0 de 0 con dosaje</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2: ATENCIONES PRENATALES, EXÁMENES AUXILIARES Y PAQUETE INTEGRADO -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-notes-medical icon-cyan"></i>
+                            <span>Atenciones Prenatales, Exámenes Auxiliares y Paquete Integrado</span>
+                        </div>
+                        <div class="kpi-grid grid-3col">
+                            <div class="kpi-card bg-purple-dark" data-kpi="g_pqt">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-box-archive"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label">Paquete Integrado Gestante</span>
+                                    <div class="kpi-val-row">
+                                        <span id="gPqtPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="gPqtSub" class="kpi-sub">0 de 0 con paquete</span>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card bg-cyan" data-kpi="g_apn">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label">Atenciones Prenatales (&ge;4 APN)</span>
+                                    <div class="kpi-val-row">
+                                        <span id="gApnPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="gApnSub" class="kpi-sub">0 de 0 evaluadas</span>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card bg-pink" data-kpi="g_aux">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-vial-virus"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label">4 Exámenes Auxiliares</span>
+                                    <div class="kpi-val-row">
+                                        <span id="gAuxPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="gAuxSub" class="kpi-sub">0 de 0 evaluadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CHARTS GRID -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 id="chartGestantesTrendTitle"><i class="fa-solid fa-chart-line"></i> Frecuencia de Anemia - Evolución Histórica</h3>
+                            <span id="chartGestantesTrendSubtitle" class="chart-subtitle">Tendencia mensual acumulada</span>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="chartGestantesTrend"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 id="chartGestantesUTTitle"><i class="fa-solid fa-chart-column"></i> Frecuencia de Anemia por Unidad Territorial</h3>
+                            <span id="chartGestantesUTSubtitle" class="chart-subtitle">Desglose comparativo regional</span>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="chartGestantesUT"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB NIÑOS Y NIÑAS (ACTIVE BY DEFAULT) -->
+            <section id="tabNinos" class="tab-pane active">
+                
+                <!-- ORGANIZED KPI CARDS SECTIONS (NIÑOS) -->
+                <div class="kpi-sections-container">
+                    
+                    <!-- PANEL 1: POBLACIÓN ATENDIDA Y REGISTRO HIS -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-children icon-purple"></i>
+                            <span>Monitoreo Principal: Población Atendida y Registro HIS</span>
+                        </div>
+                        <div class="kpi-grid grid-2col">
+                            <div class="kpi-card bg-purple" data-kpi="total">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-children"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label">Total Niños(as)</span>
+                                    <span id="nTotal" class="kpi-value">0</span>
+                                    <span class="kpi-sub">Atendidos en SAF/SCD</span>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card bg-orange" data-kpi="sin_atencion_his">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-user-slash"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Niños(as) atendidos en el Padrón Nominal del programa que no cuentan o no registran atención o evaluación de salud efectuada en el sistema HIS MINSA para el periodo evaluado.">
+                                        Sin Registro HIS <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nSinAtencionPct" class="kpi-value">0.0%</span>
+                                        <span class="kpi-badge badge-danger">Sin Atención</span>
+                                    </div>
+                                    <span id="nSinAtencionSub" class="kpi-sub">0 usu. sin atención HIS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2.5: ACTIVIDADES ESTRATÉGICAS Y METAS FÍSICAS DE CUNA MÁS -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-list-check icon-blue"></i>
+                            <span>Actividades Estratégicas y Metas Físicas del PNCM (Plan Multisectorial D.S. N° 002-2024-MIDIS)</span>
+                        </div>
+                        <div class="kpi-grid grid-4col">
+                            <!-- 1. ACT 4.15: ATENCIÓN INTEGRAL SCD -->
+                            <div class="kpi-card bg-green" data-kpi="act_415">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Actividad 4.15: Cobertura de atención integral mensual en CIAI (SCD)">Act. 4.15: Atención Integral SCD</span>
+                                    <div class="kpi-val-row">
+                                        <span id="act415Val" class="kpi-value">64,626</span>
+                                    </div>
+                                    <span id="act415Sub" class="kpi-sub">Avance: 95.9Porcentaje de meta (67,387)</span>
+                                </div>
+                            </div>
+
+                            <!-- 2. ACT 4.13: CAPACITACIÓN ACTORES CUIDADO DIURNO SCD -->
+                            <div class="kpi-card bg-blue" data-kpi="act_413">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Actividad 4.13: Capacitación a actores comunales de Cuidado Diurno (SCD)">Act. 4.13: Capacitación SCD</span>
+                                    <div class="kpi-val-row">
+                                        <span id="act413Val" class="kpi-value">—</span>
+                                    </div>
+                                    <span id="act413Sub" class="kpi-sub">Meta anual: 18,899</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. ACT 4.12: VISITAS DOMICILIARIAS SAF -->
+                            <div class="kpi-card bg-purple-dark" data-kpi="act_412">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Actividad 4.12: Cobertura de acompañamiento familiar en visitas semanales (SAF)">Act. 4.12: Visitas Acompañamiento</span>
+                                    <div class="kpi-val-row">
+                                        <span id="act412Val" class="kpi-value">255,569</span>
+                                    </div>
+                                    <span id="act412Sub" class="kpi-sub">Avance: 92.2Porcentaje de meta (277,283)</span>
+                                </div>
+                            </div>
+
+                            <!-- 4. ACT 4.14: CAPACITACIÓN ACTORES ACOMPAÑAMIENTO SAF -->
+                            <div class="kpi-card bg-pink" data-kpi="act_414">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-people-roof"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Actividad 4.14: Capacitación a actores comunales del servicio de acompañamiento (SAF)">Act. 4.14: Capacitación SAF</span>
+                                    <div class="kpi-val-row">
+                                        <span id="act414Val" class="kpi-value">—</span>
+                                    </div>
+                                    <span id="act414Sub" class="kpi-sub">Meta anual: 27,877</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 3: PLAN MULTISECTORIAL DE LUCHA CONTRA LA ANEMIA (D.S. N° 002-2024-MIDIS) -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-ribbon icon-danger"></i>
+                            <span>Plan Multisectorial de Lucha Contra la Anemia (D.S. N° 002-2024-MIDIS)</span>
+                        </div>
+                        <div class="kpi-grid grid-3col">
+                            <!-- 1. FRECUENCIA DE ANEMIA EN NIÑOS (6-35M) -->
+                            <div class="kpi-card bg-danger active-kpi" data-kpi="frecuencia_anemia">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Frecuencia de Anemia en niños de 6 a 35 meses evaluados con dosaje (Meta 2026: 32.3%)">
+                                        Frecuencia de Anemia (6-35m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nAnemiaPct" class="kpi-value">0.0%</span>
+                                        <span class="kpi-badge badge-warning">HIS MINSA</span>
+                                    </div>
+                                    <span id="nAnemiaSub" class="kpi-sub">0 de 0 con anemia</span>
+                                </div>
+                            </div>
+
+                            <!-- 2. TRATAMIENTO DE ANEMIA CON HIERRO (6-11M) -->
+                            <div class="kpi-card bg-cyan" data-kpi="anemia_fe">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Inicio de Tratamiento Terapéutico con Hierro en lactantes de 6 a 11 meses (Meta 2026: 38.0%)">Tratamiento Hierro (6-11m)</span>
+                                    <div class="kpi-val-row">
+                                        <span id="nAnemiaFePct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nAnemiaFeSub" class="kpi-sub">0 de 0 con anemia</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. RECUPERACIÓN DE ANEMIA (6-35M) -->
+                            <div class="kpi-card bg-green" data-kpi="npr">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Porcentaje de niños de 6 a 35 meses con diagnóstico de anemia que se recuperan (Hb >= 11 g/dL en 2do dosaje)">Recuperación Anemia (6-35m)</span>
+                                    <div class="kpi-val-row">
+                                        <span id="nNprPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nNprSub" class="kpi-sub">0 de 0 recuperados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 4: PAQUETE INTEGRADO DE SERVICIOS DIT (<24 MESES - TABLERO DE CONTROL DGSE-MIDIS) -->
+                    <div class="kpi-group-section">
+                        <div class="group-title-bar">
+                            <i class="fa-solid fa-cubes icon-green"></i>
+                            <span>Evaluación del Paquete Integrado de Servicios DIT (&lt;24 Meses - Fichas del Tablero de Control DGSE-MIDIS)</span>
+                        </div>
+                        <div class="kpi-grid grid-6col">
+                            <!-- 1. PAQUETE INTEGRADO DE SERVICIOS (IND. 16 - CÓD. 36) -->
+                            <div class="kpi-card bg-green active-kpi" data-kpi="pqt">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-box-open"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 16 - Cód. 36: % de niñas y niños PNCM < 24m con PAQUETE INTEGRADO DE SERVICIOS">
+                                        Paquete Integrado (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtSub" class="kpi-sub">0 de 0 evaluados</span>
+                                </div>
+                            </div>
+
+                            <!-- 2. DOSAJE DE HEMOGLOBINA 170-250 DÍAS (IND. 15 - CÓD. 35) -->
+                            <div class="kpi-card bg-cyan" data-kpi="dosaje_hb">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 15 - Cód. 35: % de niñas y niños PNCM de 170–250 días con dosaje de hemoglobina">
+                                        Dosaje Hb (170-250d) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtDosajePct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtDosajeSub" class="kpi-sub">0 con dosaje de 0 evaluados</span>
+                                </div>
+                            </div>
+
+                            <!-- 3. SUPLEMENTACIÓN CON HIERRO (IND. 14 - CÓD. 34) -->
+                            <div class="kpi-card bg-pink" data-kpi="hierro">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-pills"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 14 - Cód. 34: % de niñas y niños PNCM < 24m que reciben suplementación con hierro">
+                                        Suplementación Hierro (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtHierroPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtHierroSub" class="kpi-sub">0 suplementados de 0 evaluados</span>
+                                </div>
+                            </div>
+
+                            <!-- 4. CONTROL CRED COMPLETO Y OPORTUNO (IND. 10 - CÓD. 30) -->
+                            <div class="kpi-card bg-green" data-kpi="cred">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-child-reaching"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 10 - Cód. 30: % de niñas y niños PNCM < 24m con CRED completo y oportuno">
+                                        Control CRED (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtCredPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtCredSub" class="kpi-sub">0 de 0 evaluados</span>
+                                </div>
+                            </div>
+
+                            <!-- 5. VACUNAS NEUMO Y ROTA HASTA 12M (IND. 11 - CÓD. 31) -->
+                            <div class="kpi-card bg-blue" data-kpi="vrn">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-syringe"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 11 - Cód. 31: % de niñas y niños PNCM hasta 12m con vacunas de neumococo y rotavirus">
+                                        Vacunas Neumo/Rota (&le;12m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtVrnPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtVrnSub" class="kpi-sub">0 con vacunas de 0 evaluados</span>
+                                </div>
+                            </div>
+
+                            <!-- 6. EMISIÓN DNI HASTA 30 DÍAS DE NACIDO (IND. 9 - CÓD. 29) -->
+                            <div class="kpi-card bg-purple-dark" data-kpi="dni_30d">
+                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                <div class="kpi-icon"><i class="fa-solid fa-id-card"></i></div>
+                                <div class="kpi-content">
+                                    <span class="kpi-label" title="Ind. 9 - Cód. 29: % de niñas y niños PNCM < 12m con DNI emitido hasta los 30 días de nacido">
+                                        Emisión DNI (&le;30 días) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                    </span>
+                                    <div class="kpi-val-row">
+                                        <span id="nPqtDniPct" class="kpi-value">0.0%</span>
+                                    </div>
+                                    <span id="nPqtDniSub" class="kpi-sub">0 con DNI oportuno de 0 evaluados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- CHARTS GRID (NIÑOS) -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 id="chartNinosTrendTitle"><i class="fa-solid fa-chart-line"></i> Frecuencia de Anemia - Evolución Histórica</h3>
+                            <span id="chartNinosTrendSubtitle" class="chart-subtitle">Evolución en el tiempo</span>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="chartNinosTrend"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 id="chartNinosUTTitle"><i class="fa-solid fa-chart-bar"></i> Frecuencia de Anemia por Unidad Territorial</h3>
+                            <span id="chartNinosUTSubtitle" class="chart-subtitle">Ranking por UT</span>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="chartNinosUT"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DETAILED NOMINAL TABLE -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fa-solid fa-table-list"></i> Monitoreo Nominal por Comité de Gestión</h3>
+                        <div class="table-search">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="tableSearch" placeholder="Buscar por Comité o Distrito...">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tblNinos" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Unidad Territorial</th>
+                                    <th>Distrito</th>
+                                    <th>Comité de Gestión</th>
+                                    <th>Total Niños</th>
+                                    <th>Dosaje Hb (%)</th>
+                                    <th>Frecuencia Anemia (%)</th>
+                                    <th>CRED (%)</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblNinosBody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: COMPARATIVO DE PERIODOS -->
+            <!-- ========================================== -->
+            <section id="tabComparativo" class="tab-pane">
+                
+                <div class="comparison-header-box">
+                    <h2><i class="fa-solid fa-code-compare"></i> Módulo de Comparación de Periodos</h2>
+                    <p>Compara el avance y variación nominal entre dos periodos de evaluación de los datos HIS.</p>
+                    <div id="compScopeNotice" class="comp-scope-notice">
+                        <i class="fa-solid fa-location-dot"></i> <span id="compScopeText">Ámbito de Comparación: Todos (Nacional)</span>
+                    </div>
+
+                    <div class="comparison-controls">
+                        <div class="comp-control">
+                            <label>Periodo 1 (Base):</label>
+                            <select id="compPeriodo1" class="filter-select period-select"></select>
+                        </div>
+                        <div class="comp-vs">VS</div>
+                        <div class="comp-control">
+                            <label>Periodo 2 (Comparación):</label>
+                            <select id="compPeriodo2" class="filter-select period-select"></select>
+                        </div>
+                        <div class="comp-control">
+                            <label>Población:</label>
+                            <select id="compModulo" class="filter-select">
+                                <option value="ninos">Niños y Niñas</option>
+                                <option value="gestantes">Gestantes</option>
+                            </select>
+                        </div>
+                        <button type="button" id="btnEjecutarComparacion" class="btn-buscar">
+                            COMPARAR
+                        </button>
+                    </div>
+                </div>
+
+                <div class="comparison-results-grid" id="compResultsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- INSTITUTIONAL FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>© 2026 Programa Nacional Cuna Más - Ministerio de Desarrollo e Inclusión Social (MIDIS).</p>
+            <p class="footer-disclaimer">
+                El Programa Nacional Cuna Más coadyuva, contribuye, promueve, articula, gestiona y acompaña el monitoreo nominal y la adopción de prácticas saludables en las familias usuarias para la prevención de la anemia y la desnutrición infantil.
+            </p>
+        </div>
+    </footer>
+
+    <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <!-- Custom App Script -->
+    <script src="app.js"></script>
+    <!-- MODAL POPOVER UX/UI DE FICHA TÉCNICA DE INDICADORES -->
+    <div id="modalFichaTecnicaContainer" class="ficha-modal-backdrop" style="display:none;">
+        <div class="ficha-modal-card">
+            <div class="ficha-modal-header">
+                <div class="header-left">
+                    <div class="ficha-icon-box">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <div>
+                        <div class="ficha-code-row">
+                            <span id="fCodeBadge" class="ficha-code-badge">CÓDIGO 36</span>
+                            <span id="fAreaBadge" class="ficha-area-badge">DGSE - MIDIS</span>
+                        </div>
+                        <h3 id="fTitle">Ficha Técnica de Indicador</h3>
+                    </div>
+                </div>
+                <button id="btnCloseFichaModal" class="btn-modal-close" title="Cerrar Ficha Técnica">&times;</button>
+            </div>
+
+            <!-- CURRENT AMBIT VALUE BAR -->
+            <div class="ficha-val-bar">
+                <div class="ficha-val-item">
+                    <span class="lbl">Valor del Ámbito Seleccionado:</span>
+                    <strong id="fCurrentPct" class="val">0.0%</strong>
+                </div>
+                <div class="ficha-val-item">
+                    <span class="lbl">Numerador (Cumplen):</span>
+                    <strong id="fCurrentNum" class="subval">0</strong>
+                </div>
+                <div class="ficha-val-item">
+                    <span class="lbl">Denominador (Población Evaluada):</span>
+                    <strong id="fCurrentDen" class="subval">0</strong>
+                </div>
+            </div>
+
+            <!-- FICHA CONTENT BODY -->
+            <div class="ficha-modal-body">
+                <!-- DEFINITION & PURPOSE -->
+                <div class="ficha-section">
+                    <h4 class="section-title"><i class="fa-solid fa-circle-info"></i> Definición y Propósito del Indicador</h4>
+                    <p id="fDefinition" class="section-text"></p>
+                </div>
+
+                <!-- METHODOLOGY: NUMERATOR & DENOMINATOR -->
+                <div class="ficha-grid-2col">
+                    <div class="ficha-box box-numerator">
+                        <div class="box-header">
+                            <i class="fa-solid fa-circle-check icon-green"></i>
+                            <span>NUMERADOR (A)</span>
+                        </div>
+                        <p id="fNumerator" class="box-text"></p>
+                    </div>
+
+                    <div class="ficha-box box-denominator">
+                        <div class="box-header">
+                            <i class="fa-solid fa-users icon-blue"></i>
+                            <span>DENOMINADOR (B)</span>
+                        </div>
+                        <p id="fDenominator" class="box-text"></p>
+                    </div>
+            </div>
+
+            <div class="ficha-modal-footer">
+                <span id="fSourceFooter"><i class="fa-solid fa-shield-halved"></i> Fuente Oficial: Base de datos HIS MINSA / Padrón Nominal PNCM &bull; Fichas Técnicas Tablero de Control DGSE-MIDIS</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

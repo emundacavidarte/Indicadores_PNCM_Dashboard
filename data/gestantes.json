@@ -1,0 +1,704 @@
+{
+  "kpis": {
+    "total_gestantes": 22673,
+    "sin_atencion_his": {
+      "pct": 84.92,
+      "num": 19255,
+      "den": 22673
+    },
+    "frecuencia_anemia": {
+      "pct": 8.22,
+      "num": 281,
+      "den": 3418
+    },
+    "apn": {
+      "pct": 91.61,
+      "num": 2925,
+      "den": 3193
+    },
+    "sfaf": {
+      "pct": 86.75,
+      "num": 2770,
+      "den": 3193
+    },
+    "aux": {
+      "pct": 66.11,
+      "num": 2111,
+      "den": 3193
+    },
+    "pqt": {
+      "pct": 66.03,
+      "num": 1897,
+      "den": 2873
+    },
+    "parto_ins": {
+      "pct": 84.72,
+      "num": 2873,
+      "den": 3391
+    }
+  },
+  "trend": [
+    {
+      "periodo": "202401",
+      "label": "ENERO 2024",
+      "gestantes": 7314,
+      "frecuencia_anemia_pct": 10.14,
+      "apn_pct": 94.14,
+      "sfaf_pct": 89.95,
+      "aux_pct": 68.71,
+      "pqt_pct": 67.48,
+      "parto_pct": 90.76
+    },
+    {
+      "periodo": "202402",
+      "label": "FEBRERO 2024",
+      "gestantes": 7404,
+      "frecuencia_anemia_pct": 10.58,
+      "apn_pct": 94.41,
+      "sfaf_pct": 89.19,
+      "aux_pct": 65.6,
+      "pqt_pct": 64.02,
+      "parto_pct": 89.66
+    },
+    {
+      "periodo": "202403",
+      "label": "MARZO 2024",
+      "gestantes": 7851,
+      "frecuencia_anemia_pct": 11.75,
+      "apn_pct": 93.62,
+      "sfaf_pct": 88.61,
+      "aux_pct": 65.5,
+      "pqt_pct": 64.95,
+      "parto_pct": 90.61
+    },
+    {
+      "periodo": "202404",
+      "label": "ABRIL 2024",
+      "gestantes": 7982,
+      "frecuencia_anemia_pct": 10.65,
+      "apn_pct": 94.14,
+      "sfaf_pct": 88.62,
+      "aux_pct": 65.79,
+      "pqt_pct": 64.27,
+      "parto_pct": 90.92
+    },
+    {
+      "periodo": "202405",
+      "label": "MAYO 2024",
+      "gestantes": 14839,
+      "frecuencia_anemia_pct": 8.77,
+      "apn_pct": 93.16,
+      "sfaf_pct": 87.9,
+      "aux_pct": 64.22,
+      "pqt_pct": 61.31,
+      "parto_pct": 89.04
+    },
+    {
+      "periodo": "202406",
+      "label": "JUNIO 2024",
+      "gestantes": 19317,
+      "frecuencia_anemia_pct": 8.84,
+      "apn_pct": 92.65,
+      "sfaf_pct": 87.25,
+      "aux_pct": 59.78,
+      "pqt_pct": 59.26,
+      "parto_pct": 88.9
+    },
+    {
+      "periodo": "202407",
+      "label": "JULIO 2024",
+      "gestantes": 20613,
+      "frecuencia_anemia_pct": 9.35,
+      "apn_pct": 93.67,
+      "sfaf_pct": 88.26,
+      "aux_pct": 61.09,
+      "pqt_pct": 59.34,
+      "parto_pct": 87.07
+    },
+    {
+      "periodo": "202408",
+      "label": "AGOSTO 2024",
+      "gestantes": 20049,
+      "frecuencia_anemia_pct": 8.87,
+      "apn_pct": 93.35,
+      "sfaf_pct": 88.78,
+      "aux_pct": 65.12,
+      "pqt_pct": 63.98,
+      "parto_pct": 86.72
+    },
+    {
+      "periodo": "202409",
+      "label": "SETIEMBRE 2024",
+      "gestantes": 19246,
+      "frecuencia_anemia_pct": 8.3,
+      "apn_pct": 93.46,
+      "sfaf_pct": 89.25,
+      "aux_pct": 65.91,
+      "pqt_pct": 64.55,
+      "parto_pct": 88.09
+    },
+    {
+      "periodo": "202410",
+      "label": "OCTUBRE 2024",
+      "gestantes": 19057,
+      "frecuencia_anemia_pct": 8.18,
+      "apn_pct": 93.73,
+      "sfaf_pct": 88.49,
+      "aux_pct": 68.24,
+      "pqt_pct": 66.45,
+      "parto_pct": 87.89
+    },
+    {
+      "periodo": "202411",
+      "label": "NOVIEMBRE 2024",
+      "gestantes": 18791,
+      "frecuencia_anemia_pct": 8.9,
+      "apn_pct": 94.04,
+      "sfaf_pct": 89.57,
+      "aux_pct": 69.54,
+      "pqt_pct": 68.4,
+      "parto_pct": 88.33
+    },
+    {
+      "periodo": "202412",
+      "label": "DICIEMBRE 2024",
+      "gestantes": 20961,
+      "frecuencia_anemia_pct": 9.49,
+      "apn_pct": 92.91,
+      "sfaf_pct": 88.25,
+      "aux_pct": 66.69,
+      "pqt_pct": 65.51,
+      "parto_pct": 88.1
+    },
+    {
+      "periodo": "202501",
+      "label": "ENERO 2025",
+      "gestantes": 20694,
+      "frecuencia_anemia_pct": 9.91,
+      "apn_pct": 92.59,
+      "sfaf_pct": 87.34,
+      "aux_pct": 66.43,
+      "pqt_pct": 64.56,
+      "parto_pct": 87.13
+    },
+    {
+      "periodo": "202502",
+      "label": "FEBRERO 2025",
+      "gestantes": 20312,
+      "frecuencia_anemia_pct": 9.48,
+      "apn_pct": 93.19,
+      "sfaf_pct": 87.47,
+      "aux_pct": 67.33,
+      "pqt_pct": 65.99,
+      "parto_pct": 88.23
+    },
+    {
+      "periodo": "202503",
+      "label": "MARZO 2025",
+      "gestantes": 20329,
+      "frecuencia_anemia_pct": 9.65,
+      "apn_pct": 92.33,
+      "sfaf_pct": 87.61,
+      "aux_pct": 66.2,
+      "pqt_pct": 64.77,
+      "parto_pct": 87.02
+    },
+    {
+      "periodo": "202504",
+      "label": "ABRIL 2025",
+      "gestantes": 20365,
+      "frecuencia_anemia_pct": 9.93,
+      "apn_pct": 92.61,
+      "sfaf_pct": 86.68,
+      "aux_pct": 66.98,
+      "pqt_pct": 64.49,
+      "parto_pct": 87.62
+    },
+    {
+      "periodo": "202505",
+      "label": "MAYO 2025",
+      "gestantes": 20778,
+      "frecuencia_anemia_pct": 9.61,
+      "apn_pct": 92.13,
+      "sfaf_pct": 86.25,
+      "aux_pct": 64.73,
+      "pqt_pct": 63.45,
+      "parto_pct": 87.68
+    },
+    {
+      "periodo": "202506",
+      "label": "JUNIO 2025",
+      "gestantes": 20884,
+      "frecuencia_anemia_pct": 7.87,
+      "apn_pct": 92.9,
+      "sfaf_pct": 88.04,
+      "aux_pct": 63.33,
+      "pqt_pct": 62.51,
+      "parto_pct": 87.65
+    },
+    {
+      "periodo": "202507",
+      "label": "JULIO 2025",
+      "gestantes": 20811,
+      "frecuencia_anemia_pct": 9.42,
+      "apn_pct": 93.22,
+      "sfaf_pct": 87.74,
+      "aux_pct": 64.65,
+      "pqt_pct": 61.59,
+      "parto_pct": 87.92
+    },
+    {
+      "periodo": "202508",
+      "label": "AGOSTO 2025",
+      "gestantes": 20929,
+      "frecuencia_anemia_pct": 8.67,
+      "apn_pct": 94.68,
+      "sfaf_pct": 89.53,
+      "aux_pct": 68.72,
+      "pqt_pct": 66.83,
+      "parto_pct": 88.36
+    },
+    {
+      "periodo": "202509",
+      "label": "SETIEMBRE 2025",
+      "gestantes": 20658,
+      "frecuencia_anemia_pct": 8.28,
+      "apn_pct": 93.79,
+      "sfaf_pct": 88.94,
+      "aux_pct": 67.92,
+      "pqt_pct": 65.96,
+      "parto_pct": 87.26
+    },
+    {
+      "periodo": "202510",
+      "label": "OCTUBRE 2025",
+      "gestantes": 20163,
+      "frecuencia_anemia_pct": 8.77,
+      "apn_pct": 93.37,
+      "sfaf_pct": 89.3,
+      "aux_pct": 70.32,
+      "pqt_pct": 70.04,
+      "parto_pct": 86.36
+    },
+    {
+      "periodo": "202511",
+      "label": "NOVIEMBRE 2025",
+      "gestantes": 20305,
+      "frecuencia_anemia_pct": 9.09,
+      "apn_pct": 93.79,
+      "sfaf_pct": 89.09,
+      "aux_pct": 69.61,
+      "pqt_pct": 68.35,
+      "parto_pct": 87.54
+    },
+    {
+      "periodo": "202512",
+      "label": "DICIEMBRE 2025",
+      "gestantes": 20343,
+      "frecuencia_anemia_pct": 9.72,
+      "apn_pct": 93.93,
+      "sfaf_pct": 89.44,
+      "aux_pct": 70.45,
+      "pqt_pct": 68.69,
+      "parto_pct": 87.97
+    },
+    {
+      "periodo": "202601",
+      "label": "ENERO 2026",
+      "gestantes": 20995,
+      "frecuencia_anemia_pct": 9.54,
+      "apn_pct": 94.16,
+      "sfaf_pct": 89.92,
+      "aux_pct": 70.15,
+      "pqt_pct": 68.16,
+      "parto_pct": 86.93
+    },
+    {
+      "periodo": "202602",
+      "label": "FEBRERO 2026",
+      "gestantes": 21788,
+      "frecuencia_anemia_pct": 9.16,
+      "apn_pct": 93.36,
+      "sfaf_pct": 88.92,
+      "aux_pct": 69.04,
+      "pqt_pct": 67.42,
+      "parto_pct": 87.67
+    },
+    {
+      "periodo": "202603",
+      "label": "MARZO 2026",
+      "gestantes": 22534,
+      "frecuencia_anemia_pct": 9.42,
+      "apn_pct": 92.93,
+      "sfaf_pct": 87.52,
+      "aux_pct": 69.28,
+      "pqt_pct": 67.87,
+      "parto_pct": 86.82
+    },
+    {
+      "periodo": "202604",
+      "label": "ABRIL 2026",
+      "gestantes": 22805,
+      "frecuencia_anemia_pct": 8.19,
+      "apn_pct": 92.31,
+      "sfaf_pct": 87.72,
+      "aux_pct": 68.41,
+      "pqt_pct": 67.38,
+      "parto_pct": 85.67
+    },
+    {
+      "periodo": "202605",
+      "label": "MAYO 2026",
+      "gestantes": 23002,
+      "frecuencia_anemia_pct": 8.65,
+      "apn_pct": 93.26,
+      "sfaf_pct": 88.57,
+      "aux_pct": 67.71,
+      "pqt_pct": 66.76,
+      "parto_pct": 86.24
+    },
+    {
+      "periodo": "202606",
+      "label": "JUNIO 2026",
+      "gestantes": 22673,
+      "frecuencia_anemia_pct": 8.22,
+      "apn_pct": 91.61,
+      "sfaf_pct": 86.75,
+      "aux_pct": 66.11,
+      "pqt_pct": 66.03,
+      "parto_pct": 84.72
+    }
+  ],
+  "ut_ranking": [
+    {
+      "ut": "HUANUCO",
+      "gestantes": 1639,
+      "frecuencia_anemia_pct": 4.36,
+      "apn_pct": 91.09,
+      "sfaf_pct": 87.21,
+      "aux_pct": 66.28,
+      "pqt_pct": 69.8,
+      "parto_pct": 91.08
+    },
+    {
+      "ut": "CAJAMARCA",
+      "gestantes": 1653,
+      "frecuencia_anemia_pct": 8.27,
+      "apn_pct": 94.25,
+      "sfaf_pct": 89.38,
+      "aux_pct": 67.26,
+      "pqt_pct": 68.54,
+      "parto_pct": 88.38
+    },
+    {
+      "ut": "LA LIBERTAD",
+      "gestantes": 1299,
+      "frecuencia_anemia_pct": 6.33,
+      "apn_pct": 92.44,
+      "sfaf_pct": 89.33,
+      "aux_pct": 68.44,
+      "pqt_pct": 68.37,
+      "parto_pct": 82.35
+    },
+    {
+      "ut": "CUSCO",
+      "gestantes": 1419,
+      "frecuencia_anemia_pct": 7.23,
+      "apn_pct": 96.35,
+      "sfaf_pct": 91.78,
+      "aux_pct": 60.27,
+      "pqt_pct": 60.58,
+      "parto_pct": 94.98
+    },
+    {
+      "ut": "PIURA",
+      "gestantes": 1520,
+      "frecuencia_anemia_pct": 9.95,
+      "apn_pct": 92.51,
+      "sfaf_pct": 85.56,
+      "aux_pct": 70.59,
+      "pqt_pct": 62.88,
+      "parto_pct": 56.41
+    },
+    {
+      "ut": "ANCASH",
+      "gestantes": 1019,
+      "frecuencia_anemia_pct": 4.46,
+      "apn_pct": 95.0,
+      "sfaf_pct": 92.86,
+      "aux_pct": 76.43,
+      "pqt_pct": 79.23,
+      "parto_pct": 89.66
+    },
+    {
+      "ut": "CAJAMARCA CT JAEN",
+      "gestantes": 1292,
+      "frecuencia_anemia_pct": 7.69,
+      "apn_pct": 92.25,
+      "sfaf_pct": 88.03,
+      "aux_pct": 68.31,
+      "pqt_pct": 71.43,
+      "parto_pct": 74.84
+    },
+    {
+      "ut": "AYACUCHO",
+      "gestantes": 929,
+      "frecuencia_anemia_pct": 10.6,
+      "apn_pct": 94.29,
+      "sfaf_pct": 93.57,
+      "aux_pct": 72.14,
+      "pqt_pct": 73.6,
+      "parto_pct": 88.65
+    },
+    {
+      "ut": "SAN MARTIN",
+      "gestantes": 837,
+      "frecuencia_anemia_pct": 5.44,
+      "apn_pct": 92.81,
+      "sfaf_pct": 86.33,
+      "aux_pct": 73.38,
+      "pqt_pct": 70.68,
+      "parto_pct": 95.0
+    },
+    {
+      "ut": "HUANCAVELICA",
+      "gestantes": 856,
+      "frecuencia_anemia_pct": 16.33,
+      "apn_pct": 92.2,
+      "sfaf_pct": 86.52,
+      "aux_pct": 68.09,
+      "pqt_pct": 68.42,
+      "parto_pct": 93.01
+    },
+    {
+      "ut": "LAMBAYEQUE",
+      "gestantes": 914,
+      "frecuencia_anemia_pct": 10.96,
+      "apn_pct": 85.29,
+      "sfaf_pct": 77.94,
+      "aux_pct": 59.56,
+      "pqt_pct": 58.82,
+      "parto_pct": 87.5
+    },
+    {
+      "ut": "PUNO",
+      "gestantes": 789,
+      "frecuencia_anemia_pct": 6.21,
+      "apn_pct": 92.86,
+      "sfaf_pct": 91.43,
+      "aux_pct": 50.71,
+      "pqt_pct": 51.69,
+      "parto_pct": 81.94
+    },
+    {
+      "ut": "JUNIN CT LA MERCED",
+      "gestantes": 770,
+      "frecuencia_anemia_pct": 4.26,
+      "apn_pct": 96.3,
+      "sfaf_pct": 92.59,
+      "aux_pct": 73.33,
+      "pqt_pct": 72.18,
+      "parto_pct": 89.26
+    },
+    {
+      "ut": "UCAYALI",
+      "gestantes": 834,
+      "frecuencia_anemia_pct": 7.63,
+      "apn_pct": 90.57,
+      "sfaf_pct": 82.08,
+      "aux_pct": 64.15,
+      "pqt_pct": 59.8,
+      "parto_pct": 83.61
+    },
+    {
+      "ut": "APURIMAC CT ANDAHUAYLAS",
+      "gestantes": 819,
+      "frecuencia_anemia_pct": 9.57,
+      "apn_pct": 84.91,
+      "sfaf_pct": 74.53,
+      "aux_pct": 63.21,
+      "pqt_pct": 63.83,
+      "parto_pct": 87.85
+    },
+    {
+      "ut": "AMAZONAS",
+      "gestantes": 1662,
+      "frecuencia_anemia_pct": 6.19,
+      "apn_pct": 88.07,
+      "sfaf_pct": 83.49,
+      "aux_pct": 71.56,
+      "pqt_pct": 69.0,
+      "parto_pct": 85.47
+    },
+    {
+      "ut": "LORETO",
+      "gestantes": 786,
+      "frecuencia_anemia_pct": 12.61,
+      "apn_pct": 85.44,
+      "sfaf_pct": 77.67,
+      "aux_pct": 62.14,
+      "pqt_pct": 51.52,
+      "parto_pct": 76.74
+    },
+    {
+      "ut": "APURIMAC",
+      "gestantes": 593,
+      "frecuencia_anemia_pct": 9.18,
+      "apn_pct": 91.3,
+      "sfaf_pct": 91.3,
+      "aux_pct": 71.74,
+      "pqt_pct": 74.68,
+      "parto_pct": 84.95
+    },
+    {
+      "ut": "JUNIN",
+      "gestantes": 632,
+      "frecuencia_anemia_pct": 5.15,
+      "apn_pct": 84.21,
+      "sfaf_pct": 76.84,
+      "aux_pct": 50.53,
+      "pqt_pct": 51.95,
+      "parto_pct": 78.57
+    },
+    {
+      "ut": "VRAEM",
+      "gestantes": 641,
+      "frecuencia_anemia_pct": 9.38,
+      "apn_pct": 93.33,
+      "sfaf_pct": 92.22,
+      "aux_pct": 76.67,
+      "pqt_pct": 79.27,
+      "parto_pct": 90.11
+    },
+    {
+      "ut": "LORETO CT YURIMAGUAS",
+      "gestantes": 600,
+      "frecuencia_anemia_pct": 8.82,
+      "apn_pct": 85.94,
+      "sfaf_pct": 78.12,
+      "aux_pct": 53.12,
+      "pqt_pct": 53.33,
+      "parto_pct": 83.33
+    },
+    {
+      "ut": "PASCO",
+      "gestantes": 402,
+      "frecuencia_anemia_pct": 7.94,
+      "apn_pct": 94.92,
+      "sfaf_pct": 89.83,
+      "aux_pct": 61.02,
+      "pqt_pct": 60.38,
+      "parto_pct": 85.48
+    },
+    {
+      "ut": "MADRE DE DIOS",
+      "gestantes": 283,
+      "frecuencia_anemia_pct": 20.83,
+      "apn_pct": 89.58,
+      "sfaf_pct": 81.25,
+      "aux_pct": 47.92,
+      "pqt_pct": 44.19,
+      "parto_pct": 89.58
+    },
+    {
+      "ut": "AREQUIPA",
+      "gestantes": 104,
+      "frecuencia_anemia_pct": 4.0,
+      "apn_pct": 91.67,
+      "sfaf_pct": 87.5,
+      "aux_pct": 79.17,
+      "pqt_pct": 86.36,
+      "parto_pct": 91.67
+    },
+    {
+      "ut": "LIMA METROPOLITANA",
+      "gestantes": 95,
+      "frecuencia_anemia_pct": 31.25,
+      "apn_pct": 93.33,
+      "sfaf_pct": 86.67,
+      "aux_pct": 60.0,
+      "pqt_pct": 64.29,
+      "parto_pct": 93.33
+    },
+    {
+      "ut": "LIMA PROVINCIA",
+      "gestantes": 62,
+      "frecuencia_anemia_pct": 0.0,
+      "apn_pct": 85.71,
+      "sfaf_pct": 78.57,
+      "aux_pct": 50.0,
+      "pqt_pct": 54.55,
+      "parto_pct": 78.57
+    },
+    {
+      "ut": "TACNA",
+      "gestantes": 36,
+      "frecuencia_anemia_pct": 0.0,
+      "apn_pct": 80.0,
+      "sfaf_pct": 70.0,
+      "aux_pct": 80.0,
+      "pqt_pct": 75.0,
+      "parto_pct": 80.0
+    },
+    {
+      "ut": "CALLAO Y LIMA NORTE",
+      "gestantes": 37,
+      "frecuencia_anemia_pct": 40.0,
+      "apn_pct": 88.89,
+      "sfaf_pct": 66.67,
+      "aux_pct": 55.56,
+      "pqt_pct": 42.86,
+      "parto_pct": 77.78
+    },
+    {
+      "ut": "TUMBES",
+      "gestantes": 37,
+      "frecuencia_anemia_pct": 20.0,
+      "apn_pct": 100.0,
+      "sfaf_pct": 100.0,
+      "aux_pct": 100.0,
+      "pqt_pct": 100.0,
+      "parto_pct": 80.0
+    },
+    {
+      "ut": "LIMA METROPOLITANA CT CAÑETE",
+      "gestantes": 27,
+      "frecuencia_anemia_pct": 20.0,
+      "apn_pct": 100.0,
+      "sfaf_pct": 100.0,
+      "aux_pct": 75.0,
+      "pqt_pct": 75.0,
+      "parto_pct": 100.0
+    },
+    {
+      "ut": "MOQUEGUA",
+      "gestantes": 16,
+      "frecuencia_anemia_pct": 25.0,
+      "apn_pct": 75.0,
+      "sfaf_pct": 50.0,
+      "aux_pct": 25.0,
+      "pqt_pct": 33.33,
+      "parto_pct": 60.0
+    },
+    {
+      "ut": "ICA",
+      "gestantes": 40,
+      "frecuencia_anemia_pct": 0.0,
+      "apn_pct": 75.0,
+      "sfaf_pct": 75.0,
+      "aux_pct": 75.0,
+      "pqt_pct": 75.0,
+      "parto_pct": 100.0
+    },
+    {
+      "ut": "ANCASH CT CHIMBOTE",
+      "gestantes": 31,
+      "frecuencia_anemia_pct": 0.0,
+      "apn_pct": 75.0,
+      "sfaf_pct": 75.0,
+      "aux_pct": 75.0,
+      "pqt_pct": 100.0,
+      "parto_pct": 75.0
+    }
+  ]
+}

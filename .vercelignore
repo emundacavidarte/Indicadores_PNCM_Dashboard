@@ -1,0 +1,7 @@
+*.xlsx
+*.pdf
+*.docx
+*.zip
+__pycache__/
+.agents/
+.netlify/

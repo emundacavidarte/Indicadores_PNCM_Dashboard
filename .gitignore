@@ -1,0 +1,13 @@
+*.xlsx
+*.XLSX
+*.pdf
+*.docx
+*.zip
+dashboard_data.db
+api_data.db
+*.db
+*.db-shm
+*.db-wal
+__pycache__/
+.agents/
+.netlify/

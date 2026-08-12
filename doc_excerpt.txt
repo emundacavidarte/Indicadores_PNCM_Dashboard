@@ -1,0 +1,253 @@
+PAQUETE INTEGRADO DE SERVICIOS PRIORIZADOS
+Origen normativo, contenido, vigencia y uso en el PNCM
+Autor
+Edward Henry Mundaca Vidarte — CGSE / UOAI — PNCM
+Fecha
+Lima, 04 de agosto de 2026
+Alcance
+Documento de trabajo interno
+Uso
+Consulta rápida y sustento para redacción posterior
+1. 
+OBJETIVO Y ALCANCE
+Documento de trabajo que responde a tres preguntas: de dónde sale el término "Paquete Integrado de Servicios Priorizados", por qué la Directiva vigente del PNCM lo utiliza 
+y 
+que implica este paquete
+. La investigación reúne la cadena de normas nacionales que lo definen o lo mencionan y la normativa sanitaria que actualiza el contenido de cada prestación. Cierra con una lectura de implicancias operativas para el programa.
+2. 
+ORIGEN DEL TÉRMINO
+El término nace en la política de Desarrollo Infantil Temprano (DIT) del MIDIS y evoluciona en tres pasos. El DS 
+N.°
+ 010-2016-MIDIS
+ fija los siete resultados y las cuarenta y seis intervenciones que ordenan el DIT, y da la base conceptual del "paquete" de servicios. Tres años después, el DS 
+N.°
+ 003-2019-MIDIS
+ aprueba la Estrategia de Gestión Territorial "Primero la Infancia" (EGTPI) y acuña formalmente la denominación al definirla como la herramienta que asegura el acceso al Paquete Integrado de Servicios Priorizados desde la gestación hasta los cinco primeros años. La RVM 
+N.°
+ 001-2021-MIDIS
+, del 30 de junio de 2021, operativiza el paquete en las tres instancias de gobierno.
+3. 
+DEFINICIÓN OFICIAL Y COMPONENTES
+Definición oficial — DS 003-2019-MIDIS, Artículo 3.1
+"El Paquete Integrado de Servicios Priorizados para las niñas y niños desde la gestación hasta los 5 
+años de edad
+, en adelante el ‘Paquete Integrado’, es el conjunto de servicios priorizados e identificados en el marco de los Programas Presupuestales, que cada gestante, niña y niño debe recibir para contribuir al logro de los resultados del desarrollo infantil temprano."
+La formulación literal aparece en el artículo 3.1 del DS 003-2019-MIDIS y se reitera en el Manual EGTPI
+ y en la comunicación oficial del ministerio. Los componentes se agrupan por curso de vida:
+Curso de vida
+Componentes
+Gestante
+· 
+4 exámenes auxiliares en el primer trimestre 
+· ≥ 4 atenciones prenatales 
+· suplementación con hierro y ácido fólico.
+Niña y niño menor de 2 años
+· 
+DNI 
+· CRED completo por edad 
+· vacunas (neumococo, rotavirus y esquema por edad) 
+·
+ 
+dosaje de hemoglobina
+· 
+suplementación con hierro 
+Ampliaciones intersectoriales
+· 
+Agua clorada segura para consumo 
+· educación inicial de 3 a 5 años.
+ 
+Nota
+El contenido específico de cada prestación se actualiza por normativa sanitaria (CRED, esquema de vacunación, protocolo de anemia). La denominación y la lógica del paquete se mantienen.
+4. 
+POR QUÉ LA DIRECTIVA DEL PNCM LO USA
+La Directiva de Seguimiento, Supervisión y Evaluación a la Gestión Operativa del Funcionamiento de los Servicios del PNCM, versión 3, aprobada por RDE 
+N.°
+ 002094-2025-MIDIS/PNCM-DE
+ del 30 de octubre de 2025, adopta el término porque el PNCM es programa ejecutor de la EGTPI. La versión 3 lo utiliza en tres lugares clave:
+a. 
+Numeral 4.50. 
+Define el Paquete Integrado de Servicios Priorizados como "conjunto de servicios priorizados e identificados en el marco de los programas presupuestales, que cada gestante, niñas y niños menores de 2 años deben recibir para contribuir al logro de los resultados del Desarrollo Infantil Temprano".
+b. 
+Numeral 4.66. 
+Define seguimiento nominal como monitoreo individualizado al acceso al paquete integrado promovido por la EGTPI, "a partir del padrón nominal, que permite identificar las brechas y cuellos de botella que impiden o dificultan el acceso y uso de servicios".
+c. 
+Numeral 5.6. 
+Encarga a las Unidades Territoriales y Oficinas de Coordinación Territorial el seguimiento nominal al paquete integrado de niños y gestantes.
+d. 
+Numeral 7.4-C y Anexo 
+N.°
+ 27. 
+Detallan el paquete de gestante y el paquete de niño con sus componentes exactos y el uso del Padrón General de Usuarios (PGU) y del Módulo de Seguimiento Nominal (MSN).
+5. MARCO NORMATIVO NACIONAL QUE LO MENCIONA O DEFINE
+Cadena de normas en orden cronológico. Las fichas completas van al pie con su hipervínculo.
+#
+Dispositivo
+Materia
+a
+DS 
+N.°
+ 010-2016-MIDIS
+Lineamientos "Primero la Infancia" — base conceptual del paquete.
+b
+DS 
+N.°
+ 003-2019-MIDIS
+Aprueba la EGTPI. Norma que acuña la denominación oficial.
+c
+RS 
+N.°
+ 023-2019-EF
+Aprueba el 
+PPoR
+ DIT 1001. Aterriza el paquete en productos.
+d
+DS 
+N.°
+ 015-2020-MIDIS
+Modelo Operacional temporal de los productos del PP 1001.
+e
+RVM 
+N.°
+ 001-2021-MIDIS
+Manual de implementación de la EGTPI.
+f
+DS 
+N.°
+ 006-2021-MIDIS
+Articulación y actuación conjunta para el 
+PPoR
+ DIT.
+g
+DS 
+N.°
+ 008-2022-MIDIS
+PNDIS 2030. OP1 se articula con el paquete.
+h
+DS 
+N.°
+ 004-2025-MIDIS
+Modifica el DS 006-2021-MIDIS.
+i
+DS 
+N.°
+ 005-2025-MIDIS
+NT del producto Cuidado y Atención Integral (SCD).
+j
+DS 
+N.°
+ 010-2025-MIDIS
+NT del producto Acompañamiento Familiar (SAF).
+k
+RDE 
+N.°
+ 002094-2025-MIDIS/PNCM-DE
+Directiva PNCM versión 3. Norma interna vigente.
+l
+DL 
+N.°
+ 1702 (24/01/2026)
+Modifica DL 1612. Encarga al MIDIS el instrumento normativo del seguimiento nominal.
+m
+NTS 213-2024 / RM 251-2024 / RM 429-2024
+Prevención y control de la anemia por deficiencia de hierro.
+n
+NTS 238-2025 / RM 682-2025
+CRED de 0 a 11 años. Deroga la NTS 137-2017.
+o
+RM 
+N.°
+ 709-2025/MINSA
+Incorpora la vacuna hexavalente celular.
+p
+RM 
+N.°
+ 403-2026/MINSA
+Modifica la NTS 196-2022 (Esquema Nacional de Vacunación).
+El 
+PPoR
+ DIT 1001 aterriza el paquete en productos presupuestales
+ y el DS 
+N.°
+ 006-2021-MIDIS
+ establece las tramas de interoperabilidad para los servicios del paquete, luego modificado por el DS 
+N.°
+ 004-2025-MIDIS
+, que designa al Viceministerio de Políticas y Evaluación Social como responsable estratégico y 
+operativo del 
+PPoR
+ DIT. La PNDIS 2030
+ articula el Objetivo Prioritario 1 con el paquete. El DL 
+N.°
+ 1702
+ no modifica la denominación del paquete, pero eleva a rango legal el proceso que verifica su entrega.
+El contenido sanitario del paquete se actualiza por normativa MINSA sin cambiar su denominación. Los principales dispositivos vigentes son:
+la NTS 
+N.°
+ 213-MINSA/DGIESP-2024, sobre prevención y control de la anemia por deficiencia de hierro
+; la NTS 
+N.°
+ 238-MINSA/DGIESP-2025, sobre CRED de 0 a 11 años
+; la RM 
+N.°
+ 709-2025/MINSA, que incorpora la vacuna hexavalente celular al Esquema Nacional de Vacunación
+; y la RM 
+N.°
+ 403-2026/MINSA, que modifica la NTS 
+N.°
+ 196-2022 y actualiza el Esquema Nacional de Vacunación con la incorporación de la vacuna contra el Virus Respiratorio Sincitial en gestantes
+.
+6. ¿SIGUE VIGENTE HABLAR DEL PAQUETE INTEGRADO?
+Sí. La denominación conserva plena vigencia. Tres razones concretas:
+a. Ninguna norma posterior a 2019 deja sin efecto el DS 003-2019-MIDIS ni redefine el concepto. Las modificatorias del DS 006-2021-MIDIS tocan el reparto de responsabilidades y la interoperabilidad, no la denominación.
+b. La normativa interna vigente del PNCM lo usa como categoría operativa central. La Directiva versión 3 lo referencia en los numerales 4.66 y 5.6 y en el Anexo 
+N.°
+ 27.
+c. El DL 
+N.°
+ 1702 y el trabajo en curso del MIDIS para el instrumento normativo de gestión territorial refuerzan el proceso de seguimiento nominal que verifica la entrega del paquete. A la fecha de esta investigación —04/08/2026— el Decreto Supremo derivado del DL 1702 aún no ha sido publicado; verificar antes de citarlo como norma vigente.
+Precisión de uso
+Lo que cambia periódicamente es el contenido sanitario de cada servicio: esquema de vacunación (NTS 196-2022 y sus modificatorias, RM 709-2025 hexavalente, RM 403-2026 VRS gestantes), patrón CRED (NTS 238-2025) y prevención de anemia (NTS 213-2024). El nombre del paquete y su lógica de entrega se mantienen; la lista específica de prestaciones se actualiza.
+7. IMPLICANCIAS OPERATIVAS PARA EL PNCM
+a. El paquete es el objeto del seguimiento nominal del programa. No se sigue al niño por seguirlo: se sigue si accede al paquete completo y a tiempo.
+b. El PNCM no provee los servicios del paquete. Coadyuva a que se reciban efectivamente. En el SCD la Madre Cuidadora administra el suplemento durante la jornada según indicaciones del personal de salud; en el SAF el facilitador promueve el consumo, brinda consejería y verifica el acceso durante la visita domiciliaria. La provisión clínica recae en MINSA y en los gobiernos regionales; el entorno recae en el gobierno local.
+c. Los instrumentos operativos que la Directiva versión 3 nombra para monitorear el paquete son el Padrón General de Usuarios (PGU) y el Módulo de Seguimiento Nominal (MSN), ambos de la UOAI, según el Anexo 
+N.°
+ 27.
+8. CONCLUSIONES
+El término tiene raíz normativa clara —DS 003-2019-MIDIS— y es la unidad de análisis del seguimiento nominal en la Directiva PNCM versión 3. No hay una norma posterior que lo redefina o lo sustituya. El DL 1702 lo fortalece por vía del proceso y la normativa MINSA actualiza el contenido clínico de cada prestación sin tocar la etiqueta ni la lógica de entrega. Para redactar sobre el paquete a la fecha de este documento, corresponde citar la EGTPI (DS 003-2019-MIDIS) como norma que lo acuña, la Directiva PNCM versión 3 (RDE 002094-2025) como norma interna que lo operativiza y las NTS 213-2024, 238-2025 y RM 709-2025 y 403-2026 como fuentes del contenido sanitario.
+TRAZABILIDAD AFIRMACIÓN — FUENTE
+Toda afirmación de este documento tiene fuente pública y, cuando aplica, archivo verificado en la carpeta "PNCM - Edward\Marco Normativo PNCM".
+Afirmación
+Fuente principal
+Archivo interno
+La denominación oficial se acuña en 2019.
+DS 003-2019-MIDIS, Art. 3 (nota 2).
+Marco Normativo PNCM\DS_N_003_2019_MIDIS - Primero la Infancia.pdf
+Base conceptual del paquete.
+DS 010-2016-MIDIS (nota 1).
+Marco Normativo PNCM\DS_N_010-2016-MIDIS- Lineamientos primero la infancia -.pdf
+El PNCM lo usa como categoría operativa central.
+RDE 002094-2025-MIDIS/PNCM-DE, Directiva v3, 
+num
+. 4.50, 4.66, 5.6 y Anexo 27 (nota 5).
+Marco Normativo PNCM\DIRECTIVA Seguimiento Supervisión y Evaluación a la Gestión Operativa v.3.pdf
+El 
+PPoR
+ DIT lo aterriza en productos presupuestales.
+RS 023-2019-EF (nota 7).
+Marco Normativo PNCM\DS_N_015_2020_MIDIS Modelo Operacional 
+PPoR
+ 1001.pdf
+El marco de articulación se modificó en 2025.
+DS 006-2021-MIDIS (nota 8) y DS 004-2025-MIDIS (nota 9).
+Marco Normativo PNCM\DS-005-2025-midis - NT PRODUCTO 
+PPor
+ 001.pdf
+El seguimiento nominal se elevó a norma con rango de ley.
+DL 1702, 24/01/2026 (nota 11).
+Marco Normativo PNCM\DL 1702 - Seguimiento nominal.pdf
+El contenido clínico se actualiza sin tocar la denominación.
+NTS 213-2024, NTS 238-2025, RM 709-2025 y RM 403-2026 (notas 12–15).
+Marco Normativo PNCM\DS-Plan-Multisectorial-de-anemia-2024-2030.pdf y normativa MINSA
+Nota sobre alcance
+Investigación construida sobre fuentes públicas y sobre los archivos verificados en la carpeta "PNCM - Edward\Marco Normativo PNCM": DS 003-2019, DS 010-2016, Directiva PNCM v3, DL 1702, DS 015-2020, DS 005-2025 y Plan Multisectorial de Anemia 2024-2030. Definiciones citadas textualmente desde los PDF originales.

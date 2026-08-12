@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistematización e Informe Técnico - PNCM Plan Multisectorial Anemia 2024-2030</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #772A91;
+            --primary-dark: #581C6E;
+            --secondary: #E6007E;
+            --accent: #009FE3;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --bg-body: #F4F6F9;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; padding: 30px 15px; }
+        
+        .container { max-width: 1160px; margin: 0 auto; background: var(--card-bg); padding: 45px 50px; border-radius: 16px; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05); border: 1px solid var(--border); }
+        
+        .doc-header { border-bottom: 3px solid var(--primary); padding-bottom: 25px; margin-bottom: 35px; }
+        .doc-badge-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .doc-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(119, 42, 145, 0.1); color: var(--primary); font-weight: 700; font-size: 12px; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .doc-badge.badge-date { background: rgba(0, 159, 227, 0.1); color: var(--accent); }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: var(--primary-dark); line-height: 1.35; margin-bottom: 12px; }
+        .meta-subtitle { font-size: 13.5px; color: var(--text-muted); font-weight: 500; display: flex; flex-wrap: wrap; gap: 15px; background: #F8FAFC; padding: 12px 16px; border-radius: 8px; border-left: 4px solid var(--primary); }
+        .meta-subtitle strong { color: var(--text-main); }
+
+        h2 { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: var(--primary-dark); margin-top: 35px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px; }
+        h2 i { color: var(--primary); }
+        h3 { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-main); margin-top: 22px; margin-bottom: 12px; }
+
+        p, li { font-size: 13.5px; color: #334155; margin-bottom: 12px; text-align: justify; }
+        ul, ol { padding-left: 22px; margin-bottom: 18px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12.5px; }
+        th { background: #F1F5F9; color: var(--primary-dark); font-weight: 700; text-align: left; padding: 10px 11px; border: 1px solid var(--border); font-family: 'Outfit', sans-serif; }
+        td { padding: 9px 11px; border: 1px solid var(--border); vertical-align: middle; }
+        tr:nth-child(even) { background-color: #F8FAFC; }
+        tr:hover { background-color: #F1F5F9; }
+
+        .badge-kpi { background: #ECFDF5; color: #047857; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid #A7F3D0; font-size: 11.5px; }
+        .badge-ref { background: #EFF6FF; color: #1D4ED8; font-weight: 600; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: monospace; display: inline-block; }
+        .badge-code { background: #F3E8FF; color: var(--primary-dark); font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 12px; }
+
+        .alert-box { background: #FFFBEB; border: 1px solid #FDE68A; border-left: 5px solid var(--warning); padding: 18px 20px; border-radius: 10px; margin: 22px 0; font-size: 13px; }
+        .alert-box.info { background: #EFF6FF; border-color: #BFDBFE; border-left-color: var(--accent); }
+        .alert-box.proposal { background: #FAF5FF; border-color: #E9D5FF; border-left-color: var(--secondary); }
+        .alert-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .alert-box.proposal .alert-title { color: var(--secondary); }
+        .alert-box.info .alert-title { color: var(--accent); }
+        .alert-box .alert-title { color: #B45309; }
+
+        .ficha-box { background: #FFFFFF; border: 1px solid var(--border); border-top: 4px solid var(--primary); padding: 22px; border-radius: 12px; margin: 25px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .ficha-box.proposal { border-top-color: var(--secondary); background: #FAF5FF; }
+        .ficha-box h4 { font-family: 'Outfit', sans-serif; font-size: 15.5px; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+        .ficha-box.proposal h4 { color: var(--secondary); }
+        .ficha-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; font-size: 12.5px; }
+        .ficha-item { background: #F8FAFC; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .ficha-item.full { grid-column: span 2; }
+        .ficha-item strong { color: var(--primary); display: block; margin-bottom: 3px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .ficha-box.proposal .ficha-item strong { color: var(--secondary); }
+
+        .formula-box { background: #0F172A; color: #F8FAFC; font-family: 'Courier New', Courier, monospace; padding: 12px 16px; border-radius: 8px; font-size: 12.5px; margin: 12px 0; border-left: 4px solid var(--accent); }
+
+        .trace-table th { background: #334155; color: #FFF; }
+
+        @media print {
+            body { padding: 0; background: #FFF; }
+            .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="doc-header">
+        <div class="doc-badge-group">
+            <span class="doc-badge"><i class="fa-solid fa-file-contract"></i> Sistematización e Informe Técnico</span>
+            <span class="doc-badge badge-date"><i class="fa-solid fa-calendar-day"></i> Cierre / Evaluación 2026</span>
+        </div>
+        <h1>SISTEMATIZACIÓN DE LAS ACTIVIDADES E INDICADORES DEL PROGRAMA NACIONAL CUNA MÁS EN EL PLAN MULTISECTORIAL PARA LA PREVENCIÓN Y REDUCCIÓN DE LA ANEMIA MATERNO INFANTIL EN EL PERÚ (2024–2030) Y FICHAS TÉCNICAS PROPUESTAS</h1>
+        <div class="meta-subtitle">
+            <div><strong>Base Legal Principal:</strong> Decreto Supremo N.° 002-2024-SA (El Peruano, 26/01/2024)</div>
+            <div><strong>Sector:</strong> MIDIS</div>
+            <div><strong>Programa Ejecutor:</strong> PNCM (SCD / SAF)</div>
+        </div>
+    </div>
+
+    <h2><i class="fa-solid fa-landmark"></i> 1. Antecedentes y Marco Normativo</h2>
+    <p>El Estado peruano aprobó el <strong>Plan Multisectorial para la Prevención y Reducción de la Anemia Materno Infantil en el Perú, período 2024-2030</strong>, mediante <strong>Decreto Supremo N.° 002-2024-SA</strong> en enero de 2024. Este instrumento organiza la respuesta coordinada del Estado en siete objetivos específicos y asigna funciones a los ministerios y programas ejecutores.</p>
+    <p>El marco legal sustentatorio comprende:</p>
+    <ul>
+        <li><strong>Ley N.º 29792</strong>: Ley de creación, organización y funciones del Ministerio de Desarrollo e Inclusión Social.</li>
+        <li><strong>Decreto Supremo N.º 003-2012-MIDIS</strong>: Crea el Programa Nacional Cuna Más (PNCM).</li>
+        <li><strong>Decreto Supremo N.º 002-2024-SA</strong>: Aprueba el Plan Multisectorial para la Prevención y Reducción de la Anemia Materno Infantil en el Perú, período 2024-2030.</li>
+        <li><strong>Norma Técnica de Salud N.º 213-MINSA/DGIESP-2024</strong>: Aprobada por RM N.º 251-2024/MINSA y modificada por RM N.º 429-2024/MINSA.</li>
+        <li><strong>Resolución Ministerial N.º 363-2022/MINSA</strong>: Criterio de anemia previo al vigente, referencial para la lectura de las metas del Plan.</li>
+        <li><strong>Resolución Suprema N.º 023-2019-EF</strong>: Programa Presupuestal orientado a Resultados de Desarrollo Infantil Temprano (PPoR-DIT).</li>
+        <li><strong>RDE N.º 002094-2025-MIDIS/PNCM-DE</strong>: Directiva de Seguimiento, Supervisión y Evaluación v3 (Anexo N.º 27).</li>
+    </ul>
+
+    <h2><i class="fa-solid fa-sitemap"></i> 2. Ubicación del PNCM en el Plan Multisectorial</h2>
+    <p>El Plan organiza siete objetivos específicos. El PNCM concentra su responsabilidad directa en el <strong>Objetivo Específico 4 (OE4)</strong>, cuya formulación oficial señala:</p>
+    <div class="alert-box info">
+        <div class="alert-title"><i class="fa-solid fa-quote-left"></i> Objetivo Específico 4 (Capítulo VII, pp. 56-58 del PDF)</div>
+        <em>"Asegurar la gestión territorial con el compromiso político, programático y presupuestal de las entidades en los 3 niveles de gobierno, orientado al desarrollo de las intervenciones para la prevención y control de la anemia, implementación de mecanismos de supervisión y vigilancia que permitan la rendición de cuentas de las y los actores involucrados y con participación activa de la sociedad civil que garantice el valor público de las acciones del presente plan"</em>.
+    </div>
+
+    <h2><i class="fa-solid fa-list-check"></i> 3. Actividades Estratégicas y Metas Físicas Directas a Cargo del PNCM</h2>
+    <p>El Objetivo Específico 4 contiene 16 actividades. De ellas, las <strong>actividades 4.12, 4.13, 4.14 y 4.15</strong> están asignadas de forma directa y exclusiva al PNCM en la matriz operativa del Plan (Anexo N.º 2, pág. 64 del PDF), con metas físicas anuales constantes durante el período 2024–2030:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción Oficial (DS 002-2024-SA)</th>
+                <th>Servicio</th>
+                <th>Unidad de Medida</th>
+                <th>Meta Física Anual (2024-2030)</th>
+                <th>Sustento Técnico (PDF)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge-code">Act. 4.12</span></td>
+                <td>Acompañamiento familiar mediante visitas semanales a hogares y sesiones de socialización a gestantes, niñas y niños menores de 36 meses y sus familias, para promover el desarrollo y fortalecimiento de conocimientos, capacidades y prácticas de cuidado y aprendizaje infantil, del Programa Nacional Cuna Más.</td>
+                <td><strong>SAF</strong></td>
+                <td>Familia usuaria</td>
+                <td><strong>277 283</strong> familias</td>
+                <td><span class="badge-ref">Anexo N.° 2, Pág. 64</span></td>
+            </tr>
+            <tr>
+                <td><span class="badge-code">Act. 4.13</span></td>
+                <td>Fortalecimiento de capacidades de equipo técnico y actores comunales del servicio de cuidado diurno, en contenidos orientados a la prevención y atención oportuna de la anemia del PNCM.</td>
+                <td><strong>SCD</strong></td>
+                <td>Persona capacitada</td>
+                <td><strong>18 899</strong> personas</td>
+                <td><span class="badge-ref">Anexo N.° 2, Pág. 64</span></td>
+            </tr>
+            <tr>
+                <td><span class="badge-code">Act. 4.14</span></td>
+                <td>Fortalecimiento de capacidades de equipo técnico y actores comunales del servicio de acompañamiento a familias en contenidos orientados a la prevención y atención oportuna de la anemia del PNCM.</td>
+                <td><strong>SAF</strong></td>
+                <td>Persona capacitada</td>
+                <td><strong>27 877</strong> personas</td>
+                <td><span class="badge-ref">Anexo N.° 2, Pág. 64</span></td>
+            </tr>
+            <tr>
+                <td><span class="badge-code">Act. 4.15</span></td>
+                <td>Atención integral en niñas y niños de 6 a 36 meses que requieren de atención en sus necesidades básicas de salud, nutrición, seguridad, protección, afecto, descanso, juego, aprendizaje y desarrollo de habilidades del PNCM.</td>
+                <td><strong>SCD</strong></td>
+                <td>Niña/o usuario</td>
+                <td><strong>67 387</strong> niños/as</td>
+                <td><span class="badge-ref">Anexo N.° 2, Pág. 64</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p><em>(*) Nota aclaratoria: La Actividad 4.16 sobre intervenciones focalizadas en 1,011 distritos de alto riesgo es competencia exclusiva del MINSA y no forma parte del padrón directo del PNCM.</em></p>
+
+    <h2><i class="fa-solid fa-chart-line"></i> 4. Indicadores Directos a Cargo del PNCM (MIDIS-PNCM Cuna Más)</h2>
+    <p>En el Anexo N.º 3 del Plan Multisectorial (Matriz de Indicadores, pág. 105 del PDF), se asignan directamente al <strong>MIDIS-PNCM Cuna Más</strong> dos indicadores dentro del Objetivo Específico 4:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Denominación Oficial</th>
+                <th>LB</th>
+                <th>2024</th>
+                <th>2025</th>
+                <th>2026</th>
+                <th>2027</th>
+                <th>2028</th>
+                <th>2029</th>
+                <th>2030</th>
+                <th>Fuente</th>
+                <th>Sustento (PDF)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge-code">I.4.3</span></td>
+                <td>Porcentaje de gestantes usuarias del programa cuna más con anemia</td>
+                <td>Sin dato</td>
+                <td>15.5%</td>
+                <td>15.2%</td>
+                <td><span class="badge-kpi">14.9%</span></td>
+                <td>14.6%</td>
+                <td>14.3%</td>
+                <td>14.0%</td>
+                <td><strong>13.7%</strong></td>
+                <td>HIS-MINSA + Padrón PNCM</td>
+                <td><span class="badge-ref">Anexo N.° 3, Pág. 105</span></td>
+            </tr>
+            <tr>
+                <td><span class="badge-code">I.4.4</span></td>
+                <td>Porcentaje de niñas y niños de 6 a 36 meses de edad usuarios del PNCM con dosaje de hemoglobina y diagnóstico de anemia</td>
+                <td>Sin dato</td>
+                <td>34.3%</td>
+                <td>33.3%</td>
+                <td><span class="badge-kpi">32.3%</span></td>
+                <td>31.3%</td>
+                <td>30.3%</td>
+                <td>29.3%</td>
+                <td><strong>28.3%</strong></td>
+                <td>HIS-MINSA + Padrón PNCM</td>
+                <td><span class="badge-ref">Anexo N.° 3, Pág. 105</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2><i class="fa-solid fa-folder-open"></i> 5. Fichas Técnicas Oficiales Institucionales del PNCM (DGSE-MIDIS)</h2>
+    <p>A continuación se reproducen las fichas técnicas operativas aprobadas por la DGSE del MIDIS para el seguimiento nominal de los indicadores institucionales equivalentes al I.4.3 e I.4.4 del Plan:</p>
+
+    <!-- FICHA CÓDIGO 10 (I.4.3) -->
+    <div class="ficha-box">
+        <h4><i class="fa-solid fa-person-pregnant"></i> Ficha Técnica Institucional Cód. 10: Gestantes Usuarias del PNCM con Anemia (I.4.3)</h4>
+        <div class="ficha-grid">
+            <div class="ficha-item"><strong>Código / Área:</strong> Código 10 | DGSE-MIDIS / PNCM</div>
+            <div class="ficha-item"><strong>Equivalencia Plan:</strong> I.4.3 - Porcentaje de gestantes usuarias del programa Cuna Más con anemia</div>
+            <div class="ficha-item"><strong>Denominación:</strong> % de gestantes usuarias del PNCM con anemia</div>
+            <div class="ficha-item"><strong>Propósito:</strong> Conocer frecuencia de anemia en gestantes usuarias del SAF, como resultado del acceso al paquete integrado (exámenes auxiliares, hierro y ácido fólico).</div>
+            <div class="ficha-item full"><strong>Definición:</strong> Permite medir la proporción de gestantes usuarias del PNCM con anemia.</div>
+            <div class="ficha-item full"><strong>Numerador (A):</strong> Número de gestantes usuarias del PNCM que cumplen con el denominador y presentan diagnóstico definitivo de anemia. <br><em>Sintaxis HIS:</em> Mujeres registradas en el PNCM con parto en el período, y que en el último trimestre hayan registrado diagnóstico definitivo de anemia en HIS (Código 'O990', tipo 'D').</div>
+            <div class="ficha-item full"><strong>Denominador (B):</strong> Número de mujeres con parto que fueron reportadas durante su gestación como usuarias del Servicio de Acompañamiento a Familias (SAF).</div>
+            <div class="ficha-item"><strong>Fuente & Instrumentos:</strong> HIS-MINSA y Padrón PNCM | Registro Diario HIS-MINSA; Ficha de Visita Domiciliaria PNCM.</div>
+            <div class="ficha-item"><strong>Periodicidad & Nivel:</strong> Mensual | Nacional (Dimensión: Eficacia).</div>
+        </div>
+        <div class="formula-box">Proporción = ( Numerador (A) / Denominador (B) ) × 100</div>
+    </div>
+
+    <!-- FICHA CÓDIGO 13 (I.4.4) -->
+    <div class="ficha-box">
+        <h4><i class="fa-solid fa-child"></i> Ficha Técnica Institucional Cód. 13: Niños de 6 a 35m Usuarios con Dosaje y Anemia (I.4.4)</h4>
+        <div class="ficha-grid">
+            <div class="ficha-item"><strong>Código / Área:</strong> Código 13 | DGSE-MIDIS / PNCM</div>
+            <div class="ficha-item"><strong>Equivalencia Plan:</strong> I.4.4 - Porcentaje de niñas y niños de 6 a 36 meses usuarios del PNCM con dosaje de hemoglobina y diagnóstico de anemia</div>
+            <div class="ficha-item"><strong>Denominación Institucional:</strong> % de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con dosaje de hemoglobina y diagnóstico anemia (*)</div>
+            <div class="ficha-item"><strong>Propósito:</strong> Seguimiento nominal para alertar a los actores del servicio en las acciones de prevención y recuperación del desarrollo infantil.</div>
+            <div class="ficha-item full"><strong>Definición:</strong> Permite medir la proporción de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con dosaje de hemoglobina y diagnóstico de anemia.</div>
+            <div class="ficha-item full"><strong>Numerador (A):</strong> Niños de 6-35m del denominador que presentan diagnóstico de anemia. <br><em>Sintaxis HIS:</em> Diagnóstico de anemia en HIS (códigos D509, D508, D500, D649) con tipo de diagnóstico ('D', 'R') en el último semestre + 29 días anterior al período.</div>
+            <div class="ficha-item full"><strong>Denominador (B):</strong> Número total de niñas y niños de 6 a 35 meses de edad en el período de evaluación, usuarios del PNCM en el Padrón Nominal, con dosaje de hemoglobina en el último semestre.</div>
+            <div class="ficha-item"><strong>Fuente & Instrumentos:</strong> HIS-MINSA y Padrón PNCM | Registro HIS MINSA; Ficha de Visita Domiciliaria; Ficha de Seguimiento Diario.</div>
+            <div class="ficha-item"><strong>Periodicidad & Nivel:</strong> Mensual | Nacional (Dimensión: Eficacia).</div>
+        </div>
+        <div class="formula-box">Proporción = ( Numerador (A) / Denominador (B) ) × 100</div>
+        <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 8px;"><em>(*) Nota metodológica: La denominación institucional DGSE usa el rango 6 a 35 meses, mientras que el Plan Multisectorial declara 6 a 36 meses.</em></p>
+    </div>
+
+    <h2><i class="fa-solid fa-file-pen"></i> 6. Fichas Técnicas Propuestas para Indicadores Multisectoriales (I.1.1 e I.6.1)</h2>
+    
+    <div class="alert-box proposal">
+        <div class="alert-title"><i class="fa-solid fa-lightbulb"></i> ACLARACIÓN IMPORTANTE Y DECLARACIÓN DE PROPUESTA METODOLÓGICA</div>
+        <p style="margin-bottom: 0;"><strong>Aclaración del Autor / Área Usuaria (PNCM - UOAI):</strong> El Decreto Supremo N.° 002-2024-SA asigna la corresponsabilidad de los indicadores <strong>I.1.1</strong> (Objetivo Específico 1) e <strong>I.6.1</strong> (Objetivo Específico 6) al MINSA, MIDIS y Gobiernos Locales, sin asignar titularidad exclusiva ni fichas técnicas operativas al PNCM en los anexos del Plan. <strong>A pesar de no estar asignados directamente al PNCM en el Plan, el área usuaria del PNCM propone la construcción metodológica de ambas Fichas Técnicas</strong> como insumo técnico para facilitar la articulación nominal intersectorial y servir a la toma de decisiones institucionales.</p>
+    </div>
+
+    <!-- FICHA PROPUESTA I.1.1 -->
+    <div class="ficha-box proposal">
+        <h4><i class="fa-solid fa-heart-circle-check"></i> Ficha Técnica PROPUESTA: Indicador I.1.1 - Recuperación de Anemia (12 a 18 Meses)</h4>
+        <div class="ficha-grid">
+            <div class="ficha-item"><strong>Código en el Plan:</strong> I.1.1 (Objetivo Específico 1) | Pág. 104 del PDF</div>
+            <div class="ficha-item"><strong>Denominación Oficial:</strong> Porcentaje de niños y niñas de 12 a 18 meses que se recuperan de la anemia</div>
+            <div class="ficha-item"><strong>Línea Base & Metas:</strong> LB: 10.8% | 2024: 14% | 2025: 16% | 2026: 18% | 2027: 24% | 2028: 28% | 2029: 33% | <strong>2030: 38%</strong></div>
+            <div class="ficha-item"><strong>Responsables en Plan:</strong> MINSA, MIDIS y Gobiernos Locales (Corresponsabilidad)</div>
+            <div class="ficha-item full"><strong>Definición Operativa Propuesta:</strong> Mide la proporción de niñas y niños de 12 a 18 meses de edad con diagnóstico previo de anemia en HIS-MINSA que, en un segundo dosaje de hemoglobina tras el tratamiento, alcanzan valores ajustados por altitud normales según la NTS 213 (Hb ≥ 10.5 g/dL en 6-23m o Hb ≥ 11.0 g/dL en 24-59m).</div>
+            <div class="ficha-item full"><strong>Numerador (A) Propuesto:</strong> Niños/as de 12 a 18m con anemia previa que registran segundo dosaje Hb ajustado en rango normal. <br><em>Códigos HIS:</em> Dosaje Hb (85018 / 85018.01), Suplementación (99199.17), Anemia (D509, D508, D500, D649 - Tipo D).</div>
+            <div class="ficha-item full"><strong>Denominador (B) Propuesto:</strong> Niños/as de 12 a 18m con diagnóstico previo de anemia en HIS-MINSA que cuentan con segundo dosaje posterior al inicio del tratamiento.</div>
+            <div class="ficha-item"><strong>Ajuste por Altitud:</strong> Fórmula OMS 2024 (Tabla 14 NTS 213) para establecimientos &gt; 500 msnm: <code>Ajuste = ((0.0056384 × altitud) + (0.0000003 × altitud²)) / 10</code>.</div>
+            <div class="ficha-item"><strong>Rol Sugerido MIDIS / PNCM:</strong> Aporte de información nominal (Padrón PNCM cruzado con HIS-MINSA) de usuarios de 12-18m con anemia para el cálculo intersectorial y seguimiento de adherencia.</div>
+        </div>
+        <div class="formula-box">Proporción = ( Niños 12-18m recuperados con Hb normal en 2do dosaje / Total niños 12-18m reevaluados con 2do dosaje ) × 100</div>
+    </div>
+
+    <!-- FICHA PROPUESTA I.6.1 -->
+    <div class="ficha-box proposal">
+        <h4><i class="fa-solid fa-clipboard-check"></i> Ficha Técnica PROPUESTA: Indicador I.6.1 - Culminación de Esquema con 2 Dosajes (12 Meses)</h4>
+        <div class="ficha-grid">
+            <div class="ficha-item"><strong>Código en el Plan:</strong> I.6.1 (Objetivo Específico 6) | Pág. 106 del PDF</div>
+            <div class="ficha-item"><strong>Denominación Oficial:</strong> Porcentaje de niñas y niños de 12 meses de edad que han culminado el esquema de tratamiento o suplementación preventiva con hierro, con 02 dosajes de hemoglobina</div>
+            <div class="ficha-item"><strong>Línea Base & Metas:</strong> LB: Sin dato | 2024: 28% | 2025: 33% | 2026: 38% | 2027: 43% | 2028: 48% | 2029: 53% | <strong>2030: 58%</strong></div>
+            <div class="ficha-item"><strong>Responsables en Plan:</strong> MINSA, MIDIS y Gobiernos Locales (Corresponsabilidad)</div>
+            <div class="ficha-item full"><strong>Definición Operativa Propuesta:</strong> Mide la proporción de niñas y niños de 12 meses que registran seis meses continuos de entregas de hierro (preventivo o terapéutico) y cuentan con dos dosajes de hemoglobina (inicial al inicio y de cierre al finalizar el esquema).</div>
+            <div class="ficha-item full"><strong>Numerador (A) Propuesto:</strong> Niños/as de 12 meses con 6 meses de entregas de hierro (código 99199.17) y 2 dosajes Hb (código 85018 / 85018.01) en HIS-MINSA.</div>
+            <div class="ficha-item full"><strong>Denominador (B) Propuesto:</strong> Niños/as de 12 meses de la población objetivo con esquema iniciado según Tabla N.º 4 de la NTS 213.</div>
+            <div class="ficha-item"><strong>Precisiones Técnicas:</strong> Esquema preventivo desde 4m (a término) o 30 días (prematuro). Esquema terapéutico 6m continuos post-diagnóstico.</div>
+            <div class="ficha-item"><strong>Rol Sugerido MIDIS / PNCM:</strong> Aporte de información nominal de usuarios de 12m mediante cruce de Padrón PNCM con HIS-MINSA para medir culminación de esquema en SCD y SAF.</div>
+        </div>
+        <div class="formula-box">Proporción = ( Niños de 12m con 6 entregas continuas de hierro y 2 dosajes Hb / Población con esquema iniciado ) × 100</div>
+    </div>
+
+    <h2><i class="fa-solid fa-triangle-exclamation"></i> 7. Advertencia Metodológica y Conclusiones</h2>
+    <div class="alert-box">
+        <div class="alert-title"><i class="fa-solid fa-circle-exclamation"></i> Advertencia Metodológica sobre Comparabilidad de Metas</div>
+        <p>Las metas multianuales 2024-2030 del Plan Multisectorial fueron elaboradas con los criterios sanitarios vigentes a la fecha de su formulación (<strong>RM N.º 363-2022/MINSA</strong>). Posteriormente, el MINSA promulgó la <strong>NTS N.º 213-MINSA/DGIESP-2024</strong> (RM 251 y 429-2024) modificando los puntos de corte y la tabla de ajuste por altitud (fórmula OMS 2024). Ninguna de las metas del Plan fue reajustada tras esta modificación, produciéndose una brecha metodológica estimada en <strong>~8.5 puntos porcentuales</strong> en la medición (según ENDES 2024-2025). Por ende, las cifras institucionales nominales y las metas del Plan no se evalúan sobre la misma escala exacta.</p>
+    </div>
+
+    <h3>Conclusiones Principales:</h3>
+    <ol>
+        <li>El PNCM tiene asignadas directamente <strong>4 Actividades Estratégicas (4.12 a 4.15)</strong> en el Objetivo Específico 4 (pág. 64 del PDF), con metas físicas anuales constantes de 2024 a 2030.</li>
+        <li>El PNCM es responsable directo de <strong>2 Indicadores de Resultado (I.4.3 e I.4.4)</strong> etiquetados como <code>MIDIS-PNCM CUNA MÁS</code> en el Anexo N.º 3 (pág. 105 del PDF).</li>
+        <li>Los indicadores <strong>I.1.1 e I.6.1</strong> son multisectoriales (MINSA, MIDIS, Gobiernos Locales). <strong>El área usuaria del PNCM propone la construcción metodológica de sus Fichas Técnicas</strong> para viabilizar el aporte de datos nominales de los usuarios del Programa.</li>
+    </ol>
+
+    <h2><i class="fa-solid fa-list-ol"></i> 8. Tabla de Trazabilidad Afirmación – Fuente (Hojas del PDF)</h2>
+    <table class="trace-table">
+        <thead>
+            <tr>
+                <th>N.º</th>
+                <th>Afirmación Técnica / Hallazgo</th>
+                <th>Fuente Oficial Documental</th>
+                <th>Ubicación / Página Impresa en Hojas del PDF</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td>Aprobación del Plan Multisectorial mediante DS N.º 002-2024-SA (enero 2024).</td>
+                <td>El Peruano / DS N.º 002-2024-SA</td>
+                <td>Págs. 1 a 5 (El Peruano 26/01/2024)</td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td>El Objetivo Específico 4 (OE4) contiene 16 actividades; las actividades 4.12 a 4.15 están asignadas al PNCM.</td>
+                <td>DS N.º 002-2024-SA</td>
+                <td>Capítulo VII, Págs. impresas <strong>56 a 58</strong></td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td>Metas físicas anuales constantes (2024-2030): Act 4.12 (277,283 fam), Act 4.13 (18,899 pers), Act 4.14 (27,877 pers), Act 4.15 (67,387 niños).</td>
+                <td>DS N.º 002-2024-SA, Anexo N.º 2</td>
+                <td>Anexo N.º 2, Página impresa <strong>64</strong></td>
+            </tr>
+            <tr>
+                <td><strong>4</strong></td>
+                <td>Indicadores directos MIDIS-PNCM Cuna Más: I.4.3 (% gestantes) e I.4.4 (% niños 6-36m).</td>
+                <td>DS N.º 002-2024-SA, Anexo N.º 3</td>
+                <td>Anexo N.º 3, Página impresa <strong>105</strong></td>
+            </tr>
+            <tr>
+                <td><strong>5</strong></td>
+                <td>Metas al 2030 del PNCM: I.4.3 = 13.7%; I.4.4 = 28.3%.</td>
+                <td>DS N.º 002-2024-SA, Anexo N.º 3</td>
+                <td>Anexo N.º 3, Página impresa <strong>105</strong></td>
+            </tr>
+            <tr>
+                <td><strong>6</strong></td>
+                <td>Indicador I.1.1 (Recuperación anemia 12-18m): Metas 14% (2024) a 38% (2030). Corresponsabilidad MINSA-MIDIS-GL.</td>
+                <td>DS N.º 002-2024-SA, Anexo N.º 3</td>
+                <td>Anexo N.º 3, Página impresa <strong>104</strong></td>
+            </tr>
+            <tr>
+                <td><strong>7</strong></td>
+                <td>Indicador I.6.1 (Culminación tratamiento/suplementación a los 12m con 2 dosajes): Metas 28% (2024) a 58% (2030). Corresponsabilidad MINSA-MIDIS-GL.</td>
+                <td>DS N.º 002-2024-SA, Anexo N.º 3</td>
+                <td>Anexo N.º 3, Página impresa <strong>106</strong></td>
+            </tr>
+            <tr>
+                <td><strong>8</strong></td>
+                <td>Fichas Técnicas Institucionales Cód. 10 y Cód. 13 de la DGSE-MIDIS.</td>
+                <td>MIDIS-DGSE</td>
+                <td>Fichas Técnicas de Indicadores TC-PNCM</td>
+            </tr>
+            <tr>
+                <td><strong>9</strong></td>
+                <td>NTS N.º 213-MINSA/DGIESP-2024 (RM 251 y RM 429-2024).</td>
+                <td>MINSA</td>
+                <td>RM N.º 251-2024 y RM N.º 429-2024/MINSA</td>
+            </tr>
+            <tr>
+                <td><strong>10</strong></td>
+                <td>Brecha de ~8.5 p.p. por cambio de criterio de anemia entre RM 363-2022 y NTS 213.</td>
+                <td>INEI / ENDES</td>
+                <td>Reporte ENDES 2024-2025</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
