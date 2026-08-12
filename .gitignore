@@ -3,7 +3,6 @@
 *.pdf
 *.docx
 *.zip
-dashboard_data.db
 *.db-shm
 *.db-wal
 __pycache__/
