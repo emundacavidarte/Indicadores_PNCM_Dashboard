@@ -502,10 +502,22 @@ async function renderPeruMap() {
 }
 
 const FICHAS_TECNICAS_DB = {
+    'total': {
+        code: 'PADRÓN NOMINAL PNCM',
+        area: 'MONITOREO PNCM',
+        source: 'Fuente Oficial: Padrón Nominal PNCM (Cuidado Diurno SCD y Acompañamiento SAF)',
+        pdf_file: 'fichas_pdf/ficha_total.pdf',
+        title: 'Población total de niñas y niños usuarios del PNCM',
+        definition: 'Población total de niñas y niños usuarios activos y atendidos en los servicios de Cuidado Diurno (SCD) y Acompañamiento a Familias (SAF) del Programa Nacional Cuna Más.',
+        numerator: 'A = Total de niñas y niños usuarios registrados en el Padrón Nominal PNCM.',
+        denominator: 'B = Padrón Nominal PNCM.',
+        his_codes: ['Padrón Nominal PNCM']
+    },
     'dni_30d': {
         code: 'CÓDIGO 29 (INDICADOR 9)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Anexo 1 Fichas Técnicas Tablero de Control DGSE-MIDIS (Cód. 29) • Padrón Nominal / RENIEC',
+        pdf_file: 'fichas_pdf/ficha_dni_30d.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM menores de 12 meses de edad con DNI emitido hasta los 30 días de nacido',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM menores de 12 meses de edad con Documento Nacional de Identidad (DNI) emitido hasta los 30 días de nacido.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM menores de 12 meses de edad con DNI emitido hasta los 30 días de nacido.',
@@ -519,6 +531,7 @@ const FICHAS_TECNICAS_DB = {
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
         source: 'Fuente Oficial: Decreto Legislativo DIT / FED Indicador 16 • Fichas Técnicas Tablero de Control DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_pqt.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad con paquete integrado de servicios',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad con paquete integrado de servicios.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM menores de 24 meses de edad que reciben el paquete integrado de servicios de acuerdo con su edad: CRED, vacunas neumococo y rotavirus, entrega de suplementos con hierro, dosaje de hemoglobina, y cuentan con DNI emitido hasta los 30 días de nacido.',
@@ -529,6 +542,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 35 (INDICADOR 15)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'fichas_pdf/ficha_dosaje_hb.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM de 170 y 250 días de edad con dosaje de hemoglobina',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM de 170 y 250 días de edad con dosaje de hemoglobina.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM de 170 y 250 días de edad con dosaje de hemoglobina.',
@@ -539,6 +553,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 13 (INDICADOR 4)',
         area: 'MIDIS-PNCM CUNA MÁS',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_frecuencia_anemia.pdf',
         title: 'Porcentaje de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con dosaje de hemoglobina y diagnóstico anemia',
         definition: 'Este indicador permite medir la proporción de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con anemia.',
         numerator: 'A = Número de niñas y niños de 6 a 35 meses de edad, usuarios del PNCM, que cumplen con la definición del denominador y presentan diagnóstico de anemia.',
@@ -548,6 +563,7 @@ const FICHAS_TECNICAS_DB = {
     'hierro': {
         code: 'CÓDIGO 34 (INDICADOR 14)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_hierro.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad que reciben suplementación con hierro',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad que reciben suplementación con hierro.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM menores de 24 meses de edad que reciben suplementación con hierro.',
@@ -557,6 +573,7 @@ const FICHAS_TECNICAS_DB = {
     'anemia_fe': {
         code: 'CÓDIGO 39 (INDICADOR 19)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_anemia_fe.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM de 6 a 11 meses de edad con anemia que inician tratamiento con hierro',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarias del PNCM de 6 a 11 meses de edad con anemia que inician tratamiento con hierro.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM de 6 a 11 meses de edad con anemia que inician tratamiento con hierro.',
@@ -566,6 +583,7 @@ const FICHAS_TECNICAS_DB = {
     'vrn': {
         code: 'CÓDIGO 31 (INDICADOR 11)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_vrn.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM hasta 12 meses de edad con vacunas de neumococo y rotavirus',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM hasta 12 meses de edad con vacunas de neumococo y rotavirus.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM hasta 12 meses de edad con vacunas de neumococo y rotavirus.',
@@ -575,6 +593,7 @@ const FICHAS_TECNICAS_DB = {
     'vac_completa': {
         code: 'CÓDIGO 41 (INDICADOR 21)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM hasta 18 meses con vacunas completas y oportunas para su edad',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM hasta 18 meses de edad con vacunas completas y oportunas para su edad.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM hasta 18 meses con vacunas completas y oportunas para su edad.',
@@ -584,6 +603,7 @@ const FICHAS_TECNICAS_DB = {
     'cred': {
         code: 'CÓDIGO 30 (INDICADOR 10)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
         title: 'Porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad con CRED completo y oportuno',
         definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad con CRED completo y oportuno para su edad.',
         numerator: 'A = Número de niñas y niños usuarios del PNCM menores de 24 meses de edad con CRED completo y oportuno para su edad.',
@@ -594,6 +614,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'PLAN MULTISECTORIAL (OBJ. 1)',
         area: 'MINSA / MIDIS / GL',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Propuesta Metodológica UOAI-PNCM • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_npr.pdf',
         title: 'Porcentaje de niñas y niños de 6 a 35 meses con anemia que se recuperan (Hb >= 11.0 g/dL)',
         definition: 'Este indicador permite medir la proporción de niñas y niños usuarios del PNCM con diagnóstico de anemia que logran la recuperación de sus niveles de hemoglobina.',
         numerator: 'A = Número total de niñas y niños de 6 a 35 meses de edad, usuarios del PNCM con anemia que en su evaluación de seguimiento alcanzaron niveles normales de hemoglobina (Hb >= 11.0 g/dL).',
@@ -604,6 +625,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 10 (INDICADOR 1)',
         area: 'MIDIS-PNCM CUNA MÁS',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_gestantes_anemia.pdf',
         title: 'Porcentaje de gestantes usuarias del PNCM con anemia',
         definition: 'Este indicador permite medir la proporción de gestantes usuarias del PNCM con anemia.',
         numerator: 'A = Número de gestantes usuarias del PNCM con diagnóstico de anemia.',
@@ -614,6 +636,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'BRECHA REGISTRO SALUD',
         area: 'MONITOREO PNCM',
         source: 'Fuente Oficial: Cruce Nominal Padrón PNCM vs. Base de Datos HIS MINSA',
+        pdf_file: 'fichas_pdf/ficha_sin_atencion_his.pdf',
         title: 'Porcentaje de usuarios del PNCM sin registro de atenciones en la base HIS MINSA',
         definition: 'Este indicador permite medir la proporción de usuarios registrados en el Padrón Nominal del PNCM que no cuentan con registros de atenciones de salud en la base HIS MINSA.',
         numerator: 'A = Número de usuarios del PNCM que no registran atención de salud en la base de datos HIS MINSA a la fecha de corte.',
@@ -623,6 +646,7 @@ const FICHAS_TECNICAS_DB = {
     'apn': {
         code: 'CÓDIGO 25 (INDICADOR 5)',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_apn.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF con al menos 4 atenciones prenatales (APN)',
         definition: 'Mide la proporción de gestantes usuarias del SAF que reciben al menos 4 atenciones prenatales con suplemento de hierro y ácido fólico.',
         numerator: 'A = Número de gestantes usuarias del SAF con 4 o más APN registradas.',
@@ -632,6 +656,7 @@ const FICHAS_TECNICAS_DB = {
     'sfaf': {
         code: 'SUPLEMENTACIÓN GESTANTES',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_apn.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF con suplementación de hierro y ácido fólico',
         definition: 'Mide la entrega de suplementación con sulfato ferroso / hierro y ácido fólico a gestantes usuarias del SAF.',
         numerator: 'A = Gestantes usuarias que reciben suplemento de hierro y ácido fólico.',
@@ -641,6 +666,7 @@ const FICHAS_TECNICAS_DB = {
     'aux': {
         code: 'EXÁMENES AUXILIARES',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_aux.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF con 4 exámenes auxiliares completos',
         definition: 'Mide la proporción de gestantes usuarias con exámen de hemoglobina, tamizaje VIH, prueba de sífilis y examen de orina.',
         numerator: 'A = Gestantes usuarias del SAF que registran los 4 exámenes auxiliares en el 1er trimestre.',
@@ -650,6 +676,7 @@ const FICHAS_TECNICAS_DB = {
     'parto_ins': {
         code: 'PARTO INSTITUCIONAL',
         area: 'DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_parto_ins.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF con parto institucional',
         definition: 'Mide la proporción de gestantes usuarias del SAF cuyo parto fue atendido en un establecimiento de salud (IPRESS).',
         numerator: 'A = Gestantes usuarias con atención de parto en establecimiento de salud.',
@@ -660,6 +687,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'ACTIVIDAD ESTRATÉGICA 4.15',
         area: 'PNCM / PLAN MULTISECTORIAL',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Padrón Nominal PNCM (SCD)',
+        pdf_file: 'fichas_pdf/ficha_act_415.pdf',
         title: 'Act. 4.15: Atención integral en niñas y niños de 6 a 36 meses (SCD)',
         definition: 'Actividad estratégica 4.15 asignada directamente al PNCM en el Objetivo Específico 4 del Plan Multisectorial (DS 002-2024-MINSA). Meta física anual constante: 67,387 niños/as.',
         numerator: 'A = Cobertura acumulada de atención integral en locales CIAI (SCD).',
@@ -670,6 +698,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'ACTIVIDAD ESTRATÉGICA 4.13',
         area: 'PNCM / PLAN MULTISECTORIAL',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Registro de Capacitaciones PNCM (SCD)',
+        pdf_file: 'fichas_pdf/ficha_act_413.pdf',
         title: 'Act. 4.13: Capacitación a actores comunales de Cuidado Diurno (SCD)',
         definition: 'Actividad estratégica 4.13 del Plan Multisectorial orientada al fortalecimiento de capacidades del equipo técnico y actores comunales de SCD. Meta física anual constante: 18,899 personas.',
         numerator: 'A = Número de actores comunales y equipo técnico de SCD capacitados en prevención de anemia.',
@@ -680,25 +709,18 @@ const FICHAS_TECNICAS_DB = {
         code: 'ACTIVIDAD ESTRATÉGICA 4.12',
         area: 'PNCM / PLAN MULTISECTORIAL',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Padrón Nominal PNCM (SAF)',
+        pdf_file: 'fichas_pdf/ficha_act_412.pdf',
         title: 'Act. 4.12: Visitas de Acompañamiento Familiar (SAF)',
         definition: 'Actividad estratégica 4.12 del Plan Multisectorial mediante visitas semanales a hogares y sesiones de socialización. Meta física anual constante: 277,283 familias.',
         numerator: 'A = Cobertura acumulada de familias en acompañamiento familiar (SAF).',
         denominator: 'B = Meta física anual del Plan Multisectorial (277,283 familias).',
         his_codes: ['Padrón Nominal Servicio de Acompañamiento a Familias (SAF)']
     },
-        'gestantes_anemia': {
-        code: 'CÓDIGO 10 (INDICADOR I.4.3)',
-        area: 'MIDIS-PNCM CUNA MÁS',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
-        title: 'Porcentaje de gestantes usuarias del PNCM con anemia',
-        definition: 'Este indicador permite medir la proporción de gestantes usuarias del PNCM con diagnóstico definitivo de anemia durante el último trimestre de gestación.',
-        numerator: 'A = Número de gestantes usuarias del PNCM (SAF) con parto en el período que presentan diagnóstico definitivo de anemia en el último trimestre (código O990, D509, D500, D649 con tipo D).',
-        denominator: 'B = Número de mujeres con parto reportadas durante su gestación como usuarias del Servicio de Acompañamiento a Familias (SAF).'
-    },
     'g_pqt': {
         code: 'CÓDIGO 27 (INDICADOR 7 GESTANTES)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'fichas_pdf/ficha_g_pqt.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF que recibieron paquete integrado de servicios priorizados',
         definition: 'Este indicador permite medir la proporción de gestantes usuarias del SAF que reciben el paquete integrado de salud: 4 exámenes auxiliares en el 1er trimestre (hemoglobina, VIH, sífilis y examen de orina) + 4 o más atenciones prenatales (APN) con entregas de sulfato ferroso y ácido fólico.',
         numerator: 'A = Número de gestantes usuarias del SAF que recibieron el paquete integrado de servicios priorizados durante el transcurso del embarazo.',
@@ -708,6 +730,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 25 (INDICADOR 5 GESTANTES)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'fichas_pdf/ficha_apn.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF que recibieron al menos 4 atenciones prenatales con suplemento de hierro y ácido fólico',
         definition: 'Este indicador permite medir el porcentaje de gestantes usuarias del SAF que recibieron al menos 4 atenciones prenatales oportunas con entrega de suplemento de hierro y ácido fólico.',
         numerator: 'A = Número de gestantes usuarias del SAF que recibieron 4 o más APN con entrega de suplemento de hierro y ácido fólico.',
@@ -717,6 +740,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'SUPLEMENTACIÓN GESTANTE',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'fichas_pdf/ficha_apn.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF que reciben suplementación con sulfato ferroso y ácido fólico',
         definition: 'Este indicador permite medir el porcentaje de gestantes usuarias del SAF que reciben suplementación preventiva de hierro y ácido fólico durante la gestación.',
         numerator: 'A = Número de gestantes usuarias del SAF que reciben entregas de sulfato ferroso y ácido fólico.',
@@ -726,6 +750,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'EXÁMENES AUXILIARES GESTANTE',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'fichas_pdf/ficha_aux.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF con 4 exámenes auxiliares en el primer trimestre',
         definition: 'Este indicador permite medir la proporción de gestantes usuarias del SAF que en el primer trimestre reciben los 4 exámenes auxiliares: dosaje de hemoglobina/hematocrito, tamizaje de sífilis, tamizaje de VIH y examen de orina (o perfil obstétrico).',
         numerator: 'A = Número de gestantes usuarias del SAF que cuentan con los 4 exámenes auxiliares completos en el 1er trimestre.',
@@ -735,6 +760,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 28 (INDICADOR 8 GESTANTES)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Base de datos HIS MINSA / CNV (Certificado de Nacido Vivo) • Fichas Técnicas DGSE-MIDIS',
+        pdf_file: 'fichas_pdf/ficha_parto_ins.pdf',
         title: 'Porcentaje de partos institucionales en el último nacimiento de gestantes usuarias del SAF',
         definition: 'Este indicador permite medir el porcentaje de partos institucionales (atendidos en un establecimiento de salud IPRESS) en el último nacimiento de las gestantes usuarias del SAF.',
         numerator: 'A = Número de mujeres con parto institucional (en IPRESS MINSA/Gobierno Regional) que durante su gestación fueron usuarias del SAF.',
@@ -744,6 +770,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'BRECHA REGISTRO SALUD GESTANTES',
         area: 'MONITOREO PNCM',
         source: 'Fuente Oficial: Cruce Nominal Padrón PNCM (SAF) vs. Base de Datos HIS MINSA',
+        pdf_file: 'fichas_pdf/ficha_g_sin_atencion_his.pdf',
         title: 'Porcentaje de gestantes usuarias del SAF sin registro de atenciones en la base HIS MINSA',
         definition: 'Este indicador permite medir la proporción de gestantes registradas en el Padrón Nominal del servicio SAF que no cuentan con registros de atenciones de salud en la base HIS MINSA para el período evaluado.',
         numerator: 'A = Número de gestantes usuarias del SAF que no registran atenciones de salud en HIS MINSA.',
@@ -753,6 +780,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'PADRÓN NOMINAL SAF',
         area: 'MONITOREO PNCM',
         source: 'Fuente Oficial: Padrón Nominal PNCM (Servicio de Acompañamiento a Familias - SAF)',
+        pdf_file: 'fichas_pdf/ficha_g_total.pdf',
         title: 'Gestantes usuarias registradas en el Servicio de Acompañamiento a Familias (SAF)',
         definition: 'Este indicador muestra la población total de gestantes usuarias atendidas y registradas activamente en el Padrón Nominal del servicio SAF.',
         numerator: 'A = Total de gestantes usuarias registradas en el Padrón Nominal SAF.',
@@ -762,6 +790,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'ACTIVIDAD ESTRATÉGICA 4.14',
         area: 'PNCM / PLAN MULTISECTORIAL',
         source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Registro de Capacitaciones PNCM (SAF)',
+        pdf_file: 'fichas_pdf/ficha_act_414.pdf',
         title: 'Act. 4.14: Capacitación a actores comunales de Acompañamiento (SAF)',
         definition: 'Actividad estratégica 4.14 del Plan Multisectorial orientada al fortalecimiento de capacidades del equipo técnico y actores comunales de SAF. Meta física anual constante: 27,877 personas.',
         numerator: 'A = Número de actores comunales y equipo técnico de SAF capacitados en prevención de anemia.',
@@ -800,6 +829,16 @@ function openFichaTecnicaModal(kpiKey) {
     document.getElementById('fNumerator').textContent = ficha.numerator;
     document.getElementById('fDenominator').textContent = ficha.denominator;
 
+    // Configure PDF Download button dynamically for this specific indicator
+    const btnPdf = document.getElementById('btnDownloadFichaPdf');
+    if (btnPdf) {
+        const pdfFile = ficha.pdf_file || 'Paquete_Priorizado/Fichas_Indicadores_Paquete_Priorizado.pdf';
+        btnPdf.href = pdfFile;
+        const filename = pdfFile.split('/').pop();
+        btnPdf.setAttribute('download', filename);
+        btnPdf.title = `Descargar Ficha Técnica oficial en PDF (${ficha.code})`;
+    }
+
     // Direct lookup from data state (lastNinosData / lastGestantesData)
     let kpiData = null;
     if (currentTab === 'tabGestantes' && lastGestantesData && lastGestantesData.kpis) {
@@ -830,7 +869,8 @@ function openFichaTecnicaModal(kpiKey) {
         codesContainer.innerHTML = '';
     }
 
-    modal.style.display = 'flex';}
+    modal.style.display = 'flex';
+}
 
 function setupKpiInfoButtons() {
     const allCards = document.querySelectorAll('.kpi-card');

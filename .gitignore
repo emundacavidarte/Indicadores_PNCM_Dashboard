@@ -1,6 +1,8 @@
 *.xlsx
 *.XLSX
 *.pdf
+!fichas_pdf/*.pdf
+!Paquete_Priorizado/*.pdf
 *.docx
 *.zip
 *.db-shm

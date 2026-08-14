@@ -10,7 +10,7 @@ from collections import OrderedDict
 
 import threading
 
-PORT = 8050
+PORT = int(os.environ.get('PORT', 8050))
 DB_PATH = 'dashboard_data.db'
 
 # High-Performance In-Memory LRU Cache
