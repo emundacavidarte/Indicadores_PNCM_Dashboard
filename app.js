@@ -516,7 +516,7 @@ const FICHAS_TECNICAS_DB = {
         code: 'CÓDIGO 36 (INDICADOR 16)',
         area: 'DGSE-MIDIS',
         source: 'Fuente Oficial: Cruce Nominal Padrón PNCM vs. Base de Datos HIS MINSA',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
         source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
         source: 'Fuente Oficial: Decreto Legislativo DIT / FED Indicador 16 • Fichas Técnicas Tablero de Control DGSE-MIDIS',
         title: 'Porcentaje de niñas y niños usuarios del PNCM menores de 24 meses de edad con paquete integrado de servicios',
@@ -538,7 +538,7 @@ const FICHAS_TECNICAS_DB = {
     'frecuencia_anemia': {
         code: 'CÓDIGO 13 (INDICADOR 4)',
         area: 'MIDIS-PNCM CUNA MÁS',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 13 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
         title: 'Porcentaje de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con dosaje de hemoglobina y diagnóstico anemia',
         definition: 'Este indicador permite medir la proporción de niñas y niños de 6 a 35 meses de edad usuarios del PNCM con anemia.',
         numerator: 'A = Número de niñas y niños de 6 a 35 meses de edad, usuarios del PNCM, que cumplen con la definición del denominador y presentan diagnóstico de anemia.',
@@ -593,7 +593,7 @@ const FICHAS_TECNICAS_DB = {
     'npr': {
         code: 'PLAN MULTISECTORIAL (OBJ. 1)',
         area: 'MINSA / MIDIS / GL',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Propuesta Metodológica UOAI-PNCM • Base HIS MINSA / Padrón PNCM',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Propuesta Metodológica UOAI-PNCM • Base HIS MINSA / Padrón PNCM',
         title: 'Porcentaje de niñas y niños de 6 a 35 meses con anemia que se recuperan (Hb >= 11.0 g/dL)',
         definition: 'Este indicador permite medir la proporción de niñas y niños usuarios del PNCM con diagnóstico de anemia que logran la recuperación de sus niveles de hemoglobina.',
         numerator: 'A = Número total de niñas y niños de 6 a 35 meses de edad, usuarios del PNCM con anemia que en su evaluación de seguimiento alcanzaron niveles normales de hemoglobina (Hb >= 11.0 g/dL).',
@@ -603,7 +603,7 @@ const FICHAS_TECNICAS_DB = {
     'gestantes_anemia': {
         code: 'CÓDIGO 10 (INDICADOR 1)',
         area: 'MIDIS-PNCM CUNA MÁS',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
         title: 'Porcentaje de gestantes usuarias del PNCM con anemia',
         definition: 'Este indicador permite medir la proporción de gestantes usuarias del PNCM con anemia.',
         numerator: 'A = Número de gestantes usuarias del PNCM con diagnóstico de anemia.',
@@ -659,9 +659,9 @@ const FICHAS_TECNICAS_DB = {
     'act_415': {
         code: 'ACTIVIDAD ESTRATÉGICA 4.15',
         area: 'PNCM / PLAN MULTISECTORIAL',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Padrón Nominal PNCM (SCD)',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Padrón Nominal PNCM (SCD)',
         title: 'Act. 4.15: Atención integral en niñas y niños de 6 a 36 meses (SCD)',
-        definition: 'Actividad estratégica 4.15 asignada directamente al PNCM en el Objetivo Específico 4 del Plan Multisectorial (DS 002-2024-MIDIS). Meta física anual constante: 67,387 niños/as.',
+        definition: 'Actividad estratégica 4.15 asignada directamente al PNCM en el Objetivo Específico 4 del Plan Multisectorial (DS 002-2024-MINSA). Meta física anual constante: 67,387 niños/as.',
         numerator: 'A = Cobertura acumulada de atención integral en locales CIAI (SCD).',
         denominator: 'B = Meta física anual del Plan Multisectorial (67,387 niños/as).',
         his_codes: ['Padrón Nominal Servicio de Cuidado Diurno (SCD)']
@@ -669,7 +669,7 @@ const FICHAS_TECNICAS_DB = {
     'act_413': {
         code: 'ACTIVIDAD ESTRATÉGICA 4.13',
         area: 'PNCM / PLAN MULTISECTORIAL',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Registro de Capacitaciones PNCM (SCD)',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Registro de Capacitaciones PNCM (SCD)',
         title: 'Act. 4.13: Capacitación a actores comunales de Cuidado Diurno (SCD)',
         definition: 'Actividad estratégica 4.13 del Plan Multisectorial orientada al fortalecimiento de capacidades del equipo técnico y actores comunales de SCD. Meta física anual constante: 18,899 personas.',
         numerator: 'A = Número de actores comunales y equipo técnico de SCD capacitados en prevención de anemia.',
@@ -679,7 +679,7 @@ const FICHAS_TECNICAS_DB = {
     'act_412': {
         code: 'ACTIVIDAD ESTRATÉGICA 4.12',
         area: 'PNCM / PLAN MULTISECTORIAL',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Padrón Nominal PNCM (SAF)',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Padrón Nominal PNCM (SAF)',
         title: 'Act. 4.12: Visitas de Acompañamiento Familiar (SAF)',
         definition: 'Actividad estratégica 4.12 del Plan Multisectorial mediante visitas semanales a hogares y sesiones de socialización. Meta física anual constante: 277,283 familias.',
         numerator: 'A = Cobertura acumulada de familias en acompañamiento familiar (SAF).',
@@ -689,7 +689,7 @@ const FICHAS_TECNICAS_DB = {
         'gestantes_anemia': {
         code: 'CÓDIGO 10 (INDICADOR I.4.3)',
         area: 'MIDIS-PNCM CUNA MÁS',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Ficha Técnica Cód. 10 DGSE-MIDIS • Base HIS MINSA / Padrón PNCM',
         title: 'Porcentaje de gestantes usuarias del PNCM con anemia',
         definition: 'Este indicador permite medir la proporción de gestantes usuarias del PNCM con diagnóstico definitivo de anemia durante el último trimestre de gestación.',
         numerator: 'A = Número de gestantes usuarias del PNCM (SAF) con parto en el período que presentan diagnóstico definitivo de anemia en el último trimestre (código O990, D509, D500, D649 con tipo D).',
@@ -761,7 +761,7 @@ const FICHAS_TECNICAS_DB = {
     'act_414': {
         code: 'ACTIVIDAD ESTRATÉGICA 4.14',
         area: 'PNCM / PLAN MULTISECTORIAL',
-        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MIDIS) • Registro de Capacitaciones PNCM (SAF)',
+        source: 'Fuente Oficial: Plan Multisectorial Anemia (D.S. N° 002-2024-MINSA) • Registro de Capacitaciones PNCM (SAF)',
         title: 'Act. 4.14: Capacitación a actores comunales de Acompañamiento (SAF)',
         definition: 'Actividad estratégica 4.14 del Plan Multisectorial orientada al fortalecimiento de capacidades del equipo técnico y actores comunales de SAF. Meta física anual constante: 27,877 personas.',
         numerator: 'A = Número de actores comunales y equipo técnico de SAF capacitados en prevención de anemia.',

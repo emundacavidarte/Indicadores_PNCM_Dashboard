@@ -480,7 +480,7 @@
                     <div class="kpi-group-section">
                         <div class="group-title-bar">
                             <i class="fa-solid fa-list-check icon-blue"></i>
-                            <span>Actividades Estratégicas y Metas Físicas del PNCM (Plan Multisectorial D.S. N° 002-2024-MIDIS)</span>
+                            <span>Actividades Estratégicas y Metas Físicas del PNCM (Plan Multisectorial D.S. N° 002-2024-MINSA)</span>
                         </div>
                         <div class="kpi-grid grid-4col">
                             <!-- 1. ACT 4.15: ATENCIÓN INTEGRAL SCD -->
@@ -537,11 +537,11 @@
                         </div>
                     </div>
 
-                    <!-- PANEL 3: PLAN MULTISECTORIAL DE LUCHA CONTRA LA ANEMIA (D.S. N° 002-2024-MIDIS) -->
+                    <!-- PANEL 3: PLAN MULTISECTORIAL DE LUCHA CONTRA LA ANEMIA (D.S. N° 002-2024-MINSA) -->
                     <div class="kpi-group-section">
                         <div class="group-title-bar">
                             <i class="fa-solid fa-ribbon icon-danger"></i>
-                            <span>Plan Multisectorial de Lucha Contra la Anemia (D.S. N° 002-2024-MIDIS)</span>
+                            <span>Plan Multisectorial de Lucha Contra la Anemia (D.S. N° 002-2024-MINSA)</span>
                         </div>
                         <div class="kpi-grid grid-3col">
                             <!-- 1. FRECUENCIA DE ANEMIA EN NIÑOS (6-35M) -->
@@ -819,7 +819,13 @@
                         <h3 id="fTitle">Ficha Técnica de Indicador</h3>
                     </div>
                 </div>
-                <button id="btnCloseFichaModal" class="btn-modal-close" title="Cerrar Ficha Técnica">&times;</button>
+                <div class="ficha-header-actions">
+                    <a id="btnDownloadFichaPdf" href="Paquete_Priorizado/Fichas_Indicadores_Paquete_Priorizado.pdf" target="_blank" download="Ficha_Indicador.pdf" class="btn-download-pdf" title="Descargar Ficha Técnica en PDF">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span>Descargar PDF</span>
+                    </a>
+                    <button id="btnCloseFichaModal" class="btn-modal-close" title="Cerrar Ficha Técnica">&times;</button>
+                </div>
             </div>
 
             <!-- CURRENT AMBIT VALUE BAR -->
@@ -863,10 +869,15 @@
                         </div>
                         <p id="fDenominator" class="box-text"></p>
                     </div>
+                </div>
             </div>
 
             <div class="ficha-modal-footer">
                 <span id="fSourceFooter"><i class="fa-solid fa-shield-halved"></i> Fuente Oficial: Base de datos HIS MINSA / Padrón Nominal PNCM &bull; Fichas Técnicas Tablero de Control DGSE-MIDIS</span>
+                <a id="btnDownloadMasterPdf" href="Paquete_Priorizado/Fichas_Indicadores_Paquete_Priorizado.pdf" target="_blank" download="Fichas_Indicadores_Paquete_Priorizado.pdf" class="btn-download-master-pdf" title="Descargar documento oficial completo (Fichas Indicadores Paquete Priorizado)">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Doc. Oficial Completo (PDF)</span>
+                </a>
             </div>
         </div>
     </div>
