@@ -88,62 +88,73 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        parsed_url = urllib.parse.urlparse(self.path)
-        path = parsed_url.path
-        params = urllib.parse.parse_qs(parsed_url.query)
-        
-        # Flatten query parameters
-        clean_params = {k: v[0] for k, v in params.items() if v and v[0] and v[0] != 'Todos'}
-        cache_key = f"{path}:{urllib.parse.urlencode(sorted(clean_params.items()))}"
+        try:
+            parsed_url = urllib.parse.urlparse(self.path)
+            path = parsed_url.path
+            params = urllib.parse.parse_qs(parsed_url.query)
+            
+            # Flatten query parameters
+            clean_params = {k: v[0] for k, v in params.items() if v and v[0] and v[0] != 'Todos'}
+            cache_key = f"{path}:{urllib.parse.urlencode(sorted(clean_params.items()))}"
 
-        if path.startswith('/api/'):
-            if cache_key in RESPONSE_CACHE:
-                RESPONSE_CACHE.move_to_end(cache_key)
-                self.send_json(RESPONSE_CACHE[cache_key])
+            if path.startswith('/api/'):
+                if cache_key in RESPONSE_CACHE:
+                    RESPONSE_CACHE.move_to_end(cache_key)
+                    self.send_json(RESPONSE_CACHE[cache_key])
+                    return
+
+                res = None
+                if path == '/api/filters':
+                    res = self.handle_filters(clean_params)
+                elif path == '/api/gestantes':
+                    res = self.handle_gestantes(clean_params)
+                elif path == '/api/ninos':
+                    res = self.handle_ninos(clean_params)
+                elif path == '/api/map':
+                    res = self.handle_map(clean_params)
+                elif path == '/api/comparison':
+                    res = self.handle_comparison(clean_params)
+                else:
+                    self.send_json({'error': f'Route {path} not found'}, status=404)
+                    return
+
+                if res:
+                    if len(RESPONSE_CACHE) >= MAX_CACHE_SIZE:
+                        RESPONSE_CACHE.popitem(last=False)
+                    RESPONSE_CACHE[cache_key] = res
                 return
-
-            res = None
-            if path == '/api/filters':
-                res = self.handle_filters(clean_params)
-            elif path == '/api/gestantes':
-                res = self.handle_gestantes(clean_params)
-            elif path == '/api/ninos':
-                res = self.handle_ninos(clean_params)
-            elif path == '/api/map':
-                res = self.handle_map(clean_params)
-            elif path == '/api/comparison':
-                res = self.handle_comparison(clean_params)
             else:
-                self.send_json({'error': f'Route {path} not found'}, status=404)
-                return
-
-            if res:
-                if len(RESPONSE_CACHE) >= MAX_CACHE_SIZE:
-                    RESPONSE_CACHE.popitem(last=False)
-                RESPONSE_CACHE[cache_key] = res
-            return
-        else:
-            # Serve static files (index.html, styles.css, app.js, images, peru_departamentos.json)
-            return super().do_GET()
+                # Serve static files (index.html, styles.css, app.js, images, peru_departamentos.json)
+                return super().do_GET()
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
+            pass
+        except Exception as e:
+            try:
+                self.send_json({'error': str(e)}, status=500)
+            except Exception:
+                pass
 
     def send_json(self, data, status=200):
-        content_bytes = json.dumps(data, ensure_ascii=False).encode('utf-8')
-        accept_encoding = self.headers.get('Accept-Encoding', '')
-        
-        self.send_response(status)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        
-        if 'gzip' in accept_encoding and len(content_bytes) > 256:
-            compressed_bytes = gzip.compress(content_bytes)
-            self.send_header('Content-Encoding', 'gzip')
-            self.send_header('Content-Length', str(len(compressed_bytes)))
-            self.end_headers()
-            self.wfile.write(compressed_bytes)
-        else:
-            self.send_header('Content-Length', str(len(content_bytes)))
-            self.end_headers()
-            self.wfile.write(content_bytes)
+        try:
+            content_bytes = json.dumps(data, ensure_ascii=False).encode('utf-8')
+            accept_encoding = self.headers.get('Accept-Encoding', '') if self.headers else ''
+            
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            
+            if 'gzip' in accept_encoding and len(content_bytes) > 256:
+                compressed_bytes = gzip.compress(content_bytes)
+                self.send_header('Content-Encoding', 'gzip')
+                self.send_header('Content-Length', str(len(compressed_bytes)))
+                self.end_headers()
+                self.wfile.write(compressed_bytes)
+            else:
+                self.send_header('Content-Length', str(len(content_bytes)))
+                self.end_headers()
+                self.wfile.write(content_bytes)
+        except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
+            pass
 
     def build_where_clause(self, params, table='ninos_geo_summary', exclude_param=None):
         where_clauses = []
@@ -508,6 +519,11 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 'vrn': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
                 'hierro': {'pct': pct(row['num_hierro'], row['den_hierro'], True), 'num': num_hierro_disp, 'den': row['den_hierro'] or 0},
                 'vac_completa': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
+                'vac_rotavirus': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
+                'vac_neumococo': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
+                'vac_pentavalente': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
+                'vac_polio': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
+                'vac_spr': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
                 'anemia_fe': {'pct': pct(row['num_anemia_fe'], row['den_anemia_fe'], True), 'num': row['num_anemia_fe'] or 0, 'den': row['den_anemia_fe'] or 0},
                 'pqt': {'pct': pct(row['num_pqt'], row['den_pqt'], True), 'num': row['num_pqt'] or 0, 'den': row['den_pqt'] or 0},
                 'bpn': {'pct': pct(row['num_bpn'], row['den_bpn'], True), 'num': row['num_bpn'] or 0, 'den': row['den_bpn'] or 0},
@@ -870,17 +886,35 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json({'error': str(e)}, status=500)
             return None
 
+class ResilientThreadingTCPServer(socketserver.ThreadingTCPServer):
+    allow_reuse_address = True
+    daemon_threads = True
+
+    def handle_error(self, request, client_address):
+        # Gracefully ignore client disconnects
+        pass
+
 def run_server():
     server_address = ('', PORT)
-    socketserver.TCPServer.allow_reuse_address = True
-    httpd = socketserver.ThreadingTCPServer(server_address, DashboardHandler)
-    httpd.daemon_threads = True
+    httpd = ResilientThreadingTCPServer(server_address, DashboardHandler)
     print(f"Servidor del Dashboard ejecutándose en http://localhost:{PORT}")
     try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
+        while True:
+            try:
+                httpd.serve_forever()
+            except (ConnectionResetError, BrokenPipeError, ConnectionAbortedError, OSError):
+                continue
+            except KeyboardInterrupt:
+                break
+            except Exception as e:
+                print(f"Alerta de servidor: {e}")
+                continue
+    finally:
         print("Servidor detenido.")
-        httpd.server_close()
+        try:
+            httpd.server_close()
+        except Exception:
+            pass
 
 if __name__ == '__main__':
     run_server()

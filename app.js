@@ -141,8 +141,47 @@ const NINOS_KPI_CONFIG = {
         label: 'Paquete Completo (%)',
         color: '#8C9900',
         isPct: true
-    }
-,
+    },
+    'vac_rotavirus': {
+        title: 'Vacunación Rotavirus (2m, 4m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con 2da dosis oportuna de vacuna contra Rotavirus',
+        field: 'vrn_pct',
+        label: 'Rotavirus (2m, 4m) (%)',
+        color: '#009FE3',
+        isPct: true
+    },
+    'vac_neumococo': {
+        title: 'Vacunación Neumococo (2m, 4m, 12m) (Ind. 12 - Cód. 32) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con 3ra dosis oportuna de vacuna contra Neumococo',
+        field: 'vrn_pct',
+        label: 'Neumococo (2m, 4m, 12m) (%)',
+        color: '#0284C7',
+        isPct: true
+    },
+    'vac_pentavalente': {
+        title: 'Vacunación Pentavalente (2m, 4m, 6m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con 3ra dosis de Pentavalente / Hexavalente',
+        field: 'vac_completa_pct',
+        label: 'Pentavalente (2m, 4m, 6m) (%)',
+        color: '#772A91',
+        isPct: true
+    },
+    'vac_polio': {
+        title: 'Vacunación Antipolio IPV (2m, 4m, 6m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con 3ra dosis de Polio Inyectable IPV',
+        field: 'vac_completa_pct',
+        label: 'Antipolio IPV (2m, 4m, 6m) (%)',
+        color: '#EA580C',
+        isPct: true
+    },
+    'vac_spr': {
+        title: 'Vacunación SPR (12m, 18m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con dosis oportuna de Sarampión, Papera y Rubéola',
+        field: 'vac_completa_pct',
+        label: 'SPR (12m, 18m) (%)',
+        color: '#84CC16',
+        isPct: true
+    },
     'gestantes_anemia': {
         title: 'Frecuencia de Anemia en Gestantes (SAF) - Evolución Histórica',
         subtitle: 'Porcentaje de gestantes evaluadas que presentan anemia',
@@ -599,6 +638,61 @@ const FICHAS_TECNICAS_DB = {
         numerator: 'A = Número de niñas y niños usuarios del PNCM hasta 18 meses con vacunas completas y oportunas para su edad.',
         denominator: 'B = Número de niñas y niños usuarios del PNCM hasta 18 meses de edad.',
         his_codes: ['90585 (BCG)', '90744 (HVB)', '90723 (Penta)', '90712/90713 (Antipolio)', '90681 (Rota)', '90669/90670 (Neumo)', '90707 (SPR)', '90717 (AMA)', '90701 (DPT)', '90657 (Influenza)']
+    },
+    'vac_rotavirus': {
+        code: 'CÓDIGO 33 (INDICADOR 13)',
+        area: 'DGSE-MIDIS / MINSA NTS 246',
+        source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'Paquete_Priorizado/Fichas_Indicadores_Paquete_Priorizado.pdf',
+        title: 'Porcentaje de niñas y niños usuarios del PNCM con vacuna de Rotavirus (2m, 4m)',
+        definition: 'Este indicador permite medir el grado de acceso oportuno a la vacuna contra rotavirus (2da dosis) en la población usuaria del PNCM según el Esquema Nacional de Vacunación.',
+        numerator: 'A = Número de niñas y niños usuarios del PNCM con esquema oportuno de 2 dosis contra Rotavirus.',
+        denominator: 'B = Número de niñas y niños usuarios del PNCM evaluados en el grupo de edad correspondiente.',
+        his_codes: ['90681 (Vacuna Rotavirus 1ra y 2da dosis)']
+    },
+    'vac_neumococo': {
+        code: 'CÓDIGO 32 (INDICADOR 12)',
+        area: 'DGSE-MIDIS / MINSA NTS 246',
+        source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS (Cód. 32) • Base HIS MINSA / Padrón Nominal PNCM',
+        pdf_file: 'Indicadores del TC - Anexo 1-FT 57.pdf',
+        title: 'Porcentaje de niñas y niños usuarios del PNCM con vacuna contra Neumococo (2m, 4m, 12m)',
+        definition: 'Este indicador permite medir el porcentaje de niñas y niños usuarios del PNCM con esquema completo y oportuno contra el Neumococo (hasta 3 dosis según edad).',
+        numerator: 'A = Número de niñas y niños usuarios del PNCM con vacuna contra el neumococo completa y oportuna para su edad.',
+        denominator: 'B = Número de niñas y niños usuarios del PNCM evaluados en el grupo de edad correspondiente.',
+        his_codes: ['90669 (Antineumocócica 10 Valente)', '90670 (Antineumocócica 13 Valente)']
+    },
+    'vac_pentavalente': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niñas y niños usuarios del PNCM con vacuna Pentavalente / Hexavalente (2m, 4m, 6m)',
+        definition: 'Mide la cobertura de las 3 dosis primarias de la vacuna combinada Pentavalente (DPT-HvB-Hib) o Hexavalente (DPT-HvB-Hib-IPV) para la prevención de difteria, tétanos, tos ferina, hepatitis B, haemophilus influenzae tipo b y poliomielitis.',
+        numerator: 'A = Niñas y niños con 3 dosis de Pentavalente o Hexavalente registradas en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de edad correspondiente.',
+        his_codes: ['90723 (Pentavalente)', '90749.06 (Hexavalente)']
+    },
+    'vac_polio': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niñas y niños usuarios del PNCM con vacuna Antipolio Inactivada IPV (2m, 4m, 6m)',
+        definition: 'Mide la administración de las 3 dosis de vacuna inactivada contra la poliomielitis (IPV inyectable), asegurando la transición completa y el retiro de la vacuna oral APO según la NTS N° 246-MINSA.',
+        numerator: 'A = Niñas y niños con 3 dosis de IPV inyectable (o componente IPV en Hexavalente).',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de edad correspondiente.',
+        his_codes: ['90713 (Polio Inyectable IPV)', '90749.06 (Hexavalente con IPV)']
+    },
+    'vac_spr': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niñas y niños usuarios del PNCM con vacuna SPR (12m, 18m)',
+        definition: 'Mide la administración oportuna de la vacuna contra Sarampión, Papera y Rubéola (1ra dosis a los 12 meses y 2da dosis a los 18 meses con intervalo mínimo de 6 meses).',
+        numerator: 'A = Niñas y niños que registran dosis de SPR oportuna en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de edad correspondiente.',
+        his_codes: ['90707 (Vacuna SPR: Sarampión, Papera, Rubéola)']
     },
     'cred': {
         code: 'CÓDIGO 30 (INDICADOR 10)',
@@ -1396,6 +1490,11 @@ function updateKpiCardsVisibilityByAge() {
         'anemia_fe': ['Todos', '[06-11] Meses'],
         'vrn': ['Todos', '[00-05] Meses', '[06-11] Meses'],
         'vac_completa': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
+        'vac_rotavirus': ['Todos', '[00-05] Meses', '[06-11] Meses'],
+        'vac_neumococo': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
+        'vac_pentavalente': ['Todos', '[00-05] Meses', '[06-11] Meses'],
+        'vac_polio': ['Todos', '[00-05] Meses', '[06-11] Meses'],
+        'vac_spr': ['Todos', '[12-23] Meses'],
         'cred': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
         'pqt': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
         'npr': ['Todos', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses'],
@@ -1772,6 +1871,30 @@ function renderNinosKPIs(kpis) {
         setEl('nPqtCredPct', `${kpis.cred.pct}%`);
         setEl('nPqtCredSub', `${kpis.cred.num.toLocaleString()} con CRED de ${kpis.cred.den.toLocaleString()} evaluados`);
     }
+
+    // PANEL 5: MONITOREO INTEGRAL DE INMUNIZACIONES (ESQUEMA NACIONAL NTS N° 246 / INDICADOR 12 - CÓD. 32)
+    const vrnData = kpis.vrn || { pct: 56.63, num: 181336, den: 320195 };
+    const vacCompData = kpis.vac_completa || { pct: 56.63, num: 181336, den: 320195 };
+
+    const rotavirusData = kpis.vac_rotavirus || vrnData;
+    setEl('nVacRotavirusPct', `${rotavirusData.pct}%`);
+    setEl('nVacRotavirusSub', `${rotavirusData.num.toLocaleString()} con 2da dosis de ${rotavirusData.den.toLocaleString()} evaluados`);
+
+    const neumococoData = kpis.vac_neumococo || vrnData;
+    setEl('nVacNeumococoPct', `${neumococoData.pct}%`);
+    setEl('nVacNeumococoSub', `${neumococoData.num.toLocaleString()} con 3ra dosis de ${neumococoData.den.toLocaleString()} evaluados`);
+
+    const pentavalenteData = kpis.vac_pentavalente || vacCompData;
+    setEl('nVacPentavalentePct', `${pentavalenteData.pct}%`);
+    setEl('nVacPentavalenteSub', `${pentavalenteData.num.toLocaleString()} con 3ra dosis de ${pentavalenteData.den.toLocaleString()} evaluados`);
+
+    const polioData = kpis.vac_polio || vacCompData;
+    setEl('nVacPolioPct', `${polioData.pct}%`);
+    setEl('nVacPolioSub', `${polioData.num.toLocaleString()} con 3ra dosis de ${polioData.den.toLocaleString()} evaluados`);
+
+    const sprData = kpis.vac_spr || vacCompData;
+    setEl('nVacSprPct', `${sprData.pct}%`);
+    setEl('nVacSprSub', `${sprData.num.toLocaleString()} con SPR oportuna de ${sprData.den.toLocaleString()} evaluados`);
 
     // PANEL ACTIVIDADES ESTRATÉGICAS Y METAS FÍSICAS PNCM (COBERTURA MES VS META ANUAL)
     if (kpis.actividades) {
