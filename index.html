@@ -21,7 +21,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css?v=20260810_flex_fix">
+    <link rel="stylesheet" href="styles.css?v=20260819_v12">
 </head>
 <body class="theme-todos">
 
@@ -54,6 +54,11 @@
                     <button type="button" id="btnToggleSidebar" class="btn-toggle-sidebar" title="Consola de Filtros" aria-label="Abrir consola de filtros">
                         <i class="fa-solid fa-bars"></i>
                         <span class="btn-filter-label">Filtros</span>
+                        <span id="activeFiltersBadge" class="active-filters-badge" style="display: none;">0</span>
+                    </button>
+                    <button type="button" id="btnQuickClearFilters" class="btn-quick-clear" title="Restablecer todos los filtros al total nacional" style="display: none;">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Limpiar</span>
                     </button>
                     <div class="nav-tabs-divider"></div>
                     <div class="nav-tabs-scroll">
@@ -68,6 +73,23 @@
                         <button type="button" class="tab-btn" data-tab="tabComparativo">
                             <i class="fa-solid fa-code-compare"></i>
                             <span>Comparación de Periodos</span>
+                        </button>
+                    </div>
+                    <div class="nav-tabs-divider"></div>
+                    <!-- QUICK SERVICE SELECTOR PILLS -->
+                    <div class="service-pills" id="headerServicePills">
+                        <span class="service-filter-label"><i class="fa-solid fa-layer-group"></i> Servicio:</span>
+                        <button type="button" class="service-pill active" data-service="Todos" title="Ver consolidado total SAF + SCD">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span>Todos</span>
+                        </button>
+                        <button type="button" class="service-pill" data-service="SAF" title="Servicio de Acompañamiento a Familias (Rural)">
+                            <i class="fa-solid fa-person-pregnant"></i>
+                            <span>SAF</span>
+                        </button>
+                        <button type="button" class="service-pill" data-service="SCD" title="Servicio de Cuidado Diurno (Centros Infantiles)">
+                            <i class="fa-solid fa-house-chimney-window"></i>
+                            <span>SCD</span>
                         </button>
                     </div>
                 </div>
@@ -259,23 +281,16 @@
         <!-- MAIN CONTENT AREA -->
         <main class="content-area">
 
-            <!-- INSTITUTIONAL ROLE NOTICE (PARTE INFORMATIVA AMARILLA DIT) -->
-            <div id="topInstitutionalBanner" class="institutional-banner banner-green" style="margin-bottom: 16px;">
-                <i id="topBannerIcon" class="fa-solid fa-hands-holding-child banner-icon"></i>
-                <div class="banner-text">
-                    <strong id="topBannerTitle">Monitoreo Nominal del Desarrollo Infantil Temprano (DIT)</strong>
-                    <p id="topBannerDesc">Cuna Más <em>promueve, articula, gestiona y acompaña</em> la vigilancia nominal de CRED, dosaje de hemoglobina, vacunación y entrega oportuna de hierro en coordinación con el sector Salud.</p>
-                </div>
-            </div>
-
-            <!-- SERVICE PASTEL BADGE SUMMARY -->
-            <div id="serviceBadgeBar" class="service-badge-bar">
+            <!-- ACTIVE SERVICE STATUS BADGE -->
+            <div id="serviceBadge" class="service-badge-bar">
                 <div class="service-badge-info">
-                    <span id="serviceBadgeIcon" class="service-badge-icon"><i class="fa-solid fa-layer-group"></i></span>
-                    <span id="serviceBadgeTitle" class="service-badge-title">Todos los Servicios (SAF + SCD)</span>
-                </div>
-                <div id="serviceBadgeSub" class="service-badge-sub">
-                    Monitoreo Integral de Indicadores HIS PNCM
+                    <div id="serviceBadgeIcon" class="service-badge-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <div id="serviceBadgeTitle" class="service-badge-title">Todos los Servicios (SAF + SCD)</div>
+                        <div id="serviceBadgeSub" class="service-badge-sub">Consolidado Nacional de Cobertura e Indicadores HIS PNCM</div>
+                    </div>
                 </div>
             </div>
 
@@ -439,338 +454,1582 @@
             <!-- TAB NIÑOS Y NIÑAS (ACTIVE BY DEFAULT) -->
             <section id="tabNinos" class="tab-pane active">
                 
+                <!-- SEGMENTED EVALUATION MODULE SELECTOR BAR -->
+                <div class="evaluation-module-bar">
+                    <div class="module-bar-header">
+                        <span class="module-bar-title"><i class="fa-solid fa-layer-group"></i> Seleccionar Eje de Evaluación Estratégica:</span>
+                    </div>
+                    <div class="module-selector-pills">
+                        <button type="button" class="module-pill active theme-pqt" data-module="pqt">
+                            <div class="module-pill-icon"><i class="fa-solid fa-box-archive"></i></div>
+                            <span class="pill-title">Paquete Integrado DIT</span>
+                            <span class="pill-badge">FED MC-02 / Cód. 36</span>
+                        </button>
+                        <button type="button" class="module-pill theme-anemia" data-module="anemia">
+                            <div class="module-pill-icon"><i class="fa-solid fa-droplet"></i></div>
+                            <span class="pill-title">Plan Multisectorial Anemia</span>
+                            <span class="pill-badge">D.S. 002-2024-MINSA</span>
+                        </button>
+                        <button type="button" class="module-pill theme-vacunas" data-module="vacunas">
+                            <div class="module-pill-icon"><i class="fa-solid fa-syringe"></i></div>
+                            <span class="pill-title">Inmunizaciones &amp; Vacunas</span>
+                            <span class="pill-badge">NTS 246 / Cód. 32</span>
+                        </button>
+                        <button type="button" class="module-pill theme-cred" data-module="cred">
+                            <div class="module-pill-icon"><i class="fa-solid fa-stethoscope"></i></div>
+                            <span class="pill-title">Controles CRED</span>
+                            <span class="pill-badge">NTS 238 / Cód. 30</span>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- ORGANIZED KPI CARDS SECTIONS (NIÑOS) -->
                 <div class="kpi-sections-container">
                     
-                    <!-- PANEL 1: POBLACIÓN ATENDIDA Y REGISTRO HIS -->
-                    <div class="kpi-group-section">
-                        <div class="group-title-bar">
-                            <i class="fa-solid fa-children icon-purple"></i>
-                            <span>Monitoreo Principal: Población Atendida y Registro HIS</span>
-                        </div>
-                        <div class="kpi-grid grid-2col">
-                            <div class="kpi-card bg-purple" data-kpi="total">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-children"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label">Total Niños(as)</span>
-                                    <span id="nTotal" class="kpi-value">0</span>
-                                    <span class="kpi-sub">Atendidos en SAF/SCD</span>
-                                </div>
+                    <!-- MÓDULO 1: PAQUETE INTEGRADO DIT (FED MC-02 / CÓD. 36) -->
+                    <div id="moduleSectionPqt" class="evaluation-module-section active">
+                        <!-- PANEL 1: POBLACIÓN ATENDIDA Y REGISTRO HIS -->
+                        <div class="kpi-group-section">
+                            <div class="group-title-bar">
+                                <i class="fa-solid fa-children icon-purple"></i>
+                                <span>Monitoreo Principal: Población Atendida y Registro HIS</span>
                             </div>
-
-                            <div class="kpi-card bg-orange" data-kpi="sin_atencion_his">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-user-slash"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Niños(as) atendidos en el Padrón Nominal del programa que no cuentan o no registran atención o evaluación de salud efectuada en el sistema HIS MINSA para el periodo evaluado.">
-                                        Sin Registro HIS <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nSinAtencionPct" class="kpi-value">0.0%</span>
-                                        <span class="kpi-badge badge-danger">Sin Atención</span>
+                            <div class="kpi-grid grid-2col">
+                                <div class="kpi-card bg-purple" data-kpi="total">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-children"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label">Total Niños(as)</span>
+                                        <span id="nTotal" class="kpi-value">0</span>
+                                        <span class="kpi-sub">Atendidos en SAF/SCD</span>
                                     </div>
-                                    <span id="nSinAtencionSub" class="kpi-sub">0 usu. sin atención HIS</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- PANEL 2.5: ACTIVIDADES ESTRATÉGICAS Y METAS FÍSICAS DE CUNA MÁS -->
-                    <div class="kpi-group-section">
-                        <div class="group-title-bar">
-                            <i class="fa-solid fa-list-check icon-blue"></i>
-                            <span>Actividades Estratégicas y Metas Físicas del PNCM (Plan Multisectorial D.S. N° 002-2024-MINSA)</span>
-                        </div>
-                        <div class="kpi-grid grid-4col">
-                            <!-- 1. ACT 4.15: ATENCIÓN INTEGRAL SCD -->
-                            <div class="kpi-card bg-green" data-kpi="act_415">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-bowl-food"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Actividad 4.15: Cobertura de atención integral mensual en CIAI (SCD)">Act. 4.15: Atención Integral SCD</span>
-                                    <div class="kpi-val-row">
-                                        <span id="act415Val" class="kpi-value">64,626</span>
+                                <div class="kpi-card bg-orange" data-kpi="sin_atencion_his">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-user-slash"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Niños(as) atendidos en el Padrón Nominal del programa que no cuentan o no registran atención o evaluación de salud efectuada en el sistema HIS MINSA para el periodo evaluado.">
+                                            Sin Registro HIS <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nSinAtencionPct" class="kpi-value">0.0%</span>
+                                            <span class="kpi-badge badge-danger">Sin Atención</span>
+                                        </div>
+                                        <span id="nSinAtencionSub" class="kpi-sub">0 usu. sin atención HIS</span>
                                     </div>
-                                    <span id="act415Sub" class="kpi-sub">Avance: 95.9Porcentaje de meta (67,387)</span>
-                                </div>
-                            </div>
-
-                            <!-- 2. ACT 4.13: CAPACITACIÓN ACTORES CUIDADO DIURNO SCD -->
-                            <div class="kpi-card bg-blue" data-kpi="act_413">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-user-graduate"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Actividad 4.13: Capacitación a actores comunales de Cuidado Diurno (SCD)">Act. 4.13: Capacitación SCD</span>
-                                    <div class="kpi-val-row">
-                                        <span id="act413Val" class="kpi-value">—</span>
-                                    </div>
-                                    <span id="act413Sub" class="kpi-sub">Meta anual: 18,899</span>
-                                </div>
-                            </div>
-
-                            <!-- 3. ACT 4.12: VISITAS DOMICILIARIAS SAF -->
-                            <div class="kpi-card bg-purple-dark" data-kpi="act_412">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Actividad 4.12: Cobertura de acompañamiento familiar en visitas semanales (SAF)">Act. 4.12: Visitas Acompañamiento</span>
-                                    <div class="kpi-val-row">
-                                        <span id="act412Val" class="kpi-value">255,569</span>
-                                    </div>
-                                    <span id="act412Sub" class="kpi-sub">Avance: 92.2Porcentaje de meta (277,283)</span>
-                                </div>
-                            </div>
-
-                            <!-- 4. ACT 4.14: CAPACITACIÓN ACTORES ACOMPAÑAMIENTO SAF -->
-                            <div class="kpi-card bg-pink" data-kpi="act_414">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-people-roof"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Actividad 4.14: Capacitación a actores comunales del servicio de acompañamiento (SAF)">Act. 4.14: Capacitación SAF</span>
-                                    <div class="kpi-val-row">
-                                        <span id="act414Val" class="kpi-value">—</span>
-                                    </div>
-                                    <span id="act414Sub" class="kpi-sub">Meta anual: 27,877</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- PANEL 3: PLAN MULTISECTORIAL DE LUCHA CONTRA LA ANEMIA (D.S. N° 002-2024-MINSA) -->
-                    <div class="kpi-group-section">
-                        <div class="group-title-bar">
-                            <i class="fa-solid fa-ribbon icon-danger"></i>
-                            <span>Plan Multisectorial de Lucha Contra la Anemia (D.S. N° 002-2024-MINSA)</span>
-                        </div>
-                        <div class="kpi-grid grid-3col">
-                            <!-- 1. FRECUENCIA DE ANEMIA EN NIÑOS (6-35M) -->
-                            <div class="kpi-card bg-danger active-kpi" data-kpi="frecuencia_anemia">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Frecuencia de Anemia en niños de 6 a 35 meses evaluados con dosaje (Meta 2026: 32.3%)">
-                                        Frecuencia de Anemia (6-35m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nAnemiaPct" class="kpi-value">0.0%</span>
-                                        <span class="kpi-badge badge-warning">HIS MINSA</span>
-                                    </div>
-                                    <span id="nAnemiaSub" class="kpi-sub">0 de 0 con anemia</span>
-                                </div>
+                        <!-- PANEL 4: PAQUETE INTEGRADO DE SERVICIOS DIT (<24 MESES - TABLERO DE CONTROL DGSE-MIDIS) -->
+                        <div class="kpi-group-section">
+                            <div class="group-title-bar">
+                                <i class="fa-solid fa-cubes icon-green"></i>
+                                <span>Evaluación del Paquete Integrado de Servicios DIT (&lt;24 Meses - Fichas del Tablero de Control DGSE-MIDIS)</span>
                             </div>
-
-                            <!-- 2. TRATAMIENTO DE ANEMIA CON HIERRO (6-11M) -->
-                            <div class="kpi-card bg-cyan" data-kpi="anemia_fe">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Inicio de Tratamiento Terapéutico con Hierro en lactantes de 6 a 11 meses (Meta 2026: 38.0%)">Tratamiento Hierro (6-11m)</span>
-                                    <div class="kpi-val-row">
-                                        <span id="nAnemiaFePct" class="kpi-value">0.0%</span>
+                            <div class="kpi-grid grid-6col">
+                                <!-- 1. PAQUETE INTEGRADO DE SERVICIOS (IND. 16 - CÓD. 36) -->
+                                <div class="kpi-card bg-green active-kpi" data-kpi="pqt">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-box-open"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 16 - Cód. 36: % de niñas y niños PNCM < 24m con PAQUETE INTEGRADO DE SERVICIOS">
+                                            Paquete Integrado (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtSub" class="kpi-sub">0 de 0 evaluados</span>
                                     </div>
-                                    <span id="nAnemiaFeSub" class="kpi-sub">0 de 0 con anemia</span>
                                 </div>
-                            </div>
 
-                            <!-- 3. RECUPERACIÓN DE ANEMIA (6-35M) -->
-                            <div class="kpi-card bg-green" data-kpi="npr">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Indicador Plan Multisectorial: Porcentaje de niños de 6 a 35 meses con diagnóstico de anemia que se recuperan (Hb >= 11 g/dL en 2do dosaje)">Recuperación Anemia (6-35m)</span>
-                                    <div class="kpi-val-row">
-                                        <span id="nNprPct" class="kpi-value">0.0%</span>
+                                <!-- 2. DOSAJE DE HEMOGLOBINA 170-250 DÍAS (IND. 15 - CÓD. 35) -->
+                                <div class="kpi-card bg-cyan" data-kpi="dosaje_hb">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 15 - Cód. 35: % de niñas y niños PNCM de 170–250 días con dosaje de hemoglobina">
+                                            Dosaje Hb (170-250d) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtDosajePct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtDosajeSub" class="kpi-sub">0 con dosaje de 0 evaluados</span>
                                     </div>
-                                    <span id="nNprSub" class="kpi-sub">0 de 0 recuperados</span>
+                                </div>
+
+                                <!-- 3. SUPLEMENTACIÓN CON HIERRO (IND. 14 - CÓD. 34) -->
+                                <div class="kpi-card bg-pink" data-kpi="hierro">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-pills"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-pills"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 14 - Cód. 34: % de niñas y niños PNCM < 24m que reciben suplementación con hierro">
+                                            Suplementación Hierro (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtHierroPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtHierroSub" class="kpi-sub">0 suplementados de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- 4. CONTROL CRED COMPLETO Y OPORTUNO (IND. 10 - CÓD. 30) -->
+                                <div class="kpi-card bg-green" data-kpi="cred">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-child-reaching"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 10 - Cód. 30: % de niñas y niños PNCM < 24m con CRED completo y oportuno">
+                                            Control CRED (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtCredPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtCredSub" class="kpi-sub">0 de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- 5. VACUNAS NEUMO Y ROTA HASTA 12M (IND. 11 - CÓD. 31) -->
+                                <div class="kpi-card bg-blue" data-kpi="vrn">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-syringe"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 11 - Cód. 31: % de niñas y niños PNCM hasta 12m con vacunas de neumococo y rotavirus">
+                                            Vacunas Neumo/Rota (&le;12m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtVrnPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtVrnSub" class="kpi-sub">0 con vacunas de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- 6. EMISIÓN DNI HASTA 30 DÍAS DE NACIDO (IND. 9 - CÓD. 29) -->
+                                <div class="kpi-card bg-purple-dark" data-kpi="dni_30d">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-id-card"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Ind. 9 - Cód. 29: % de niñas y niños PNCM < 12m con DNI emitido hasta los 30 días de nacido">
+                                            Emisión DNI (&le;30 días) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nPqtDniPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nPqtDniSub" class="kpi-sub">0 con DNI oportuno de 0 evaluados</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- PANEL 4: PAQUETE INTEGRADO DE SERVICIOS DIT (<24 MESES - TABLERO DE CONTROL DGSE-MIDIS) -->
-                    <div class="kpi-group-section">
-                        <div class="group-title-bar">
-                            <i class="fa-solid fa-cubes icon-green"></i>
-                            <span>Evaluación del Paquete Integrado de Servicios DIT (&lt;24 Meses - Fichas del Tablero de Control DGSE-MIDIS)</span>
+                    <!-- MÓDULO 2: PLAN MULTISECTORIAL DE ANEMIA (D.S. N° 002-2024-MINSA) -->
+                    <div id="moduleSectionAnemia" class="evaluation-module-section">
+                        <!-- PANEL 2.5: ACTIVIDADES ESTRATÉGICAS Y METAS FÍSICAS DE CUNA MÁS -->
+                        <div class="kpi-group-section">
+                            <div class="group-title-bar">
+                                <i class="fa-solid fa-list-check icon-blue"></i>
+                                <span>Actividades Estratégicas y Metas Físicas del PNCM (Plan Multisectorial D.S. N° 002-2024-MINSA)</span>
+                            </div>
+                            <div class="kpi-grid grid-4col">
+                                <!-- 1. ACT 4.15: ATENCIÓN INTEGRAL SCD -->
+                                <div class="kpi-card bg-green" data-kpi="act_415">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-bowl-food"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Actividad 4.15: Cobertura de atención integral mensual en CIAI (SCD)">Act. 4.15: Atención Integral SCD</span>
+                                        <div class="kpi-val-row">
+                                            <span id="act415Val" class="kpi-value">64,626</span>
+                                        </div>
+                                        <span id="act415Sub" class="kpi-sub">Avance: 95.9% de meta (67,387)</span>
+                                    </div>
+                                </div>
+
+                                <!-- 2. ACT 4.13: CAPACITACIÓN ACTORES CUIDADO DIURNO SCD -->
+                                <div class="kpi-card bg-blue" data-kpi="act_413">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Actividad 4.13: Capacitación a actores comunales de Cuidado Diurno (SCD)">Act. 4.13: Capacitación SCD</span>
+                                        <div class="kpi-val-row">
+                                            <span id="act413Val" class="kpi-value">—</span>
+                                        </div>
+                                        <span id="act413Sub" class="kpi-sub">Meta anual: 18,899</span>
+                                    </div>
+                                </div>
+
+                                <!-- 3. ACT 4.12: VISITAS DOMICILIARIAS SAF -->
+                                <div class="kpi-card bg-purple-dark" data-kpi="act_412">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Actividad 4.12: Cobertura de acompañamiento familiar en visitas semanales (SAF)">Act. 4.12: Visitas Acompañamiento</span>
+                                        <div class="kpi-val-row">
+                                            <span id="act412Val" class="kpi-value">255,569</span>
+                                        </div>
+                                        <span id="act412Sub" class="kpi-sub">Avance: 92.2% de meta (277,283)</span>
+                                    </div>
+                                </div>
+
+                                <!-- 4. ACT 4.14: CAPACITACIÓN ACTORES ACOMPAÑAMIENTO SAF -->
+                                <div class="kpi-card bg-pink" data-kpi="act_414">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-people-roof"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Actividad 4.14: Capacitación a actores comunales del servicio de acompañamiento (SAF)">Act. 4.14: Capacitación SAF</span>
+                                        <div class="kpi-val-row">
+                                            <span id="act414Val" class="kpi-value">—</span>
+                                        </div>
+                                        <span id="act414Sub" class="kpi-sub">Meta anual: 27,877</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="kpi-grid grid-6col">
-                            <!-- 1. PAQUETE INTEGRADO DE SERVICIOS (IND. 16 - CÓD. 36) -->
-                            <div class="kpi-card bg-green active-kpi" data-kpi="pqt">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-box-open"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 16 - Cód. 36: % de niñas y niños PNCM < 24m con PAQUETE INTEGRADO DE SERVICIOS">
-                                        Paquete Integrado (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtPct" class="kpi-value">0.0%</span>
-                                    </div>
-                                    <span id="nPqtSub" class="kpi-sub">0 de 0 evaluados</span>
-                                </div>
-                            </div>
 
-                            <!-- 2. DOSAJE DE HEMOGLOBINA 170-250 DÍAS (IND. 15 - CÓD. 35) -->
-                            <div class="kpi-card bg-cyan" data-kpi="dosaje_hb">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-notes-medical"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 15 - Cód. 35: % de niñas y niños PNCM de 170–250 días con dosaje de hemoglobina">
-                                        Dosaje Hb (170-250d) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtDosajePct" class="kpi-value">0.0%</span>
-                                    </div>
-                                    <span id="nPqtDosajeSub" class="kpi-sub">0 con dosaje de 0 evaluados</span>
-                                </div>
+                        <!-- PANEL 3: PLAN MULTISECTORIAL DE LUCHA CONTRA LA ANEMIA (D.S. N° 002-2024-MINSA) -->
+                        <div class="kpi-group-section">
+                            <div class="group-title-bar">
+                                <i class="fa-solid fa-ribbon icon-danger"></i>
+                                <span>Plan Multisectorial de Lucha Contra la Anemia (D.S. N° 002-2024-MINSA)</span>
                             </div>
-
-                            <!-- 3. SUPLEMENTACIÓN CON HIERRO (IND. 14 - CÓD. 34) -->
-                            <div class="kpi-card bg-pink" data-kpi="hierro">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-pills"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 14 - Cód. 34: % de niñas y niños PNCM < 24m que reciben suplementación con hierro">
-                                        Suplementación Hierro (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtHierroPct" class="kpi-value">0.0%</span>
+                            <div class="kpi-grid grid-3col">
+                                <!-- 1. FRECUENCIA DE ANEMIA EN NIÑOS (6-35M) -->
+                                <div class="kpi-card bg-danger active-kpi" data-kpi="frecuencia_anemia">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Indicador Plan Multisectorial: Frecuencia de Anemia en niños de 6 a 35 meses evaluados con dosaje (Meta 2026: 32.3%)">
+                                            Frecuencia de Anemia (6-35m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
+                                        </span>
+                                        <div class="kpi-val-row">
+                                            <span id="nAnemiaPct" class="kpi-value">0.0%</span>
+                                            <span class="kpi-badge badge-warning">HIS MINSA</span>
+                                        </div>
+                                        <span id="nAnemiaSub" class="kpi-sub">0 de 0 con anemia</span>
                                     </div>
-                                    <span id="nPqtHierroSub" class="kpi-sub">0 suplementados de 0 evaluados</span>
                                 </div>
-                            </div>
 
-                            <!-- 4. CONTROL CRED COMPLETO Y OPORTUNO (IND. 10 - CÓD. 30) -->
-                            <div class="kpi-card bg-green" data-kpi="cred">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-child-reaching"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 10 - Cód. 30: % de niñas y niños PNCM < 24m con CRED completo y oportuno">
-                                        Control CRED (&lt;24m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtCredPct" class="kpi-value">0.0%</span>
+                                <!-- 2. TRATAMIENTO DE ANEMIA CON HIERRO (6-11M) -->
+                                <div class="kpi-card bg-cyan" data-kpi="anemia_fe">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Indicador Plan Multisectorial: Inicio de Tratamiento Terapéutico con Hierro en lactantes de 6 a 11 meses (Meta 2026: 38.0%)">Tratamiento Hierro (6-11m)</span>
+                                        <div class="kpi-val-row">
+                                            <span id="nAnemiaFePct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nAnemiaFeSub" class="kpi-sub">0 de 0 con anemia</span>
                                     </div>
-                                    <span id="nPqtCredSub" class="kpi-sub">0 de 0 evaluados</span>
                                 </div>
-                            </div>
 
-                            <!-- 5. VACUNAS NEUMO Y ROTA HASTA 12M (IND. 11 - CÓD. 31) -->
-                            <div class="kpi-card bg-blue" data-kpi="vrn">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-syringe"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 11 - Cód. 31: % de niñas y niños PNCM hasta 12m con vacunas de neumococo y rotavirus">
-                                        Vacunas Neumo/Rota (&le;12m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtVrnPct" class="kpi-value">0.0%</span>
+                                <!-- 3. RECUPERACIÓN DE ANEMIA (6-35M) -->
+                                <div class="kpi-card bg-green" data-kpi="npr">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="kpi-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                                    <div class="kpi-content">
+                                        <span class="kpi-label" title="Indicador Plan Multisectorial: Porcentaje de niños de 6 a 35 meses con diagnóstico de anemia que se recuperan (Hb >= 11 g/dL en 2do dosaje)">Recuperación Anemia (6-35m)</span>
+                                        <div class="kpi-val-row">
+                                            <span id="nNprPct" class="kpi-value">0.0%</span>
+                                        </div>
+                                        <span id="nNprSub" class="kpi-sub">0 de 0 recuperados</span>
                                     </div>
-                                    <span id="nPqtVrnSub" class="kpi-sub">0 con vacunas de 0 evaluados</span>
-                                </div>
-                            </div>
-
-                            <!-- 6. EMISIÓN DNI HASTA 30 DÍAS DE NACIDO (IND. 9 - CÓD. 29) -->
-                            <div class="kpi-card bg-purple-dark" data-kpi="dni_30d">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-id-card"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Ind. 9 - Cód. 29: % de niñas y niños PNCM < 12m con DNI emitido hasta los 30 días de nacido">
-                                        Emisión DNI (&le;30 días) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nPqtDniPct" class="kpi-value">0.0%</span>
-                                    </div>
-                                    <span id="nPqtDniSub" class="kpi-sub">0 con DNI oportuno de 0 evaluados</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- PANEL 5: MONITOREO INTEGRAL DE INMUNIZACIONES (ESQUEMA NACIONAL NTS N° 246 / INDICADOR 12 - CÓD. 32) -->
-                    <div class="kpi-group-section">
-                        <div class="group-title-bar group-title-bar-flex">
-                            <div class="group-title-left">
-                                <i class="fa-solid fa-syringe icon-cyan"></i>
-                                <span>Monitoreo Integral de Inmunizaciones (Esquema Nacional NTS N° 246 / Indicador 12 - Cód. 32)</span>
+                    <!-- MÓDULO 3: INMUNIZACIONES & VACUNAS (NTS N° 246 / CÓD. 32) -->
+                    <div id="moduleSectionVacunas" class="evaluation-module-section">
+                        <div class="vac-dashboard-section">
+
+                            <!-- 1. RESUMEN EJECUTIVO (4 KPIS MAESTROS NO REDUNDANTES) -->
+                            <div class="vac-kpi-row-v2">
+                                <!-- CARD 1: NIÑAS Y NIÑOS EVALUADOS -->
+                                <div class="vac-summary-card kpi-card" data-kpi="total">
+                                    <div class="vac-sum-icon icon-blue"><i class="fa-solid fa-users"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Niñas y Niños Evaluados</span>
+                                        <span id="vacExecutiveEvaluadosVal" class="vac-sum-val">123,711</span>
+                                        <span class="vac-sum-sub">Población total en seguimiento nominal PNCM</span>
+                                    </div>
+                                </div>
+
+                                <!-- CARD 2: VACUNACIÓN COMPLETA PARA SU EDAD -->
+                                <div class="vac-summary-card kpi-card" data-kpi="vac_completa">
+                                    <div class="vac-sum-icon icon-green"><i class="fa-solid fa-award"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Esquema Completo para su Edad</span>
+                                        <span id="vacExecutiveCompPct" class="vac-sum-val">16.18%</span>
+                                        <span id="vacExecutiveCompSub" class="vac-sum-sub">20,016 niñas y niños protegidos al 100%</span>
+                                    </div>
+                                </div>
+
+                                <!-- CARD 3: NIÑOS CON VACUNAS PENDIENTES -->
+                                <div class="vac-summary-card">
+                                    <div class="vac-sum-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Con Vacunas Pendientes</span>
+                                        <span id="vacExecutivePendientesVal" class="vac-sum-val">103,695</span>
+                                        <span class="vac-sum-sub">Requieren visita de seguimiento o rescate</span>
+                                    </div>
+                                </div>
+
+                                <!-- CARD 4: RUTA NORMATIVA VIGENTE -->
+                                <div class="vac-summary-card">
+                                    <div class="vac-sum-icon icon-purple"><i class="fa-solid fa-book-medical"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label" style="color: #6D28D9;">Norma Técnica Oficial</span>
+                                        <span style="font-size: 0.88rem; font-weight: 800; color: #1E293B; margin: 2px 0;">NTS N.° 246-MINSA/DGIESP-2026</span>
+                                        <span class="vac-sum-sub">Esquema Nacional de Vacunación (0 a 36 meses)</span>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="badge-esquema-regular"><i class="fa-solid fa-vial"></i> Esquema Regular MINSA</span>
+
+                            <!-- 2. ETAPAS DE VIDA DEL CICLO INFANTIL (4 TARJETAS SELECTORAS) -->
+                            <div class="vac-card">
+                                <div class="vac-card-header">
+                                    <div class="vac-card-title">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                        <span>Selecciona una Etapa de Vida para evaluar</span>
+                                        <i class="fa-solid fa-circle-info info-icon" title="Haz clic en cualquier etapa para desplegar sus vacunas y metas operativas"></i>
+                                    </div>
+                                    <span class="vac-badge-hint"><i class="fa-solid fa-hand-pointer"></i> Haz clic en una etapa o mes</span>
+                                </div>
+
+                                <div class="vac-stages-grid">
+                                    <!-- ETAPA 1: RECIÉN NACIDO -->
+                                    <div class="vac-stage-card" data-stage="rn" data-age-valid="[00-05] Meses,Todos">
+                                        <div class="vac-stage-header">
+                                            <span class="vac-stage-badge badge-purple-soft">RN • 0 meses</span>
+                                            <div class="vac-stage-title-wrap">
+                                                <span class="vac-stage-name">Recién Nacido</span>
+                                                <span class="vac-stage-sub">Protección al nacer</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-body">
+                                            <div id="vacDonutRnRing" class="donut-ring-wrapper" style="background: conic-gradient(#7C3AED 0% 96.0%, #F1F5F9 96.0% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="vacDonutRnVal">96.0%</span>
+                                                </div>
+                                            </div>
+                                            <div class="vac-stage-chips">
+                                                <span class="stage-chip"><i class="fa-solid fa-shield-virus"></i> BCG (&lt;24h)</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-shield-halved"></i> Hepatitis B RN (&lt;12h)</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-footer footer-green">
+                                            <i class="fa-solid fa-circle-check"></i> Cobertura Óptima en nacimientos
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 2: 1ER AÑO (MENORES DE 1 AÑO) -->
+                                    <div class="vac-stage-card active-stage" data-stage="1a_menor" data-age-valid="[00-05] Meses,[06-11] Meses,Todos">
+                                        <div class="vac-stage-header">
+                                            <span class="vac-stage-badge badge-blue-soft">1er Año • 1–11m</span>
+                                            <div class="vac-stage-title-wrap">
+                                                <span class="vac-stage-name">Menores de 1 Año</span>
+                                                <span class="vac-stage-sub">Defensas del lactante</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-body">
+                                            <div id="vacDonutSem1Ring" class="donut-ring-wrapper" style="background: conic-gradient(#0284C7 0% 30.9%, #F1F5F9 30.9% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="vacDonutSem1Val">30.9%</span>
+                                                </div>
+                                            </div>
+                                            <div class="vac-stage-chips">
+                                                <span class="stage-chip"><i class="fa-solid fa-syringe"></i> Pentavalente D1–D3</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-virus"></i> Rotavirus D1–D2</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-lungs"></i> Neumococo D1–D2</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-droplet"></i> Influenza D1–D2</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-footer footer-blue">
+                                            <i class="fa-solid fa-bullseye"></i> Meta: completar 3 dosis primarias
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 3: 2DO AÑO (1 AÑO) -->
+                                    <div class="vac-stage-card" data-stage="1a" data-age-valid="[12-23] Meses,Todos">
+                                        <div class="vac-stage-header">
+                                            <span class="vac-stage-badge badge-green-soft">2do Año • 12–23m</span>
+                                            <div class="vac-stage-title-wrap">
+                                                <span class="vac-stage-name">Niños de 1 Año</span>
+                                                <span class="vac-stage-sub">Refuerzos y Sarampión</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-body">
+                                            <div id="vacDonutSem2Ring" class="donut-ring-wrapper" style="background: conic-gradient(#10B981 0% 0.13%, #F1F5F9 0.13% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="vacDonutSem2Val">0.13%</span>
+                                                </div>
+                                            </div>
+                                            <div class="vac-stage-chips">
+                                                <span class="stage-chip"><i class="fa-solid fa-virus-covid"></i> SPR 1ra y 2da</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-lungs"></i> Neumococo Refuerzo</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-droplet"></i> Hepatitis A / Fiebre Amarilla</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-syringe"></i> DPT 1er Refuerzo</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-footer footer-green">
+                                            <i class="fa-solid fa-triangle-exclamation" style="color: #DC2626;"></i> Atención: completar SPR oportuna
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 4: 3ER AÑO Y EGRESO (2 Y 3 AÑOS) -->
+                                    <div class="vac-stage-card" data-stage="2_3a" data-age-valid="[24-35] Meses,[36] Meses,Todos">
+                                        <div class="vac-stage-header">
+                                            <span class="vac-stage-badge badge-teal-soft">3er Año • 24–36m</span>
+                                            <div class="vac-stage-title-wrap">
+                                                <span class="vac-stage-name">2 y 3 Años</span>
+                                                <span class="vac-stage-sub">Protección anual y egreso</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-body">
+                                            <div id="vacDonutAnio3Ring" class="donut-ring-wrapper" style="background: conic-gradient(#0F766E 0% 72.0%, #F1F5F9 72.0% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="vacDonutAnio3Val">72.0%</span>
+                                                </div>
+                                            </div>
+                                            <div class="vac-stage-chips">
+                                                <span class="stage-chip"><i class="fa-solid fa-droplet"></i> Influenza Anual 2a y 3a</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-disease"></i> Varicela Refuerzo</span>
+                                                <span class="stage-chip"><i class="fa-solid fa-award"></i> Esquema Completo PNCM</span>
+                                            </div>
+                                        </div>
+                                        <div class="vac-stage-footer footer-teal">
+                                            <i class="fa-solid fa-circle-check"></i> Meta: egreso saludable del servicio
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. LÍNEA DE TIEMPO INTERACTIVA SOLA (STEPPER NAVIGATOR) -->
+                            <div class="vac-timeline-navigator">
+                                <div class="vac-timeline-header-bar">
+                                    <div class="vtl-hdr-left">
+                                        <i class="fa-solid fa-timeline icon-blue"></i>
+                                        <span>Ruta Cronológica de Vacunación (Haz clic en cualquier edad para ver sus vacunas)</span>
+                                    </div>
+                                </div>
+                                <div class="vtl-nav-track">
+                                    <div class="vtl-nav-step" data-milestone="rn" data-stage="rn" data-age-valid="[00-05] Meses,Todos">
+                                        <span class="vtl-nav-badge">RN</span>
+                                        <span class="vtl-nav-label">Al nacer</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step active" data-milestone="2m" data-stage="1a_menor" data-age-valid="[00-05] Meses,Todos">
+                                        <span class="vtl-nav-badge">2m</span>
+                                        <span class="vtl-nav-label">2 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="4m" data-stage="1a_menor" data-age-valid="[00-05] Meses,Todos">
+                                        <span class="vtl-nav-badge">4m</span>
+                                        <span class="vtl-nav-label">4 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="6m" data-stage="1a_menor" data-age-valid="[06-11] Meses,Todos">
+                                        <span class="vtl-nav-badge">6m</span>
+                                        <span class="vtl-nav-label">6 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="7m" data-stage="1a_menor" data-age-valid="[06-11] Meses,Todos">
+                                        <span class="vtl-nav-badge">7m</span>
+                                        <span class="vtl-nav-label">7 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="12m" data-stage="1a" data-age-valid="[12-23] Meses,Todos">
+                                        <span class="vtl-nav-badge">12m</span>
+                                        <span class="vtl-nav-label">12 Meses (1a)</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="15m" data-stage="1a" data-age-valid="[12-23] Meses,Todos">
+                                        <span class="vtl-nav-badge">15m</span>
+                                        <span class="vtl-nav-label">15 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="18m" data-stage="1a" data-age-valid="[12-23] Meses,Todos">
+                                        <span class="vtl-nav-badge">18m</span>
+                                        <span class="vtl-nav-label">18 Meses</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="24m" data-stage="2_3a" data-age-valid="[24-35] Meses,Todos">
+                                        <span class="vtl-nav-badge">24m</span>
+                                        <span class="vtl-nav-label">2 Años</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="36m" data-stage="2_3a" data-age-valid="[36] Meses,Todos">
+                                        <span class="vtl-nav-badge">36m</span>
+                                        <span class="vtl-nav-label">3 Años (Egreso)</span>
+                                    </div>
+                                    <div class="vtl-nav-connector"></div>
+
+                                    <div class="vtl-nav-step" data-milestone="all" data-stage="all" data-age-valid="Todos">
+                                        <span class="vtl-nav-badge"><i class="fa-solid fa-list-check"></i></span>
+                                        <span class="vtl-nav-label">Ver Todo</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4. BANNER DE CONTEXTO EN LENGUAJE CLARO PARA NO MÉDICOS -->
+                            <div class="vac-focus-bar">
+                                <div class="vac-focus-left">
+                                    <div class="vac-focus-badge"><i class="fa-solid fa-syringe"></i> Momento Seleccionado</div>
+                                    <span id="vacFocusTitle" class="focus-title">2 Meses • 1ra Serie Primaria del Lactante</span>
+                                </div>
+                                <div class="vac-focus-right">
+                                    <span id="vacFocusPurpose" class="focus-purpose"><i class="fa-solid fa-shield-heart"></i> Previene diarreas graves, neumonías, meningitis y parálisis infantil</span>
+                                    <span id="vacFocusCount" class="focus-count">3 vacunas requeridas</span>
+                                </div>
+                            </div>
+
+                            <!-- 5. PANEL DINÁMICO DE TARJETAS DE VACUNAS -->
+                            <div id="vacCardsGrid" class="vac-cards-grid">
+                                <!-- RECIÉN NACIDO (RN) -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_bcg" data-milestones="rn,all" data-stage="rn">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-shield-virus"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">BCG (Tuberculosis)</div>
+                                                <span class="vac-vcard-age-tag">RN (Primeras 24 horas)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Protege contra formas graves de tuberculosis (meníngea y miliar).</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacBcgPct" class="vac-vcard-pct">96.0%</span>
+                                        <span class="badge-semaforo badge-green"><i class="fa-solid fa-check"></i> Cobertura Óptima</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 96.0%; background: #16A34A;"></div></div>
+                                    <div id="nVacBcgSub" class="vac-vcard-sub">118,762 protegidos de 123,711 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_hvb" data-milestones="rn,all" data-stage="rn">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-shield-halved"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Hepatitis B Pediátrica</div>
+                                                <span class="vac-vcard-age-tag">RN (Primeras 12 horas)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Evita transmisión de madre a hijo de la Hepatitis B y daño hepático.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacHvbPct" class="vac-vcard-pct">94.5%</span>
+                                        <span class="badge-semaforo badge-green"><i class="fa-solid fa-check"></i> Cobertura Óptima</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 94.5%; background: #16A34A;"></div></div>
+                                    <div id="nVacHvbSub" class="vac-vcard-sub">116,907 protegidos de 123,711 evaluados</div>
+                                </div>
+
+                                <!-- 2 MESES -->
+                                <div class="vac-vaccine-card kpi-card active-kpi" data-kpi="vac_pentavalente" data-milestones="2m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-syringe"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Pentavalente / Hexavalente D1</div>
+                                                <span class="vac-vcard-age-tag">2 Meses (1ra Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Protege contra Difteria, Tétanos, Tos Ferina, Hepatitis B y Haemophilus.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacPentaPct" class="vac-vcard-pct">30.88%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 30.88%; background: #0284C7;"></div></div>
+                                    <div id="nVacPentaSub" class="vac-vcard-sub">19,940 con 1ra dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_rotavirus" data-milestones="2m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-virus"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Rotavirus Dosis 1</div>
+                                                <span class="vac-vcard-age-tag">2 Meses (1ra Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Previene diarreas agudas severas y deshidratación infantil.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacRotaPct" class="vac-vcard-pct">44.81%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 44.81%; background: #0891B2;"></div></div>
+                                    <div id="nVacRotaSub" class="vac-vcard-sub">28,939 con 1ra dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_neumococo" data-milestones="2m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-lungs"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Neumococo Dosis 1</div>
+                                                <span class="vac-vcard-age-tag">2 Meses (1ra Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Previene neumonías, meningitis bacteriana e infecciones del oído.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacNeumoPct" class="vac-vcard-pct">44.81%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 44.81%; background: #0891B2;"></div></div>
+                                    <div id="nVacNeumoSub" class="vac-vcard-sub">28,939 con 1ra dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <!-- 4 MESES -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_pentavalente" data-milestones="4m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-syringe"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Pentavalente / Hexavalente D2</div>
+                                                <span class="vac-vcard-age-tag">4 Meses (2da Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Segunda dosis para consolidar inmunidad primaria.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">30.88%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 30.88%; background: #0284C7;"></div></div>
+                                    <div class="vac-vcard-sub">19,940 con 2da dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_rotavirus" data-milestones="4m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-virus"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Rotavirus Dosis 2 (Cierre)</div>
+                                                <span class="vac-vcard-age-tag">4 Meses (2da Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Cierre definitivo del esquema de protección contra diarreas.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">44.81%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 44.81%; background: #0891B2;"></div></div>
+                                    <div class="vac-vcard-sub">28,939 con 2da dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_neumococo" data-milestones="4m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-lungs"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Neumococo Dosis 2</div>
+                                                <span class="vac-vcard-age-tag">4 Meses (2da Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Refuerzo temprano contra neumonía infantil.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">44.81%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 44.81%; background: #0891B2;"></div></div>
+                                    <div class="vac-vcard-sub">28,939 con 2da dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <!-- 6 MESES -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_polio" data-milestones="6m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-syringe"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Antipolio IPV / Pentavalente D3</div>
+                                                <span class="vac-vcard-age-tag">6 Meses (3ra Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Cierre de la serie primaria de protección contra la Poliomielitis.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacPolioPct" class="vac-vcard-pct">30.88%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 30.88%; background: #0284C7;"></div></div>
+                                    <div id="nVacPolioSub" class="vac-vcard-sub">19,940 con 3ra dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_pentavalente" data-milestones="6m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-droplet"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Influenza Pediátrica D1</div>
+                                                <span class="vac-vcard-age-tag">6 Meses (1ra Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Primera dosis de protección estacional contra virus de la Influenza.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">54.20%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 54.20%; background: #0284C7;"></div></div>
+                                    <div class="vac-vcard-sub">35,000 con 1ra dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <!-- 7 MESES -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_polio" data-milestones="7m,all" data-stage="1a_menor">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-droplet"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Influenza Pediátrica D2</div>
+                                                <span class="vac-vcard-age-tag">7 Meses (2da Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Refuerzo mensual indispensable para fijar defensas respiratorias.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">48.60%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 48.60%; background: #0284C7;"></div></div>
+                                    <div class="vac-vcard-sub">31,400 con 2da dosis de 64,575 evaluados</div>
+                                </div>
+
+                                <!-- 12 MESES (1 AÑO) -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_spr1" data-milestones="12m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-green"><i class="fa-solid fa-virus-covid"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">SPR 1ra Dosis (Sarampión)</div>
+                                                <span class="vac-vcard-age-tag">12 Meses (1er Año)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Protección fundamental contra Sarampión, Paperas y Rubéola.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacSpr1Pct" class="vac-vcard-pct">0.13%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> Alerta Crítica</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 0.13%; background: #DC2626;"></div></div>
+                                    <div id="nVacSpr1Sub" class="vac-vcard-sub">76 con 1ra dosis de 59,136 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_neumococo" data-milestones="12m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-lungs"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Neumococo Refuerzo (3ra Dosis)</div>
+                                                <span class="vac-vcard-age-tag">12 Meses (Refuerzo)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Refuerzo para mantener inmunidad contra neumonías en párvulos.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacNeumococoPct" class="vac-vcard-pct">44.81%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 44.81%; background: #0891B2;"></div></div>
+                                    <div id="nVacNeumococoSub" class="vac-vcard-sub">26,500 con refuerzo de 59,136 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_varicela" data-milestones="12m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-pink"><i class="fa-solid fa-disease"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Varicela (Dosis 1)</div>
+                                                <span class="vac-vcard-age-tag">12 Meses (Dosis Única)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Evita brotes y complicaciones de la varicela infantil.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacVaricelaPct" class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #DB2777;"></div></div>
+                                    <div id="nVacVaricelaSub" class="vac-vcard-sub">20,016 con dosis de 123,711 evaluados</div>
+                                </div>
+
+                                <!-- 15 MESES -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_hvb" data-milestones="15m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-orange"><i class="fa-solid fa-droplet"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Hepatitis A</div>
+                                                <span class="vac-vcard-age-tag">15 Meses (Dosis Única)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Protege contra la infección por agua o alimentos contaminados.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacAmaPct" class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #EA580C;"></div></div>
+                                    <div id="nVacAmaSub" class="vac-vcard-sub">20,016 con dosis de 123,711 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_ama" data-milestones="15m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-orange"><i class="fa-solid fa-mosquito"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Antiamarílica (Fiebre Amarilla)</div>
+                                                <span class="vac-vcard-age-tag">15 Meses (Dosis Única)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Protección contra Fiebre Amarilla en zonas endémicas y de selva.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #EA580C;"></div></div>
+                                    <div class="vac-vcard-sub">20,016 con dosis de 123,711 evaluados</div>
+                                </div>
+
+                                <!-- 18 MESES -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_spr2" data-milestones="18m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-green"><i class="fa-solid fa-virus-slash"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">SPR 2da Dosis (Refuerzo)</div>
+                                                <span class="vac-vcard-age-tag">18 Meses (2da Dosis)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Cierre del esquema que erradica el riesgo de sarampión infantil.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacSpr2Pct" class="vac-vcard-pct">0.13%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> Alerta Crítica</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 0.13%; background: #DC2626;"></div></div>
+                                    <div id="nVacSpr2Sub" class="vac-vcard-sub">76 con 2da dosis de 59,136 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_dpt" data-milestones="18m,all" data-stage="1a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-purple"><i class="fa-solid fa-syringe"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">DPT 1er Refuerzo</div>
+                                                <span class="vac-vcard-age-tag">18 Meses (1er Refuerzo)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Primer refuerzo para mantener defensas contra Tos Ferina y Tétanos.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacDptPct" class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #7C3AED;"></div></div>
+                                    <div id="nVacDptSub" class="vac-vcard-sub">20,016 con refuerzo de 123,711 evaluados</div>
+                                </div>
+
+                                <!-- 24 MESES (2 AÑOS) -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_influenza_2a" data-milestones="24m,all" data-stage="2_3a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-droplet"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Influenza Anual (2 Años)</div>
+                                                <span class="vac-vcard-age-tag">24 a 35 Meses</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Dosis anual contra cepas respiratorias estacionales de invierno.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacInf2Pct" class="vac-vcard-pct">72.40%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 72.40%; background: #0284C7;"></div></div>
+                                    <div id="nVacInf2Sub" class="vac-vcard-sub">42,800 con dosis anual de 59,136 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_varicela" data-milestones="24m,all" data-stage="2_3a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-pink"><i class="fa-solid fa-disease"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Varicela (Rescate / Refuerzo)</div>
+                                                <span class="vac-vcard-age-tag">24 Meses (Rescate)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Dosis de rescate para niños que no recibieron dosis a los 12m.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #DB2777;"></div></div>
+                                    <div class="vac-vcard-sub">20,016 con dosis de 123,711 evaluados</div>
+                                </div>
+
+                                <!-- 36 MESES (3 AÑOS / EGRESO PNCM) -->
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_influenza_3a" data-milestones="36m,all" data-stage="2_3a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-droplet"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Influenza Anual (3 Años)</div>
+                                                <span class="vac-vcard-age-tag">36 Meses (Egreso)</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Dosis de protección final para egreso saludable a los 36 meses.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacInf3Pct" class="vac-vcard-pct">68.90%</span>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-clock"></i> En Progreso</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 68.90%; background: #0284C7;"></div></div>
+                                    <div id="nVacInf3Sub" class="vac-vcard-sub">9,650 con dosis anual de 14,012 evaluados</div>
+                                </div>
+
+                                <div class="vac-vaccine-card kpi-card" data-kpi="vac_completa" data-milestones="36m,all" data-stage="2_3a">
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-green"><i class="fa-solid fa-award"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Vacunación Completa ≤36m</div>
+                                                <span class="vac-vcard-age-tag">Meta Egreso PNCM</span>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    </div>
+                                    <div class="vac-vcard-desc">Indicador 12 / Cód. 32: Todas las vacunas normativas al egresar.</div>
+                                    <div class="vac-vcard-val-row">
+                                        <span id="nVacCompGlobalPct" class="vac-vcard-pct">16.18%</span>
+                                        <span class="badge-semaforo badge-red"><i class="fa-solid fa-triangle-exclamation"></i> Meta Crítica</span>
+                                    </div>
+                                    <div class="vac-prog-track"><div class="vac-prog-fill" style="width: 16.18%; background: #16A34A;"></div></div>
+                                    <div id="nVacCompGlobalSub" class="vac-vcard-sub">20,016 con esquema completo de 123,711 evaluados</div>
+                                </div>
+                            </div>
+
+                            <!-- 6. GUÍA DE ACCIÓN OPERATIVA PARA EL FACILITADOR (PERSONAL NO MÉDICO) -->
+                            <div class="vac-action-guide-card">
+                                <div class="vac-guide-header">
+                                    <div class="vac-guide-title">
+                                        <i class="fa-solid fa-clipboard-check"></i>
+                                        <span>Guía de Acción en Campo (Para Facilitadores y Equipos Técnicos PNCM)</span>
+                                    </div>
+                                    <span class="vac-badge-guide"><i class="fa-solid fa-person-walking"></i> Orientación Operativa</span>
+                                </div>
+                                <div class="vac-guide-grid">
+                                    <div class="vac-guide-col guide-green">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-circle-check"></i> Cobertura Óptima (&gt;90%)</div>
+                                        <p>Felicitar a la familia y al Comité de Gestión. Mantener vigilancia habitual en visitas domiciliarias.</p>
+                                    </div>
+                                    <div class="vac-guide-col guide-amber">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-triangle-exclamation"></i> En Riesgo (60% – 89%)</div>
+                                        <p>Coordinar con el Establecimiento de Salud fecha de jornada de vacunación o visita de brigada.</p>
+                                    </div>
+                                    <div class="vac-guide-col guide-red">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-circle-exclamation"></i> Alerta Crítica (&lt;60%)</div>
+                                        <p>Búsqueda activa inmediata de niñas y niños sin vacuna para evitar deserción y proteger contra brotes.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 7. GLOSARIO Y LEYENDA DE INMUNIZACIONES (NTS N° 246-MINSA) -->
+                            <div class="cred-glossary-card">
+                                <div class="glossary-header">
+                                    <div class="glossary-title">
+                                        <i class="fa-solid fa-book-medical"></i>
+                                        <span>Glosario y Leyenda de Inmunizaciones (Norma Técnica NTS N° 246-MINSA)</span>
+                                    </div>
+                                    <span class="glossary-badge-hint"><i class="fa-solid fa-hand-pointer"></i> Pasa el cursor o pulsa para ver la definición</span>
+                                </div>
+                                <div class="glossary-pills-row">
+                                    <div class="glossary-item" title="BCG (Bacilo de Calmette-Guérin) y HVB (Hepatitis B): Vacunas del Recién Nacido aplicadas dentro de las primeras 12 a 24 horas de vida para prevenir tuberculosis miliar/meníngea e infección neonatal.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-baby"></i> BCG / HVB:</span>
+                                        <span class="glossary-def">Tuberculosis grave y Hepatitis B Neonatal</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Vacuna Pentavalente: Inmunización combinada que protege contra 5 enfermedades: Difteria, Tétanos, Tos Ferina (Pertussis), Hepatitis B y Haemophilus influenzae tipo b (2, 4 y 6 meses).">
+                                        <span class="glossary-tag"><i class="fa-solid fa-shield-virus"></i> Pentavalente:</span>
+                                        <span class="glossary-def">Protección quíntuple (2, 4 y 6 meses)</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Poliomielitis: Polio Inactivada Inyectable (IPV) a los 2 y 4 meses; Polio Oral Antipolio (APO) a los 6 meses y refuerzos a los 18m y 4 años para prevenir parálisis infantil.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-shield-halved"></i> Polio (IPV / APO):</span>
+                                        <span class="glossary-def">Prevención de Poliomielitis y Parálisis Infantil</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Vacuna contra Neumococo: Previene neumonías graves, bacteriemia y meningitis por Streptococcus pneumoniae (2, 4 y 12 meses).">
+                                        <span class="glossary-tag"><i class="fa-solid fa-lungs"></i> Neumococo:</span>
+                                        <span class="glossary-def">Prevención de Neumonía y Meningitis</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Vacuna SPR: Protege contra Sarampión, Paperas (Parotiditis) y Rubeola. Se aplica a los 12 meses (1era dosis) y 18 meses (2da dosis).">
+                                        <span class="glossary-tag"><i class="fa-solid fa-virus"></i> SPR:</span>
+                                        <span class="glossary-def">Sarampión, Paperas y Rubeola (12m y 18m)</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="kpi-grid grid-5col">
-                            <!-- 1. ROTAVIRUS (2M, 4M) -->
-                            <div class="kpi-card bg-cyan" data-kpi="vac_rotavirus">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-viruses"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Vacuna Rotavirus (2m, 4m): 2da dosis oportuna">
-                                        Rotavirus (2m, 4m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nVacRotavirusPct" class="kpi-value">56.63%</span>
+                    </div>
+
+                    <!-- MÓDULO 4: CONTROLES CRED (NTS N° 238 / CÓD. 30) -->
+                    <div id="moduleSectionCred" class="evaluation-module-section">
+                        <div class="cred-dashboard-section">
+
+                            <!-- 1. RESUMEN EJECUTIVO (4 KPIS MAESTROS NO REDUNDANTES DE CRED) -->
+                            <div class="cred-kpi-row-v2">
+                                <!-- CARD 1: NIÑAS Y NIÑOS EVALUADOS EN CRED -->
+                                <div class="vac-summary-card kpi-card" data-kpi="total">
+                                    <div class="vac-sum-icon icon-blue"><i class="fa-solid fa-users"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Niñas y Niños Evaluados en CRED</span>
+                                        <span id="credExecutiveEvaluadosVal" class="vac-sum-val">320,195</span>
+                                        <span class="vac-sum-sub">Población nominal en vigilancia del desarrollo</span>
                                     </div>
-                                    <span id="nVacRotavirusSub" class="kpi-sub">181,336 con 2da dosis de 320,195 evaluados</span>
+                                </div>
+
+                                <!-- CARD 2: CONTROLES CRED COMPLETOS PARA SU EDAD -->
+                                <div class="vac-summary-card kpi-card active-kpi" data-kpi="cred_global">
+                                    <div class="vac-sum-icon icon-green"><i class="fa-solid fa-stethoscope"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Esquema Completo de CRED</span>
+                                        <span id="credExecutiveCompPct" class="vac-sum-val">60.50%</span>
+                                        <span id="credExecutiveCompSub" class="vac-sum-sub">193,700 niñas y niños con controles al día</span>
+                                    </div>
+                                </div>
+
+                                <!-- CARD 3: CON CONTROLES CRED PENDIENTES -->
+                                <div class="vac-summary-card">
+                                    <div class="vac-sum-icon icon-amber"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label">Con Controles Pendientes</span>
+                                        <span id="credExecutivePendientesVal" class="vac-sum-val">126,495</span>
+                                        <span class="vac-sum-sub">Requieren visita de rescate o articulación EESS</span>
+                                    </div>
+                                </div>
+
+                                <!-- CARD 4: NORMA TÉCNICA OFICIAL CRED -->
+                                <div class="vac-summary-card">
+                                    <div class="vac-sum-icon icon-purple"><i class="fa-solid fa-book-medical"></i></div>
+                                    <div class="vac-sum-body">
+                                        <span class="vac-sum-label" style="color: #6D28D9;">Norma Técnica Oficial</span>
+                                        <span style="font-size: 0.88rem; font-weight: 800; color: #1E293B; margin: 2px 0;">NTS N.° 238-MINSA/DGIESP</span>
+                                        <span class="vac-sum-sub">Control del Crecimiento y Desarrollo (0 a 36m)</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- 2. NEUMOCOCO (2M, 4M, 12M) -->
-                            <div class="kpi-card bg-cyan" data-kpi="vac_neumococo">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-lungs"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Vacuna Neumococo (2m, 4m, 12m): 3ra dosis oportuna">
-                                        Neumococo (2m, 4m, 12m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nVacNeumococoPct" class="kpi-value">56.63%</span>
+                            <!-- 2. ETAPAS DE VIDA DEL CONTROL CRED (5 TARJETAS SELECTORAS CON IDENTIDAD CLINICA) -->
+                            <div class="vac-card">
+                                <div class="vac-card-header">
+                                    <div class="vac-card-title">
+                                        <i class="fa-solid fa-ruler-combined"></i>
+                                        <span>Selecciona una Etapa de Vida para evaluar el Control del Crecimiento y Desarrollo (CRED)</span>
+                                        <i class="fa-solid fa-circle-info info-icon" title="Haz clic en cualquier etapa para desplegar sus evaluaciones de somatometría, tamizaje psicomotor y metas"></i>
                                     </div>
-                                    <span id="nVacNeumococoSub" class="kpi-sub">181,336 con 3ra dosis de 320,195 evaluados</span>
+                                    <span class="vac-badge-hint"><i class="fa-solid fa-hand-pointer"></i> Haz clic en una etapa o control</span>
+                                </div>
+
+                                <div class="cred-stages-grid">
+                                    <!-- ETAPA 1: RECIÉN NACIDO -->
+                                    <div class="cred-stage-card" data-stage="rn" data-age-valid="[00-05] Meses,Todos">
+                                        <div class="cred-stage-header">
+                                            <span class="cred-stage-badge badge-cred-rn"><i class="fa-solid fa-baby"></i> RN • 0 meses</span>
+                                            <div class="cred-stage-icon-wrap"><i class="fa-solid fa-heart-pulse"></i></div>
+                                        </div>
+                                        <div class="cred-stage-body">
+                                            <div id="credDonutRnRing" class="donut-ring-wrapper" style="background: conic-gradient(#7C3AED 0% 96.0%, #F1F5F9 96.0% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="credDonutRnVal">96.0%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cred-schedule-box">
+                                                <div class="cred-freq-pill"><i class="fa-solid fa-calendar-check"></i> 4 controles en su 1er mes</div>
+                                                <div class="cred-milestones-row">
+                                                    <span class="cred-mini-chip">48h</span>
+                                                    <span class="cred-mini-chip">7d</span>
+                                                    <span class="cred-mini-chip">14d</span>
+                                                    <span class="cred-mini-chip">21d</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cred-stage-footer">
+                                            <i class="fa-solid fa-bullseye"></i> Meta: 4 controles en 28 días
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 2: 1ER AÑO (MENORES DE 1 AÑO) -->
+                                    <div class="cred-stage-card active-stage" data-stage="1a_menor" data-age-valid="[00-05] Meses,[06-11] Meses,Todos">
+                                        <div class="cred-stage-header">
+                                            <span class="cred-stage-badge badge-cred-lact"><i class="fa-solid fa-ruler-vertical"></i> 1er Año • 1–11m</span>
+                                            <div class="cred-stage-icon-wrap"><i class="fa-solid fa-baby-carriage"></i></div>
+                                        </div>
+                                        <div class="cred-stage-body">
+                                            <div id="credDonutLactRing" class="donut-ring-wrapper" style="background: conic-gradient(#0284C7 0% 60.5%, #F1F5F9 60.5% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="credDonutLactVal">60.5%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cred-schedule-box">
+                                                <div class="cred-freq-pill"><i class="fa-solid fa-calendar-days"></i> 1 control cada mes (11 al año)</div>
+                                                <div class="cred-milestones-row">
+                                                    <span class="cred-mini-chip" title="Curvas OMS de Peso para la Edad y Talla para la Edad"><i class="fa-solid fa-ruler-vertical"></i> Peso/Talla</span>
+                                                    <span class="cred-mini-chip" title="EEDP: Escala de Evaluación del Desarrollo Psicomotor (evalúa coordinación, motricidad, lenguaje y social en niños de 0 a 24 meses)"><i class="fa-solid fa-brain"></i> EEDP (2,4,9m) <i class="fa-solid fa-circle-question info-mini-icon"></i></span>
+                                                    <span class="cred-mini-chip" title="Dosaje de Hemoglobina: Tamizaje preventivo de anemia infantil a los 4 y 6 meses"><i class="fa-solid fa-droplet"></i> Hb (4,6m)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cred-stage-footer">
+                                            <i class="fa-solid fa-bullseye"></i> Meta: 1 control por cada mes
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 3: 2DO AÑO (NIÑOS DE 1 AÑO) -->
+                                    <div class="cred-stage-card" data-stage="1a" data-age-valid="[12-23] Meses,Todos">
+                                        <div class="cred-stage-header">
+                                            <span class="cred-stage-badge badge-cred-1a"><i class="fa-solid fa-person-walking"></i> 2do Año • 12–23m</span>
+                                            <div class="cred-stage-icon-wrap"><i class="fa-solid fa-person-running"></i></div>
+                                        </div>
+                                        <div class="cred-stage-body">
+                                            <div id="credDonut1aRing" class="donut-ring-wrapper" style="background: conic-gradient(#10B981 0% 58.2%, #F1F5F9 58.2% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="credDonut1aVal">58.2%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cred-schedule-box">
+                                                <div class="cred-freq-pill"><i class="fa-solid fa-calendar-days"></i> 1 control c/2 meses (6 al año)</div>
+                                                <div class="cred-milestones-row">
+                                                    <span class="cred-mini-chip" title="Controles bimensuales programados: 12, 14 y 16 meses">12, 14, 16m</span>
+                                                    <span class="cred-mini-chip" title="Controles bimensuales programados: 18, 20 y 22 meses">18, 20, 22m</span>
+                                                    <span class="cred-mini-chip" title="EEDP 18m: 3° Tamizaje de Desarrollo Psicomotor (evalúa marcha independiente y lenguaje)"><i class="fa-solid fa-brain"></i> EEDP 18m <i class="fa-solid fa-circle-question info-mini-icon"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cred-stage-footer">
+                                            <i class="fa-solid fa-bullseye"></i> Meta: 1 control cada 2 meses
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 4: 3ER AÑO (NIÑOS DE 2 AÑOS) -->
+                                    <div class="cred-stage-card" data-stage="2a" data-age-valid="[24-35] Meses,Todos">
+                                        <div class="cred-stage-header">
+                                            <span class="cred-stage-badge badge-cred-2a"><i class="fa-solid fa-brain"></i> 3er Año • 24–35m</span>
+                                            <div class="cred-stage-icon-wrap"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                        </div>
+                                        <div class="cred-stage-body">
+                                            <div id="credDonut2aRing" class="donut-ring-wrapper" style="background: conic-gradient(#0F766E 0% 54.0%, #F1F5F9 54.0% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="credDonut2aVal">54.0%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cred-schedule-box">
+                                                <div class="cred-freq-pill"><i class="fa-solid fa-calendar-days"></i> 1 control c/3 meses (4 al año)</div>
+                                                <div class="cred-milestones-row">
+                                                    <span class="cred-mini-chip" title="Controles trimestrales: 24, 27, 30 y 33 meses">24, 27, 30, 33m</span>
+                                                    <span class="cred-mini-chip" title="TEPSI: Test de Desarrollo Psicomotor normado por MINSA para evaluar coordinación, lenguaje y motricidad en niños de 2 a 5 años"><i class="fa-solid fa-brain"></i> TEPSI <i class="fa-solid fa-circle-question info-mini-icon"></i></span>
+                                                    <span class="cred-mini-chip" title="Evaluación de salud bucal y prevención de caries temprana"><i class="fa-solid fa-tooth"></i> Bucal</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cred-stage-footer">
+                                            <i class="fa-solid fa-bullseye"></i> Meta: 1 control cada 3 meses
+                                        </div>
+                                    </div>
+
+                                    <!-- ETAPA 5: 4TO AÑO (NIÑOS DE 3 AÑOS / EGRESO) -->
+                                    <div class="cred-stage-card" data-stage="3a" data-age-valid="[36] Meses,Todos">
+                                        <div class="cred-stage-header">
+                                            <span class="cred-stage-badge badge-cred-3a"><i class="fa-solid fa-graduation-cap"></i> 4to Año • 36m</span>
+                                            <div class="cred-stage-icon-wrap"><i class="fa-solid fa-award"></i></div>
+                                        </div>
+                                        <div class="cred-stage-body">
+                                            <div id="credDonut3aRing" class="donut-ring-wrapper" style="background: conic-gradient(#6D28D9 0% 60.5%, #F1F5F9 60.5% 100%);">
+                                                <div class="donut-ring-inner">
+                                                    <span id="credDonut3aVal">60.5%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cred-schedule-box">
+                                                <div class="cred-freq-pill"><i class="fa-solid fa-award"></i> Control trimestral y Egreso</div>
+                                                <div class="cred-milestones-row">
+                                                    <span class="cred-mini-chip" title="Cumplimiento de meta a los 36 meses de edad"><i class="fa-solid fa-child"></i> 36m PNCM</span>
+                                                    <span class="cred-mini-chip" title="Egreso del Programa Cuna Más con desarrollo infantil integral óptimo"><i class="fa-solid fa-shield-heart"></i> Desarrollo Óptimo</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cred-stage-footer">
+                                            <i class="fa-solid fa-circle-check"></i> Meta: egreso saludable a los 36m
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- 3. PENTAVALENTE (2M, 4M, 6M) -->
-                            <div class="kpi-card bg-purple" data-kpi="vac_pentavalente">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-shield-virus"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Vacuna Pentavalente (2m, 4m, 6m): 3ra dosis oportuna">
-                                        Pentavalente (2m, 4m, 6m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nVacPentavalentePct" class="kpi-value">56.63%</span>
+                            <!-- 3. LÍNEA DE TIEMPO / STEPPER CRONOLÓGICO DE CONTROLES CRED -->
+                            <div class="cred-timeline-navigator" id="credTimelineNavigator">
+                                <div class="cred-timeline-header-bar">
+                                    <div class="ctl-hdr-left">
+                                        <i class="fa-solid fa-route"></i>
+                                        <span>Ruta Cronológica de Vigilancia CRED (Haz clic en cualquier hito para ver sus evaluaciones de desarrollo)</span>
                                     </div>
-                                    <span id="nVacPentavalenteSub" class="kpi-sub">181,336 con 3ra dosis de 320,195 evaluados</span>
+                                    <span class="vac-badge-hint"><i class="fa-solid fa-filter"></i> Filtra automáticamente las fichas</span>
+                                </div>
+
+                                <div class="ctl-nav-track">
+                                    <div class="ctl-nav-step" data-milestone="rn" data-age-valid="[00-05] Meses,Todos" title="Recién Nacido: 4 controles en primeros 28 días (48h, 7d, 14d, 21d)">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-baby"></i> RN</span>
+                                        <span class="ctl-nav-label">4 Controles (0m)</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="1m" data-age-valid="[00-05] Meses,Todos" title="1er mes: Lactancia materna exclusiva y monitoreo de ganancia de peso">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-person-breastfeeding"></i> 1m</span>
+                                        <span class="ctl-nav-label">Lactancia & Peso</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step active" data-milestone="2m" data-age-valid="[00-05] Meses,Todos" title="2 meses: 1° Tamizaje EEDP (Escala de Evaluación del Desarrollo Psicomotor: motricidad, lenguaje y social)">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-brain"></i> 2m</span>
+                                        <span class="ctl-nav-label">1° Tamizaje EEDP</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="4m" data-age-valid="[00-05] Meses,Todos" title="4 meses: Dosaje preventivo de Hemoglobina (Hb) y suplementación con hierro">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-droplet"></i> 4m</span>
+                                        <span class="ctl-nav-label">Dosaje Hb & Fe</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="6m" data-age-valid="[06-11] Meses,Todos" title="6 meses: Inicio de alimentación complementaria rica en hierro y 2do dosaje de Hb">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-bowl-food"></i> 6m</span>
+                                        <span class="ctl-nav-label">Alimentación & Hb</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="9m" data-age-valid="[06-11] Meses,Todos" title="9 meses: 2° Tamizaje EEDP (Escala de Evaluación del Desarrollo Psicomotor: bipedestación con apoyo y pinza digital)">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-brain"></i> 9m</span>
+                                        <span class="ctl-nav-label">2° Tamizaje EEDP</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="12m" data-age-valid="[12-23] Meses,Todos" title="12 meses (1 Año): 1er control bimensual (1 de 6) y dosaje anual de hemoglobina">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-cake-candles"></i> 12m</span>
+                                        <span class="ctl-nav-label">1 Año (c/2m)</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="18m" data-age-valid="[12-23] Meses,Todos" title="18 meses: 3° Tamizaje EEDP (Escala de Evaluación del Desarrollo Psicomotor: marcha independiente y lenguaje)">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-brain"></i> 18m</span>
+                                        <span class="ctl-nav-label">3° Tamizaje EEDP</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="24m" data-age-valid="[24-35] Meses,Todos" title="24 meses (2 Años): Test de Desarrollo TEPSI (evalúa coordinación y lenguaje) y 4 controles trimestrales">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-puzzle-piece"></i> 24m</span>
+                                        <span class="ctl-nav-label">2 Años (TEPSI)</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="36m" data-age-valid="[36] Meses,Todos" title="36 meses (3 Años): Control trimestral de egreso saludable del Programa Cuna Más">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-graduation-cap"></i> 36m</span>
+                                        <span class="ctl-nav-label">3 Años (Egreso)</span>
+                                    </div>
+                                    <div class="ctl-nav-connector"></div>
+
+                                    <div class="ctl-nav-step" data-milestone="all" data-age-valid="Todos,[00-05] Meses,[06-11] Meses,[12-23] Meses,[24-35] Meses,[36] Meses" title="Ver todos los controles del esquema integral CRED">
+                                        <span class="ctl-nav-badge"><i class="fa-solid fa-list-check"></i></span>
+                                        <span class="ctl-nav-label">Ver Todo</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- 4. ANTIPOLIO IPV (2M, 4M, 6M) -->
-                            <div class="kpi-card bg-orange" data-kpi="vac_polio">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-droplet"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Vacuna Antipolio IPV (2m, 4m, 6m): 3ra dosis inyectable">
-                                        Antipolio IPV (2m, 4m, 6m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nVacPolioPct" class="kpi-value">56.63%</span>
-                                    </div>
-                                    <span id="nVacPolioSub" class="kpi-sub">181,336 con 3ra dosis de 320,195 evaluados</span>
+                            <!-- 4. BANNER DE MOMENTO CRED SELECCIONADO -->
+                            <div class="cred-focus-bar" id="credFocusBar">
+                                <div class="cred-focus-left">
+                                    <span class="cred-focus-badge"><i class="fa-solid fa-stethoscope"></i> <span id="credFocusBadgeText">Momento Seleccionado</span></span>
+                                    <span id="credFocusTitle" class="focus-title" title="EEDP: Escala de Evaluación del Desarrollo Psicomotor (0-24 meses)">2 Meses • Primer Tamizaje de Desarrollo Psicomotor (EEDP)</span>
+                                </div>
+                                <div class="cred-focus-right">
+                                    <span id="credFocusPurpose" class="focus-purpose"><i class="fa-solid fa-shield-heart"></i> Evalúa ganancia de peso/talla, reflejos motores, visión, audición y apego seguro</span>
+                                    <span id="credFocusCount" class="focus-count" title="EEDP: Escala de Evaluación del Desarrollo Psicomotor (0-24 meses)">1 control cada mes + 1° Tamizaje EEDP</span>
                                 </div>
                             </div>
 
-                            <!-- 5. SPR (12M, 18M) -->
-                            <div class="kpi-card bg-green" data-kpi="vac_spr">
-                                <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
-                                <div class="kpi-icon"><i class="fa-solid fa-bacterium"></i></div>
-                                <div class="kpi-content">
-                                    <span class="kpi-label" title="Vacuna SPR (12m, 18m): Sarampión, Papera y Rubéola">
-                                        SPR (12m, 18m) <i class="fa-solid fa-circle-info tooltip-icon"></i>
-                                    </span>
-                                    <div class="kpi-val-row">
-                                        <span id="nVacSprPct" class="kpi-value">56.63%</span>
+                            <!-- 5. GRILLA DE TARJETAS DETALLADAS DE CONTROL CRED (EN FORMATO FICHA CLINICA) -->
+                            <div class="cred-cards-grid" id="credCardsGrid">
+                                <!-- TARJETA 1: RECIÉN NACIDO (4 CONTROLES) -->
+                                <div class="cred-control-card kpi-card" data-kpi="cred_rn" data-stage="rn" data-milestones="rn,all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-purple"><i class="fa-solid fa-baby"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Controles del Recién Nacido (&lt;1m)</div>
+                                                <span class="vac-vcard-age-tag">4 controles en primeros 28 días</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-green"><i class="fa-solid fa-circle-check"></i> 4 Controles</span>
                                     </div>
-                                    <span id="nVacSprSub" class="kpi-sub">181,336 con SPR oportuna de 320,195 evaluados</span>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Somatometría: Peso, Talla y Perímetro Cefálico</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Reflejos neonatales y cordón umbilical</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Lactancia materna precoz y apego temprano</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> ¿Por qué es vital? Detecta a tiempo ictericia, malformaciones congénitas e infecciones neonatales.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED RN:</span>
+                                            <span id="nCredRnPct" class="vac-vcard-pct">96.0%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProgRnBar" class="vac-prog-fill" style="width: 96.0%; background: #7C3AED;"></div></div>
+                                        <span id="nCredRnSub" class="vac-vcard-sub">0 con 4 controles de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA 2: MENORES DE 1 AÑO (11 CONTROLES - 1 CADA MES) -->
+                                <div class="cred-control-card kpi-card" data-kpi="cred_lact" data-stage="1a_menor" data-milestones="1m,2m,4m,6m,7m,9m,all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-blue"><i class="fa-solid fa-child-reaching"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Controles del Lactante (&lt;1 Año)</div>
+                                                <span class="vac-vcard-age-tag">1 control cada mes (11 en el año)</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-calendar-days"></i> 11 Controles</span>
+                                    </div>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Curvas de Crecimiento OMS (Ganancia mensual peso/talla)</div>
+                                        <div class="cred-checklist-item" title="EEDP: Escala de Evaluación del Desarrollo Psicomotor (evalúa coordinación, motricidad, lenguaje y social en niños de 0 a 24 meses)"><i class="fa-solid fa-check"></i> Tamizaje de Desarrollo EEDP (a los 2, 4 y 9 meses)</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Dosaje de Hemoglobina (4 y 6m) y Suplementación con Hierro</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> ¿Por qué es vital? Garantiza lactancia materna exclusiva (0-6m) y previene la desnutrición y anemia.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED Lactante:</span>
+                                            <span id="nCredLactPct" class="vac-vcard-pct">60.5%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProgLactBar" class="vac-prog-fill" style="width: 60.5%; background: #0284C7;"></div></div>
+                                        <span id="nCredLactSub" class="vac-vcard-sub">0 con CRED oportuno de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA 3: NIÑOS DE 1 AÑO (6 CONTROLES - 1 CADA 2 MESES) -->
+                                <div class="cred-control-card kpi-card" data-kpi="cred_1a" data-stage="1a" data-milestones="12m,15m,18m,all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-green"><i class="fa-solid fa-person-walking"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Controles Niños de 1 Año (12–23m)</div>
+                                                <span class="vac-vcard-age-tag">1 control cada 2 meses (6 en el año)</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-calendar-check"></i> 6 Controles</span>
+                                    </div>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> 6 controles bimensuales (12, 14, 16, 18, 20, 22 meses)</div>
+                                        <div class="cred-checklist-item" title="EEDP: Escala de Evaluación del Desarrollo Psicomotor (evalúa coordinación, motricidad, lenguaje y social en niños de 0 a 24 meses)"><i class="fa-solid fa-check"></i> Tamizaje de Desarrollo EEDP a los 18 meses (Marcha/Palabras)</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Dosaje anual de Hemoglobina y Suplementación preventiva</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> ¿Por qué es vital? Monitorea la transición a la mesa familiar y adquisición del lenguaje y marcha.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED 1 Año:</span>
+                                            <span id="nCred1aPct" class="vac-vcard-pct">58.2%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProg1aBar" class="vac-prog-fill" style="width: 58.2%; background: #10B981;"></div></div>
+                                        <span id="nCred1aSub" class="vac-vcard-sub">0 con 6 controles de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA 4: NIÑOS DE 2 AÑOS (4 CONTROLES - 1 CADA 3 MESES) -->
+                                <div class="cred-control-card kpi-card" data-kpi="cred_2a" data-stage="2a" data-milestones="24m,all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-cyan"><i class="fa-solid fa-puzzle-piece"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Controles Niños de 2 Años (24–35m)</div>
+                                                <span class="vac-vcard-age-tag">1 control cada 3 meses (4 en el año)</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-amber"><i class="fa-solid fa-calendar-check"></i> 4 Controles</span>
+                                    </div>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> 4 controles trimestrales (24, 27, 30, 33 meses)</div>
+                                        <div class="cred-checklist-item" title="TEPSI: Test de Desarrollo Psicomotor normado por MINSA para evaluar coordinación, lenguaje y motricidad en niños de 2 a 5 años"><i class="fa-solid fa-check"></i> Test de Desarrollo Psicomotor TEPSI (Coordinación y Lenguaje)</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Salud bucal, higiene y dosaje anual de hemoglobina</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> ¿Por qué es vital? Evalúa autonomía infantil, hábitos de higiene y prevención de caries temprana.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED 2 Años:</span>
+                                            <span id="nCred2aPct" class="vac-vcard-pct">54.0%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProg2aBar" class="vac-prog-fill" style="width: 54.0%; background: #0F766E;"></div></div>
+                                        <span id="nCred2aSub" class="vac-vcard-sub">0 con 4 controles/año de 0 evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA 5: NIÑOS DE 3 AÑOS (CONTROL TRIMESTRAL Y EGRESO SALUDABLE) -->
+                                <div class="cred-control-card kpi-card" data-kpi="cred_3a" data-stage="3a" data-milestones="36m,all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-orange"><i class="fa-solid fa-graduation-cap"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Controles Niños de 3 Años (36m)</div>
+                                                <span class="vac-vcard-age-tag">Control Trimestral / Egreso PNCM</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-green"><i class="fa-solid fa-award"></i> Egreso Saludable</span>
+                                    </div>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Control de los 36 meses y egreso saludable del programa</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Certificación de estado nutricional normal (sin desnutrición ni anemia)</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Desarrollo infantil temprano consolidado para educación inicial</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> ¿Por qué es vital? Certifica que la niña o niño egresa con desarrollo integral óptimo para la escuela.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED 3 Años:</span>
+                                            <span id="nCred3aPct" class="vac-vcard-pct">60.5%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProg3aBar" class="vac-prog-fill" style="width: 60.5%; background: #6D28D9;"></div></div>
+                                        <span id="nCred3aSub" class="vac-vcard-sub">0 con esquema de egreso evaluados</span>
+                                    </div>
+                                </div>
+
+                                <!-- TARJETA 6: EVALUACIÓN CRED GLOBAL ACUMULADA -->
+                                <div class="cred-control-card kpi-card active-kpi" data-kpi="cred_global" data-stage="all" data-milestones="all">
+                                    <button type="button" class="kpi-info-btn" title="Ver Ficha Técnica" aria-label="Ver Ficha Técnica"><i class="fa-solid fa-circle-info"></i></button>
+                                    <div class="vac-vcard-top">
+                                        <div class="vac-vcard-title-wrap">
+                                            <div class="vac-vcard-icon icon-vac-pink"><i class="fa-solid fa-notes-medical"></i></div>
+                                            <div>
+                                                <div class="vac-vcard-name">Evaluación CRED Global (&lt;36m)</div>
+                                                <span class="vac-vcard-age-tag">Esquema Integral Acumulado</span>
+                                            </div>
+                                        </div>
+                                        <span class="badge-semaforo badge-green"><i class="fa-solid fa-star"></i> Indicador Maestro</span>
+                                    </div>
+                                    <div class="cred-checklist-box">
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Cumplimiento acumulado de todos los controles según edad</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Oportunidad y periodicidad conforme a la NTS N° 238-MINSA</div>
+                                        <div class="cred-checklist-item"><i class="fa-solid fa-check"></i> Indicador oficial del Tablero de Control DGSE-MIDIS (Cód. 30)</div>
+                                    </div>
+                                    <div class="vac-vcard-purpose"><i class="fa-solid fa-circle-info"></i> Medición oficial de calidad del seguimiento nominal articulado del Programa Cuna Más.</div>
+                                    <div class="vac-vcard-stats">
+                                        <div class="vac-vcard-pct-row">
+                                            <span class="vac-vcard-lbl">Cobertura CRED Global:</span>
+                                            <span id="nCredGlobalPct" class="vac-vcard-pct">60.5%</span>
+                                        </div>
+                                        <div class="vac-prog-track"><div id="credProgGlobalBar" class="vac-prog-fill" style="width: 60.5%; background: #64358C;"></div></div>
+                                        <span id="nCredGlobalSub" class="vac-vcard-sub">0 con esquema completo de 0 evaluados</span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- 6. GUÍA DE ACCIÓN OPERATIVA PARA EL FACILITADOR EN CRED -->
+                            <div class="vac-action-guide-card">
+                                <div class="vac-guide-header">
+                                    <div class="vac-guide-title">
+                                        <i class="fa-solid fa-clipboard-check"></i>
+                                        <span>Guía de Acción Operativa para el Facilitador y Acompañante de Campo (CRED)</span>
+                                    </div>
+                                    <span class="vac-badge-guide"><i class="fa-solid fa-lightbulb"></i> Pautas de Articulación con EESS</span>
+                                </div>
+                                <div class="vac-guide-grid">
+                                    <div class="vac-guide-col guide-green">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-circle-check"></i> Control Oportuno y Completo</div>
+                                        <p>Felicitar a la familia. Verificar el carné de CRED y registrar en el Padrón Nominal la fecha del próximo control programado.</p>
+                                    </div>
+                                    <div class="vac-guide-col guide-amber">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-triangle-exclamation"></i> Control Próximo o Alerta de Vencimiento</div>
+                                        <p>Coordinar con la madre/cuidador antes de la fecha límite. Recordar la importancia de la somatometría y tamizaje de desarrollo.</p>
+                                    </div>
+                                    <div class="vac-guide-col guide-red">
+                                        <div class="guide-col-hdr"><i class="fa-solid fa-circle-xmark"></i> Deserción o Control Pendiente</div>
+                                        <p>Realizar visita domiciliaria inmediata de rescate. Articular con el Establecimiento de Salud (EESS) y Actor Comunal para su reprogramación prioritaria.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 7. GLOSARIO Y LEYENDA DE TÉRMINOS CLÍNICOS CRED (NTS N° 238-MINSA) -->
+                            <div class="cred-glossary-card">
+                                <div class="glossary-header">
+                                    <div class="glossary-title">
+                                        <i class="fa-solid fa-book-medical"></i>
+                                        <span>Glosario y Leyenda de Siglas Clínicas de Vigilancia (NTS N° 238-MINSA)</span>
+                                    </div>
+                                    <span class="glossary-badge-hint"><i class="fa-solid fa-hand-pointer"></i> Pasa el cursor o pulsa para ver la definición</span>
+                                </div>
+                                <div class="glossary-pills-row">
+                                    <div class="glossary-item" title="EEDP (Escala de Evaluación del Desarrollo Psicomotor): Evaluación normada por MINSA que mide 4 áreas: Motora, Coordinación, Lenguaje y Socialización en niños de 0 a 24 meses.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-brain"></i> EEDP:</span>
+                                        <span class="glossary-def">Escala de Evaluación del Desarrollo Psicomotor (0–24 meses)</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="TEPSI (Test de Desarrollo Psicomotor): Instrumento normado por MINSA para evaluar Coordinación, Lenguaje y Motricidad en niños de 2 a 5 años.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-puzzle-piece"></i> TEPSI:</span>
+                                        <span class="glossary-def">Test de Desarrollo Psicomotor (2 a 5 años)</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="CRED (Control del Crecimiento y Desarrollo): Atención integral periódica que evalúa el estado nutricional, antropometría y neurodesarrollo infantil.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-ruler-combined"></i> CRED:</span>
+                                        <span class="glossary-def">Control del Crecimiento y Desarrollo Infantil</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Dosaje de Hemoglobina (Hb): Tamizaje preventivo en sangre capilar realizado a los 4 y 6 meses y anualmente para descartar anemia infantil.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-droplet"></i> Dosaje Hb:</span>
+                                        <span class="glossary-def">Tamizaje Preventivo de Hemoglobina (Anemia)</span>
+                                        <i class="fa-solid fa-circle-info glossary-icon"></i>
+                                    </div>
+                                    <div class="glossary-item" title="Somatometría: Medición antropométrica de Peso, Talla y Perímetro Craneal comparada con las curvas de crecimiento de la OMS.">
+                                        <span class="glossary-tag"><i class="fa-solid fa-chart-line"></i> Somatometría:</span>
+                                        <span class="glossary-def">Curvas OMS de Ganancia de Peso y Talla</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -888,8 +2147,6 @@
     <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
-    <!-- Custom App Script -->
-    <script src="app.js"></script>
     <!-- MODAL POPOVER UX/UI DE FICHA TÉCNICA DE INDICADORES -->
     <div id="modalFichaTecnicaContainer" class="ficha-modal-backdrop" style="display:none;">
         <div class="ficha-modal-card">
@@ -964,5 +2221,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Custom App Script -->
+    <script src="app.js?v=20260819_v12"></script>
 </body>
 </html>

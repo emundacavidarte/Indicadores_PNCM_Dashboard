@@ -182,6 +182,174 @@ const NINOS_KPI_CONFIG = {
         color: '#84CC16',
         isPct: true
     },
+    'vac_bcg': {
+        title: 'Vacunación BCG (Recién Nacido) - Evolución Histórica',
+        subtitle: 'Porcentaje de recién nacidos con dosis única de BCG dentro de las 24 horas',
+        field: 'vac_completa_pct',
+        label: 'BCG Recién Nacido (%)',
+        color: '#009FE3',
+        isPct: true
+    },
+    'vac_hvb': {
+        title: 'Vacunación Hepatitis B Pediátrica (RN) - Evolución Histórica',
+        subtitle: 'Porcentaje de recién nacidos con dosis de HvB dentro de las primeras 12 horas',
+        field: 'vac_completa_pct',
+        label: 'HvB Recién Nacido (%)',
+        color: '#0284C7',
+        isPct: true
+    },
+    'vac_spr1': {
+        title: 'Vacunación SPR 1ra Dosis (12m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños de 12 meses con primera dosis de SPR',
+        field: 'vac_completa_pct',
+        label: 'SPR 1ra Dosis (12m) (%)',
+        color: '#10B981',
+        isPct: true
+    },
+    'vac_spr2': {
+        title: 'Vacunación SPR 2da Dosis (18m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños de 18 meses con segunda dosis de SPR (refuerzo)',
+        field: 'vac_completa_pct',
+        label: 'SPR 2da Dosis (18m) (%)',
+        color: '#059669',
+        isPct: true
+    },
+    'vac_varicela': {
+        title: 'Vacunación contra Varicela (12m, 24m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños con dosis única de vacuna contra la Varicela',
+        field: 'vac_completa_pct',
+        label: 'Varicela (12m, 24m) (%)',
+        color: '#EC4899',
+        isPct: true
+    },
+    'vac_ama': {
+        title: 'Vacunación Antiamarílica AMA (15m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños con dosis de vacuna Antiamarílica a los 15 meses',
+        field: 'vac_completa_pct',
+        label: 'Antiamarílica AMA (15m) (%)',
+        color: '#F97316',
+        isPct: true
+    },
+    'vac_dpt': {
+        title: 'Vacunación DPT 1er Refuerzo (18m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños con primer refuerzo de DPT a los 18 meses',
+        field: 'vac_completa_pct',
+        label: 'DPT Refuerzo (18m) (%)',
+        color: '#06B6D4',
+        isPct: true
+    },
+    'vac_influenza_2a': {
+        title: 'Vacunación Influenza Pediátrica (2 Años) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños de 24 a 35 meses con dosis anual de influenza',
+        field: 'vac_completa_pct',
+        label: 'Influenza (2 Años) (%)',
+        color: '#0284C7',
+        isPct: true
+    },
+    'vac_influenza_3a': {
+        title: 'Vacunación Influenza Pediátrica (3 Años) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños de 36 meses con dosis anual de influenza',
+        field: 'vac_completa_pct',
+        label: 'Influenza (3 Años) (%)',
+        color: '#7C3AED',
+        isPct: true
+    },
+    'cred_rn': {
+        title: 'Controles CRED Recién Nacido (<1m) - Evolución Histórica',
+        subtitle: 'Porcentaje de recién nacidos con 4 controles CRED en el primer mes de vida',
+        field: 'cred_pct',
+        label: 'CRED Recién Nacido (%)',
+        color: '#7C3AED',
+        isPct: true
+    },
+    'cred_lact': {
+        title: 'Controles CRED Lactante (<1 año) - Evolución Histórica',
+        subtitle: 'Porcentaje de lactantes menores de 1 año con controles CRED mensuales oportunos',
+        field: 'cred_pct',
+        label: 'CRED Lactante (<1a) (%)',
+        color: '#06B6D4',
+        isPct: true
+    },
+    'cred_1a': {
+        title: 'Controles CRED 1 Año (12 a 23 meses) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños de 1 año con 6 controles CRED cumplidos (cada 2 meses)',
+        field: 'cred_pct',
+        label: 'CRED 1 Año (12-23m) (%)',
+        color: '#10B981',
+        isPct: true
+    },
+    'cred_2a': {
+        title: 'Controles CRED 2 Años (24 a 35 meses) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños de 2 años con 4 controles CRED anuales (cada 3 meses)',
+        field: 'cred_pct',
+        label: 'CRED 2 Años (24-35m) (%)',
+        color: '#0F766E',
+        isPct: true
+    },
+    'cred_3a': {
+        title: 'Controles CRED 3 Años (36 meses / Egreso) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños de 3 años con control de egreso saludable del PNCM',
+        field: 'cred_pct',
+        label: 'CRED 3 Años (36m) (%)',
+        color: '#6D28D9',
+        isPct: true
+    },
+    'cred_global': {
+        title: 'Vigilancia CRED Global (<36 meses) - Evolución Histórica',
+        subtitle: 'Porcentaje de niñas y niños con controles de Crecimiento y Desarrollo completos para su edad',
+        field: 'cred_pct',
+        label: 'CRED Global (<36m) (%)',
+        color: '#5B21B6',
+        isPct: true
+    },
+    'dni_30d': {
+        title: 'Emisión de DNI hasta 30 Días - Evolución Histórica',
+        subtitle: 'Porcentaje de niños y niñas con DNI emitido dentro de los primeros 30 días de vida',
+        field: 'pqt_pct',
+        label: 'DNI <=30d (%)',
+        color: '#7C3AED',
+        isPct: true
+    },
+    'npr': {
+        title: 'Recuperación de Niños con Anemia (6-35m) - Evolución Histórica',
+        subtitle: 'Porcentaje de niños con diagnóstico de anemia que recuperan niveles normales de Hb (>= 11.0 g/dL)',
+        field: 'frecuencia_anemia_pct',
+        label: 'Recuperación Anemia (%)',
+        color: '#10B981',
+        isPct: true
+    },
+    'act_415': {
+        title: 'Actividad 4.15: Atención Integral Cuidado Diurno (SCD) - Evolución Histórica',
+        subtitle: 'Cobertura mensual de atención integral en locales CIAI frente a la meta física anual del Plan Multisectorial (67,387)',
+        field: 'pqt_pct',
+        label: 'Atención Integral SCD (Usu.)',
+        color: '#10B981',
+        isPct: false
+    },
+    'act_413': {
+        title: 'Actividad 4.13: Capacitación Actores Comunales SCD - Evolución Histórica',
+        subtitle: 'Capacitación al equipo técnico y actores comunales de SCD (Meta física anual: 18,899)',
+        field: 'pqt_pct',
+        label: 'Capacitación SCD (Usu.)',
+        color: '#0284C7',
+        isPct: false
+    },
+    'act_412': {
+        title: 'Actividad 4.12: Visitas Acompañamiento Familiar (SAF) - Evolución Histórica',
+        subtitle: 'Cobertura de acompañamiento familiar en visitas semanales (Meta física anual: 277,283)',
+        field: 'pqt_pct',
+        label: 'Visitas Acompañamiento SAF (Usu.)',
+        color: '#5B21B6',
+        isPct: false
+    },
+    'act_414': {
+        title: 'Actividad 4.14: Capacitación Actores Comunales SAF - Evolución Histórica',
+        subtitle: 'Capacitación a facilitadores y actores comunales de SAF (Meta física anual: 27,877)',
+        field: 'pqt_pct',
+        label: 'Capacitación SAF (Usu.)',
+        color: '#EC4899',
+        isPct: false
+    },
     'gestantes_anemia': {
         title: 'Frecuencia de Anemia en Gestantes (SAF) - Evolución Histórica',
         subtitle: 'Porcentaje de gestantes evaluadas que presentan anemia',
@@ -201,6 +369,10 @@ let chartNinosUTInst = null;
 document.addEventListener('DOMContentLoaded', () => {
     initSidebarToggle();
     initTabNavigation();
+    initModuleSelector();
+    initServicePills();
+    initVaccineTimeline();
+    initCredTimeline();
     initFilterEvents();
     initAgeFilterEvents();
     initKpiCardClickEvents();
@@ -279,6 +451,37 @@ function initSidebarToggle() {
     }
 }
 
+function initServicePills() {
+    const servicePills = document.querySelectorAll('.service-pill');
+    const filterServicio = document.getElementById('filterServicio');
+
+    servicePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const selectedService = pill.dataset.service;
+            servicePills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+
+            if (filterServicio) {
+                filterServicio.value = selectedService;
+                if (currentTab === 'tabNinos') {
+                    lastUserNinosService = selectedService;
+                }
+            }
+
+            applyServiceThemeUI();
+            
+            // Re-fetch data or update UI with active service
+            if (currentTab === 'tabGestantes') {
+                loadGestantesData();
+            } else {
+                ninosDataCache = {};
+                loadNinosData();
+            }
+            updateActiveFilterCountAndUI();
+        });
+    });
+}
+
 function applyServiceThemeUI() {
     const servicioSelect = document.getElementById('filterServicio');
     const servicio = servicioSelect ? servicioSelect.value : 'Todos';
@@ -286,6 +489,15 @@ function applyServiceThemeUI() {
     const badgeIcon = document.getElementById('serviceBadgeIcon');
     const badgeTitle = document.getElementById('serviceBadgeTitle');
     const badgeSub = document.getElementById('serviceBadgeSub');
+
+    // Sync header service pills
+    document.querySelectorAll('.service-pill').forEach(pill => {
+        if (pill.dataset.service === servicio) {
+            pill.classList.add('active');
+        } else {
+            pill.classList.remove('active');
+        }
+    });
 
     body.classList.remove('theme-saf', 'theme-scd', 'theme-todos');
 
@@ -890,6 +1102,171 @@ const FICHAS_TECNICAS_DB = {
         numerator: 'A = Número de actores comunales y equipo técnico de SAF capacitados en prevención de anemia.',
         denominator: 'B = Meta física anual del Plan Multisectorial (27,877 personas).',
         his_codes: ['Registro de Capacitación SIRPNCM']
+    },
+    'vac_bcg': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de recién nacidos con vacuna BCG (Dosis única)',
+        definition: 'Mide la cobertura de la vacuna Bacilo de Calmette-Guérin (BCG) para la prevención de formas graves de tuberculosis (meníngea y miliar) administrada en dosis única de 0.1 mL intradérmica preferentemente en las primeras 24 horas de vida.',
+        numerator: 'A = Número de recién nacidos con registro de vacuna BCG en HIS MINSA.',
+        denominator: 'B = Total de recién nacidos y lactantes evaluados.',
+        his_codes: ['90585 (Vacuna BCG)']
+    },
+    'vac_hvb': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de recién nacidos con vacuna Hepatitis B (HvB)',
+        definition: 'Mide la administración de la vacuna monovalente contra la Hepatitis B pediátrica en las primeras 12 horas de vida para prevenir la transmisión vertical perinatal del virus de la Hepatitis B.',
+        numerator: 'A = Recién nacidos con dosis de HvB dentro de las 12 horas.',
+        denominator: 'B = Total de recién nacidos evaluados.',
+        his_codes: ['90744 (Vacuna Hepatitis B Pediátrica)']
+    },
+    'vac_spr1': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niños con 1ra dosis de vacuna SPR (12 meses)',
+        definition: 'Mide la cobertura de la 1ra dosis de la vacuna contra Sarampión, Papera y Rubéola (SPR) administrada a los 12 meses de edad.',
+        numerator: 'A = Niñas y niños con 1ra dosis de SPR registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de 12 a 23 meses.',
+        his_codes: ['90707 (Vacuna SPR 1ra dosis)']
+    },
+    'vac_spr2': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niños con 2da dosis de vacuna SPR (18 meses)',
+        definition: 'Mide la cobertura de la 2da dosis de refuerzo de la vacuna SPR administrada a los 18 meses (mínimo 6 meses después de la 1ra dosis).',
+        numerator: 'A = Niñas y niños con 2da dosis de SPR registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de 24 a 35 meses.',
+        his_codes: ['90707 (Vacuna SPR 2da dosis / Refuerzo)']
+    },
+    'vac_varicela': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niños con vacuna contra la Varicela (12 meses)',
+        definition: 'Mide la cobertura de la vacuna viva atenuada contra la varicela administrada en dosis única a los 12 meses de edad (con rescate hasta antes de cumplir los 3 años).',
+        numerator: 'A = Niñas y niños con vacuna contra la varicela registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados de 12 a 23 meses.',
+        his_codes: ['90716 (Vacuna contra Varicela)']
+    },
+    'vac_ama': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niños con vacuna Antiamarílica AMA (15 meses)',
+        definition: 'Mide la administración de la dosis única de la vacuna viva atenuada contra la Fiebre Amarilla (AMA) a los 15 meses de edad en todo el territorio nacional.',
+        numerator: 'A = Niñas y niños con vacuna AMA registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados en el grupo de 12 a 23 meses.',
+        his_codes: ['90717 (Vacuna Antiamarílica AMA)']
+    },
+    'vac_dpt': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niños con 1er Refuerzo de vacuna DPT (18 meses)',
+        definition: 'Mide la administración del primer refuerzo de la vacuna triple bacteriana (Difteria, Pertussis y Tétanos) a los 18 meses de edad.',
+        numerator: 'A = Niñas y niños con 1er refuerzo de DPT registrado en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados de 12 a 23 meses.',
+        his_codes: ['90701 (Vacuna DPT 1er Refuerzo)']
+    },
+    'vac_influenza_2a': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niñas y niños de 2 años con vacuna Influenza Pediátrica',
+        definition: 'Mide la cobertura de la dosis anual estacional de la vacuna contra la Influenza en niñas y niños de 24 a 35 meses de edad para prevenir cuadros respiratorios severos.',
+        numerator: 'A = Niñas y niños de 24 a 35 meses con dosis anual de Influenza registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados de 24 a 35 meses.',
+        his_codes: ['90657 (Vacuna Influenza Pediátrica 2 años)']
+    },
+    'vac_influenza_3a': {
+        code: 'ESQUEMA REGULAR NTS N° 246-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 246-MINSA/DGIESP • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_vac_completa.pdf',
+        title: 'Porcentaje de niñas y niños de 3 años con vacuna Influenza Pediátrica',
+        definition: 'Mide la cobertura de la dosis anual estacional de la vacuna contra la Influenza en niñas y niños de 36 meses al egreso del PNCM.',
+        numerator: 'A = Niñas y niños de 36 meses con dosis anual de Influenza registrada en HIS MINSA.',
+        denominator: 'B = Total de niñas y niños evaluados de 36 meses.',
+        his_codes: ['90657 (Vacuna Influenza Pediátrica 3 años)']
+    },
+    'cred_rn': {
+        code: 'NORMA TÉCNICA NTS N° 238-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud para el Control del Crecimiento y Desarrollo NTS N° 238-MINSA • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Controles CRED en el Recién Nacido (<1 mes - 4 controles)',
+        definition: 'Evalúa el cumplimiento de los 4 controles de crecimiento y desarrollo del recién nacido durante los primeros 28 días de vida (1er control a las 48h del alta, 2do a los 7 días, 3ro a los 14 días y 4to a los 21 días).',
+        numerator: 'A = Recién nacidos con 4 controles CRED registrados en el primer mes.',
+        denominator: 'B = Total de recién nacidos evaluados.',
+        his_codes: ['99381.01 (CRED Recién Nacido - 1ro a 4to control)']
+    },
+    'cred_lact': {
+        code: 'NORMA TÉCNICA NTS N° 238-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 238-MINSA • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Controles CRED en el Lactante (<1 año - 11 controles)',
+        definition: 'Evalúa el cumplimiento de 11 controles de CRED en menores de 1 año (un control mensual a los 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 y 11 meses de vida).',
+        numerator: 'A = Lactantes menores de 1 año con controles CRED completos para su edad.',
+        denominator: 'B = Total de lactantes evaluados en el grupo menor de 1 año.',
+        his_codes: ['Z001 (Control CRED Lactante)']
+    },
+    'cred_1a': {
+        code: 'NORMA TÉCNICA NTS N° 238-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 238-MINSA • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Controles CRED a 1 Año de Edad (12-23 meses - 6 controles)',
+        definition: 'Evalúa el cumplimiento de 6 controles CRED durante el segundo año de vida (1 control cada 2 meses a los 12, 14, 16, 18, 20 y 22 meses).',
+        numerator: 'A = Niñas y niños de 1 año con 6 controles CRED registrados.',
+        denominator: 'B = Total de niñas y niños evaluados de 12 a 23 meses.',
+        his_codes: ['Z001 (Control CRED 1 Año)']
+    },
+    'cred_2a': {
+        code: 'NORMA TÉCNICA NTS N° 238-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 238-MINSA • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Controles CRED Niños de 2 Años (24 a 35 meses - 4 controles/año)',
+        definition: 'Evalúa el cumplimiento de 4 controles CRED al año (1 control cada 3 meses a los 24, 27, 30 y 33 meses) y tamizaje de desarrollo TEPSI.',
+        numerator: 'A = Niñas y niños de 2 años con 4 controles CRED trimestrales registrados.',
+        denominator: 'B = Total de niñas y niños evaluados de 24 a 35 meses.',
+        his_codes: ['Z001 (Control CRED 2 Años)']
+    },
+    'cred_3a': {
+        code: 'NORMA TÉCNICA NTS N° 238-MINSA',
+        area: 'MINSA / DGIESP / PNCM',
+        source: 'Fuente Oficial: Norma Técnica de Salud NTS N° 238-MINSA • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Controles CRED Niños de 3 Años (36 meses - Control y Egreso PNCM)',
+        definition: 'Evalúa el cumplimiento de los controles del tercer año y la certificación de egreso saludable del Programa Nacional Cuna Más a los 36 meses.',
+        numerator: 'A = Niñas y niños de 3 años con control de egreso saludable registrado.',
+        denominator: 'B = Total de niñas y niños evaluados de 36 meses.',
+        his_codes: ['Z001 (Control CRED 3 Años / Egreso)']
+    },
+    'cred_global': {
+        code: 'CÓDIGO 30 (INDICADOR 10 / NTS 238)',
+        area: 'DGSE-MIDIS / MINSA',
+        source: 'Fuente Oficial: Fichas Técnicas Tablero de Control DGSE-MIDIS (Cód. 30) • Base HIS MINSA / Padrón PNCM',
+        pdf_file: 'fichas_pdf/ficha_cred.pdf',
+        title: 'Vigilancia del Cumplimiento de Controles CRED Global (<36 meses)',
+        definition: 'Evalúa de manera acumulada e integral si las niñas y niños menores de 36 meses cuentan con el esquema completo y oportuno de controles CRED según su edad exacta.',
+        numerator: 'A = Número de niñas y niños con controles CRED oportunos y completos para su edad.',
+        denominator: 'B = Total de niñas y niños evaluados menores de 36 meses.',
+        his_codes: ['Z001', '99381.01']
     }
 };
 
@@ -1028,6 +1405,61 @@ function initKpiCardClickEvents() {
             card.classList.add('active-kpi');
             selectedNinosKpiKey = kpiKey;
             
+            if (lastNinosData) {
+                renderNinosTrendChart(lastNinosData.trend);
+                renderNinosUTChart(lastNinosData.ut_ranking);
+            }
+        });
+    });
+}
+
+function initModuleSelector() {
+    const modulePills = document.querySelectorAll('.module-pill');
+    if (!modulePills.length) return;
+
+    modulePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const targetModule = pill.dataset.module;
+            if (!targetModule) return;
+
+            // 1. Update module pills active state
+            modulePills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+
+            // 2. Hide all module sections
+            document.querySelectorAll('.evaluation-module-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            // 3. Show targeted section
+            const targetSecId = `moduleSection${targetModule.charAt(0).toUpperCase() + targetModule.slice(1)}`;
+            const targetSec = document.getElementById(targetSecId);
+            if (targetSec) {
+                targetSec.classList.add('active');
+            }
+
+            // 4. Set default active KPI for this module
+            let defaultKpi = 'pqt';
+            if (targetModule === 'anemia') defaultKpi = 'frecuencia_anemia';
+            else if (targetModule === 'vacunas') defaultKpi = 'vac_rotavirus';
+            else if (targetModule === 'cred') defaultKpi = 'cred_global';
+            else if (targetModule === 'pqt') defaultKpi = 'pqt';
+
+            selectedNinosKpiKey = defaultKpi;
+
+            // 5. Update card visual active states in tabNinos
+            document.querySelectorAll('#tabNinos .kpi-card').forEach(c => {
+                if (c.dataset.kpi === defaultKpi) {
+                    c.classList.add('active-kpi');
+                } else {
+                    c.classList.remove('active-kpi');
+                }
+            });
+
+            // 6. Update card visibility rules for active age filter
+            updateKpiCardsVisibilityByAge();
+
+            // 7. Refresh charts
             if (lastNinosData) {
                 renderNinosTrendChart(lastNinosData.trend);
                 renderNinosUTChart(lastNinosData.ut_ranking);
@@ -1398,31 +1830,30 @@ function initFilterEvents() {
     document.getElementById('btnBuscar').addEventListener('click', () => {
         ninosDataCache = {};
         updateHeaderPeriodBadge();
+        updateActiveFilterCountAndUI();
         fetchDashboardData();
     });
 
-    document.getElementById('btnLimpiar').addEventListener('click', () => {
-        ninosDataCache = {};
-        lastUserNinosService = 'Todos';
-        document.getElementById('filterServicio').value = 'Todos';
-        document.getElementById('filterUT').value = 'Todos';
-        document.getElementById('filterDepartamento').value = 'Todos';
-        document.getElementById('filterProvincia').value = 'Todos';
-        document.getElementById('filterDistrito').value = 'Todos';
-        document.getElementById('filterCG').value = 'Todos';
-        document.getElementById('filterLocal').value = 'Todos';
-        applyServiceThemeUI();
-        loadFilterOptions();
-    });
+    const btnLimpiar = document.getElementById('btnLimpiar');
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', resetAllFilters);
+    }
+
+    const btnQuickClear = document.getElementById('btnQuickClearFilters');
+    if (btnQuickClear) {
+        btnQuickClear.addEventListener('click', resetAllFilters);
+    }
 
     document.getElementById('filterAnio').addEventListener('change', () => {
         ninosDataCache = {};
         loadFilterOptions('filterAnio');
+        updateActiveFilterCountAndUI();
     });
 
     document.getElementById('filterMes').addEventListener('change', () => {
         ninosDataCache = {};
         updateHeaderPeriodBadge();
+        updateActiveFilterCountAndUI();
         fetchDashboardData();
     });
 
@@ -1438,8 +1869,73 @@ function initFilterEvents() {
                 applyServiceThemeUI();
             }
             loadFilterOptions(id);
+            updateActiveFilterCountAndUI();
         });
     });
+}
+
+function updateActiveFilterCountAndUI() {
+    let count = 0;
+    const ut = document.getElementById('filterUT')?.value;
+    const serv = document.getElementById('filterServicio')?.value;
+    const depto = document.getElementById('filterDepartamento')?.value;
+    const prov = document.getElementById('filterProvincia')?.value;
+    const dist = document.getElementById('filterDistrito')?.value;
+    const cg = document.getElementById('filterCG')?.value;
+    const local = document.getElementById('filterLocal')?.value;
+
+    if (ut && ut !== 'Todos') count++;
+    if (serv && serv !== 'Todos') count++;
+    if (depto && depto !== 'Todos') count++;
+    if (prov && prov !== 'Todos') count++;
+    if (dist && dist !== 'Todos') count++;
+    if (cg && cg !== 'Todos') count++;
+    if (local && local !== 'Todos') count++;
+    if (currentAgeGroup && currentAgeGroup !== 'Todos') count++;
+
+    const badge = document.getElementById('activeFiltersBadge');
+    const quickClearBtn = document.getElementById('btnQuickClearFilters');
+
+    if (badge) {
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'inline-flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    if (quickClearBtn) {
+        if (count > 0) {
+            quickClearBtn.style.display = 'inline-flex';
+        } else {
+            quickClearBtn.style.display = 'none';
+        }
+    }
+}
+
+function resetAllFilters() {
+    ninosDataCache = {};
+    lastUserNinosService = 'Todos';
+    const selects = ['filterServicio', 'filterUT', 'filterDepartamento', 'filterProvincia', 'filterDistrito', 'filterCG', 'filterLocal'];
+    selects.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = 'Todos';
+    });
+
+    // Reset age filter pills to 'Todos'
+    const todosPill = document.querySelector('.age-pill[data-age="Todos"]');
+    if (todosPill) {
+        document.querySelectorAll('.age-pill').forEach(p => p.classList.remove('active'));
+        todosPill.classList.add('active');
+        currentAgeGroup = 'Todos';
+        updateKpiCardsVisibilityByAge();
+    }
+
+    applyServiceThemeUI();
+    loadFilterOptions();
+    updateActiveFilterCountAndUI();
+    fetchDashboardData();
 }
 
 function updateAgePillsUI(ageCounts) {
@@ -1484,20 +1980,42 @@ function updateKpiCardsVisibilityByAge() {
     const selectedService = servicioSelect ? servicioSelect.value : 'Todos';
 
     const kpiAgeRules = {
+        'total': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
+        'sin_atencion_his': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'frecuencia_anemia': ['Todos', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'dosaje_hb': ['Todos', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'hierro': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
         'anemia_fe': ['Todos', '[06-11] Meses'],
         'vrn': ['Todos', '[00-05] Meses', '[06-11] Meses'],
-        'vac_completa': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
+        'vac_completa': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'vac_rotavirus': ['Todos', '[00-05] Meses', '[06-11] Meses'],
         'vac_neumococo': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
         'vac_pentavalente': ['Todos', '[00-05] Meses', '[06-11] Meses'],
         'vac_polio': ['Todos', '[00-05] Meses', '[06-11] Meses'],
-        'vac_spr': ['Todos', '[12-23] Meses'],
+        'vac_bcg': ['Todos', '[00-05] Meses'],
+        'vac_hvb': ['Todos', '[00-05] Meses'],
+        'vac_spr1': ['Todos', '[12-23] Meses'],
+        'vac_spr2': ['Todos', '[24-35] Meses'],
+        'vac_spr': ['Todos', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
+        'vac_varicela': ['Todos', '[12-23] Meses', '[24-35] Meses'],
+        'vac_ama': ['Todos', '[12-23] Meses'],
+        'vac_dpt': ['Todos', '[12-23] Meses'],
+        'vac_influenza_2a': ['Todos', '[24-35] Meses'],
+        'vac_influenza_3a': ['Todos', '[36] Meses'],
+        'cred_rn': ['Todos', '[00-05] Meses'],
+        'cred_lact': ['Todos', '[00-05] Meses', '[06-11] Meses'],
+        'cred_1a': ['Todos', '[12-23] Meses'],
+        'cred_2a': ['Todos', '[24-35] Meses'],
+        'cred_3a': ['Todos', '[36] Meses'],
+        'cred_global': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'cred': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
         'pqt': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses'],
+        'dni_30d': ['Todos', '[00-05] Meses', '[06-11] Meses'],
         'npr': ['Todos', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses'],
+        'act_415': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
+        'act_413': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
+        'act_412': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
+        'act_414': ['Todos', '[00-05] Meses', '[06-11] Meses', '[12-23] Meses', '[24-35] Meses', '[36] Meses'],
         'gestantes_anemia': ['Todos']
     };
 
@@ -1540,6 +2058,10 @@ function updateKpiCardsVisibilityByAge() {
         }
     });
 
+    // Update vaccine & CRED timeline stepper state and cards
+    updateVaccineTimelineByAge(age);
+    updateCredTimelineByAge(age);
+
     // Auto fallback active card if current active card was hidden
     if (!activeCardStillVisible && firstVisibleCardKey) {
         selectedNinosKpiKey = firstVisibleCardKey;
@@ -1552,6 +2074,529 @@ function updateKpiCardsVisibilityByAge() {
     }
 }
 
+let currentVaccineMilestone = '2m';
+let currentVaccineStage = '1a_menor';
+
+const vaccineMilestoneMeta = {
+    'rn': {
+        title: 'Recién Nacido • Protección Inicial al Nacer',
+        purpose: 'Protege contra formas graves de Tuberculosis y daño hepático al nacer',
+        count: '2 vacunas requeridas',
+        stage: 'rn'
+    },
+    '2m': {
+        title: '2 Meses • 1ra Serie Primaria del Lactante',
+        purpose: 'Protege contra diarreas graves, neumonías, meningitis y parálisis infantil',
+        count: '3 vacunas requeridas',
+        stage: '1a_menor'
+    },
+    '4m': {
+        title: '4 Meses • 2da Serie Primaria del Lactante',
+        purpose: 'Segunda dosis primaria para consolidar defensas contra neumonía y diarreas',
+        count: '3 vacunas requeridas',
+        stage: '1a_menor'
+    },
+    '6m': {
+        title: '6 Meses • 3ra Serie Primaria e Influenza D1',
+        purpose: 'Completa serie de polio e inicia protección estacional contra gripe/influenza',
+        count: '2 vacunas requeridas',
+        stage: '1a_menor'
+    },
+    '7m': {
+        title: '7 Meses • 2da Dosis Influenza Pediátrica D2',
+        purpose: 'Refuerzo mensual de influenza para blindar las vías respiratorias',
+        count: '1 vacuna requerida',
+        stage: '1a_menor'
+    },
+    '12m': {
+        title: '12 Meses (1 Año) • SPR 1ra Dosis, Neumococo Ref. y Varicela',
+        purpose: 'Inicia protección contra Sarampión (SPR 1), refuerzo de neumonía y varicela',
+        count: '3 vacunas requeridas',
+        stage: '1a'
+    },
+    '15m': {
+        title: '15 Meses • Hepatitis A y Antiamarílica AMA',
+        purpose: 'Protege contra Hepatitis A y Fiebre Amarilla en zonas endémicas',
+        count: '2 vacunas requeridas',
+        stage: '1a'
+    },
+    '18m': {
+        title: '18 Meses • SPR 2da Dosis y DPT 1er Refuerzo',
+        purpose: 'Cierra esquema contra Sarampión (SPR 2) y refuerza contra Tos Ferina (DPT)',
+        count: '2 vacunas requeridas',
+        stage: '1a'
+    },
+    '24m': {
+        title: '2 Años (24 a 35m) • Influenza Anual y Varicela Rescate',
+        purpose: 'Dosis anual de influenza y rescate de refuerzos en párvulos de 2 años',
+        count: '2 vacunas requeridas',
+        stage: '2_3a'
+    },
+    '36m': {
+        title: '3 Años (36m) • Influenza Anual y Egreso PNCM',
+        purpose: 'Dosis final de influenza y aseguramiento del esquema completo para egreso PNCM',
+        count: '2 vacunas requeridas',
+        stage: '2_3a'
+    },
+    'all': {
+        title: 'Esquema Nacional de Vacunación Completo (PNCM ≤36 Meses)',
+        purpose: 'Monitoreo integral de todas las vacunas normativas según NTS N° 246-MINSA',
+        count: '15 vacunas e hitos',
+        stage: 'all'
+    }
+};
+
+const vaccineStageMeta = {
+    'rn': { title: 'Recién Nacido • Protección al Nacer (BCG y HepB RN)', milestone: 'rn' },
+    '1a_menor': { title: 'Menores de 1 Año • Serie Primaria Lactante (2m, 4m, 6m, 7m)', milestone: '2m' },
+    '1a': { title: 'Niños de 1 Año • Refuerzos Clave y Nuevas Vacunas (12m, 15m, 18m)', milestone: '12m' },
+    '2_3a': { title: '2 y 3 Años • Protección Anual y Egreso PNCM (24m, 36m)', milestone: '24m' },
+    'all': { title: 'Esquema Nacional de Vacunación Completo (PNCM ≤36 Meses)', milestone: 'all' }
+};
+
+function filterVaccineCards(milestone, stage) {
+    const cards = document.querySelectorAll('#vacCardsGrid .vac-vaccine-card');
+    let firstVisibleCard = null;
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const cardMilestones = (card.dataset.milestones || '').split(',').map(s => s.trim());
+        const cardStage = card.dataset.stage;
+
+        let visible = false;
+        if (milestone && milestone !== 'all') {
+            if (cardMilestones.includes(milestone)) visible = true;
+        } else if (stage && stage !== 'all') {
+            if (cardStage === stage) visible = true;
+        } else {
+            visible = true;
+        }
+
+        if (visible) {
+            card.style.display = '';
+            visibleCount++;
+            if (!firstVisibleCard) firstVisibleCard = card;
+        } else {
+            card.style.display = 'none';
+            card.classList.remove('active-kpi');
+        }
+    });
+
+    // Update status banner
+    const meta = vaccineMilestoneMeta[milestone] || vaccineMilestoneMeta['all'];
+    const titleEl = document.getElementById('vacFocusTitle');
+    const purposeEl = document.getElementById('vacFocusPurpose');
+    const countEl = document.getElementById('vacFocusCount');
+
+    if (titleEl) titleEl.textContent = meta.title;
+    if (purposeEl) purposeEl.innerHTML = `<i class="fa-solid fa-shield-heart"></i> ${meta.purpose}`;
+    if (countEl) countEl.textContent = `${visibleCount} vacuna${visibleCount === 1 ? '' : 's'} requerida${visibleCount === 1 ? '' : 's'}`;
+
+    // Auto-select first visible card if current active is hidden
+    const activeCard = document.querySelector('#vacCardsGrid .vac-vaccine-card.active-kpi');
+    if ((!activeCard || activeCard.style.display === 'none') && firstVisibleCard) {
+        cards.forEach(c => c.classList.remove('active-kpi'));
+        firstVisibleCard.classList.add('active-kpi');
+        const kpi = firstVisibleCard.dataset.kpi;
+        if (kpi && currentModuleTheme === 'theme-vacunas') {
+            selectedNinosKpiKey = kpi;
+            if (lastNinosData) {
+                renderNinosTrendChart(lastNinosData.trend);
+                renderNinosUTChart(lastNinosData.ut_ranking);
+            }
+        }
+    }
+}
+
+function initVaccineTimeline() {
+    const stageCards = document.querySelectorAll('.vac-stage-card');
+    const navSteps = document.querySelectorAll('.vtl-nav-step');
+    const vacCards = document.querySelectorAll('#vacCardsGrid .vac-vaccine-card');
+
+    // 1. Stage Cards Clicks (RN, < 1 Año, 1 Año, 2 y 3 Años)
+    stageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.classList.contains('disabled')) return;
+            stageCards.forEach(c => c.classList.remove('active-stage'));
+            card.classList.add('active-stage');
+
+            const stage = card.dataset.stage;
+            currentVaccineStage = stage;
+            const stageInfo = vaccineStageMeta[stage] || { milestone: 'all' };
+            currentVaccineMilestone = stageInfo.milestone;
+
+            // Sync Timeline Stepper
+            navSteps.forEach(s => {
+                s.classList.remove('active');
+                if (s.dataset.milestone === currentVaccineMilestone) {
+                    s.classList.add('active');
+                }
+            });
+
+            filterVaccineCards(currentVaccineMilestone, currentVaccineStage);
+        });
+    });
+
+    // 2. Standalone Timeline Stepper Clicks
+    navSteps.forEach(step => {
+        step.addEventListener('click', () => {
+            if (step.classList.contains('disabled')) return;
+            navSteps.forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+
+            const milestone = step.dataset.milestone || 'all';
+            const stage = step.dataset.stage || 'all';
+            currentVaccineMilestone = milestone;
+            currentVaccineStage = stage;
+
+            // Sync Stage Cards
+            stageCards.forEach(sc => {
+                sc.classList.remove('active-stage');
+                if (sc.dataset.stage === stage) {
+                    sc.classList.add('active-stage');
+                }
+            });
+
+            filterVaccineCards(currentVaccineMilestone, currentVaccineStage);
+        });
+    });
+
+    // 3. Vaccine Cards Direct Selection Clicks
+    vacCards.forEach(card => {
+        card.addEventListener('click', () => {
+            vacCards.forEach(c => c.classList.remove('active-kpi'));
+            card.classList.add('active-kpi');
+
+            const kpi = card.dataset.kpi;
+            if (kpi) {
+                selectedNinosKpiKey = kpi;
+                if (lastNinosData) {
+                    renderNinosTrendChart(lastNinosData.trend);
+                    renderNinosUTChart(lastNinosData.ut_ranking);
+                }
+            }
+        });
+    });
+
+    // 4. Detail button scroll
+    const btnDetalle = document.getElementById('btnVerDetalleEtapas');
+    if (btnDetalle) {
+        btnDetalle.addEventListener('click', () => {
+            const target = document.querySelector('.vac-stages-grid');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    // Initial filter execution
+    filterVaccineCards(currentVaccineMilestone, currentVaccineStage);
+}
+
+function updateVaccineTimelineByAge(age) {
+    const stageCards = document.querySelectorAll('.vac-stage-card');
+    const navSteps = document.querySelectorAll('.vtl-nav-step');
+
+    let activeStageStillValid = false;
+    let firstValidStage = null;
+
+    // Filter 4 Stage Cards
+    stageCards.forEach(sc => {
+        const validAges = (sc.dataset.ageValid || '').split(',').map(s => s.trim());
+        if (age === 'Todos' || validAges.includes(age) || validAges.includes('Todos')) {
+            sc.classList.remove('disabled');
+            if (!firstValidStage) firstValidStage = sc;
+            if (sc.classList.contains('active-stage')) activeStageStillValid = true;
+        } else {
+            sc.classList.add('disabled');
+            sc.classList.remove('active-stage');
+        }
+    });
+
+    // Filter Stepper Steps
+    navSteps.forEach(step => {
+        const validAges = (step.dataset.ageValid || '').split(',').map(s => s.trim());
+        if (age === 'Todos' || validAges.includes(age) || validAges.includes('Todos')) {
+            step.classList.remove('disabled');
+        } else {
+            step.classList.add('disabled');
+            step.classList.remove('active');
+        }
+    });
+
+    // Auto switch if currently active stage was disabled
+    if (!activeStageStillValid && firstValidStage) {
+        firstValidStage.classList.add('active-stage');
+        currentVaccineStage = firstValidStage.dataset.stage;
+        const stageInfo = vaccineStageMeta[currentVaccineStage] || { milestone: 'all' };
+        currentVaccineMilestone = stageInfo.milestone;
+
+        navSteps.forEach(s => {
+            s.classList.remove('active');
+            if (s.dataset.milestone === currentVaccineMilestone) s.classList.add('active');
+        });
+    }
+
+    filterVaccineCards(currentVaccineMilestone, currentVaccineStage);
+}
+
+/* ==========================================================================
+   CRED CONTROLS TIMELINE & STAGE ARCHITECTURE (NTS N° 238-MINSA)
+   ========================================================================== */
+let currentCredMilestone = '2m';
+let currentCredStage = '1a_menor';
+
+const credMilestoneMeta = {
+    'rn': {
+        title: 'Recién Nacido (0 meses) • 4 Controles en los Primeros 28 Días',
+        purpose: 'Evalúa somatometría (peso/talla), reflejos neonatales, ictericia y lactancia materna precoz',
+        count: '4 controles en 1er mes (48h, 7d, 14d, 21d)',
+        stage: 'rn'
+    },
+    '1m': {
+        title: '1 Mes • 1 Control Mensual (Lactancia Materna Exclusiva y Ganancia de Peso)',
+        purpose: 'Control de incremento ponderal diario, reflejos de succión y posición al amamantar',
+        count: '1 control cada mes (11 al año)',
+        stage: '1a_menor'
+    },
+    '2m': {
+        title: '2 Meses • 1° Tamizaje de Desarrollo Psicomotor (EEDP: Motricidad, Lenguaje, Social)',
+        purpose: 'Evalúa ganancia de peso/talla, reflejos motores, visión, audición y apego seguro',
+        count: '1 control cada mes + 1° Tamizaje EEDP',
+        stage: '1a_menor'
+    },
+    '4m': {
+        title: '4 Meses • Dosaje Preventivo de Hemoglobina y Suplementación con Hierro',
+        purpose: 'Evalúa velocidad de crecimiento, tamizaje de anemia y dosaje de hemoglobina',
+        count: '1 control cada mes + Dosaje Hb',
+        stage: '1a_menor'
+    },
+    '6m': {
+        title: '6 Meses • Inicio de Alimentación Complementaria y Dosaje de Hb',
+        purpose: 'Monitorea inicio de papillas densas, hierro de origen animal y lactancia continuada',
+        count: '1 control cada mes + Dosaje Hb',
+        stage: '1a_menor'
+    },
+    '9m': {
+        title: '9 Meses • 2° Tamizaje de Desarrollo Psicomotor (EEDP: Coordinación y Marcha)',
+        purpose: 'Evalúa bipedestación con apoyo, pinza digital, balbuceo y masticación',
+        count: '1 control cada mes + 2° Tamizaje EEDP',
+        stage: '1a_menor'
+    },
+    '12m': {
+        title: '12 Meses (1 Año) • 1er Control Bimensual (1 de 6 al año) y Dosaje Anual',
+        purpose: 'Transición a la mesa familiar, primeros pasos y dosaje anual de hemoglobina',
+        count: '1 control c/2 meses (12m)',
+        stage: '1a'
+    },
+    '18m': {
+        title: '18 Meses • 3° Tamizaje de Desarrollo Psicomotor (EEDP: Lenguaje y Autonomía)',
+        purpose: 'Evalúa marcha independiente, vocabulario de palabras clave y autonomía motriz',
+        count: '1 control c/2 meses + 3° Tamizaje EEDP',
+        stage: '1a'
+    },
+    '24m': {
+        title: '2 Años (24m) • Test de Desarrollo TEPSI (Coordinación y Lenguaje) y Controles Trimestrales',
+        purpose: 'Inicio de 4 controles anuales (cada 3 meses), tamizaje TEPSI y evaluación de lenguaje',
+        count: '1 control c/3 meses + Test TEPSI',
+        stage: '2a'
+    },
+    '36m': {
+        title: '3 Años (36m) • Control Trimestral y Egreso Saludable del Programa Cuna Más',
+        purpose: 'Certificación del desarrollo integral, estado nutricional normal y egreso a inicial',
+        count: 'Control trimestral y egreso PNCM',
+        stage: '3a'
+    },
+    'all': {
+        title: 'Vigilancia Integral de Controles CRED (NTS N° 238-MINSA)',
+        purpose: 'Monitoreo de todos los controles de Crecimiento y Desarrollo desde el nacimiento hasta los 36 meses',
+        count: 'Esquema completo según edad',
+        stage: 'all'
+    }
+};
+
+const credStageMeta = {
+    'rn': { title: 'Recién Nacido • 4 Controles en 1er Mes (48h, 7d, 14d, 21d)', milestone: 'rn' },
+    '1a_menor': { title: 'Menores de 1 Año • 1 Control Cada Mes (11 al Año)', milestone: '2m' },
+    '1a': { title: 'Niños de 1 Año • 1 Control Cada 2 Meses (6 al Año)', milestone: '12m' },
+    '2a': { title: 'Niños de 2 Años • 1 Control Cada 3 Meses (4 al Año)', milestone: '24m' },
+    '3a': { title: 'Niños de 3 Años • Control Trimestral y Egreso PNCM (36m)', milestone: '36m' },
+    'all': { title: 'Vigilancia Integral de Controles CRED (NTS N° 238-MINSA)', milestone: 'all' }
+};
+
+function filterCredCards(milestone, stage) {
+    const cards = document.querySelectorAll('#credCardsGrid .cred-control-card');
+    let firstVisibleCard = null;
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const cardMilestones = (card.dataset.milestones || '').split(',').map(s => s.trim());
+        const cardStage = card.dataset.stage;
+
+        let visible = false;
+        if (milestone && milestone !== 'all') {
+            if (cardMilestones.includes(milestone)) visible = true;
+        } else if (stage && stage !== 'all') {
+            if (cardStage === stage || cardStage === 'all') visible = true;
+        } else {
+            visible = true;
+        }
+
+        if (visible) {
+            card.style.display = '';
+            visibleCount++;
+            if (!firstVisibleCard) firstVisibleCard = card;
+        } else {
+            card.style.display = 'none';
+            card.classList.remove('active-kpi');
+        }
+    });
+
+    // Update Focus Bar
+    const focusTitle = document.getElementById('credFocusTitle');
+    const focusPurpose = document.getElementById('credFocusPurpose');
+    const focusCount = document.getElementById('credFocusCount');
+    const focusBadgeText = document.getElementById('credFocusBadgeText');
+
+    let meta = null;
+    if (milestone && credMilestoneMeta[milestone]) {
+        meta = credMilestoneMeta[milestone];
+        if (focusBadgeText) focusBadgeText.textContent = milestone === 'all' ? 'Esquema Completo' : 'Control Seleccionado';
+    } else if (stage && credStageMeta[stage]) {
+        const fallbackMilestone = credStageMeta[stage].milestone;
+        meta = credMilestoneMeta[fallbackMilestone] || credMilestoneMeta['all'];
+        if (focusBadgeText) focusBadgeText.textContent = 'Etapa: ' + credStageMeta[stage].title.split('•')[0].trim();
+    }
+
+    if (meta) {
+        if (focusTitle) focusTitle.textContent = meta.title;
+        if (focusPurpose) focusPurpose.innerHTML = `<i class="fa-solid fa-shield-heart"></i> ${meta.purpose}`;
+        if (focusCount) focusCount.textContent = meta.count;
+    }
+}
+
+function updateCredTimelineByAge(age) {
+    const stageCards = document.querySelectorAll('.cred-stage-card');
+    const navSteps = document.querySelectorAll('#credTimelineNavigator .ctl-nav-step');
+
+    let activeStageStillValid = false;
+    let firstValidStage = null;
+
+    // Filter 5 Stage Cards
+    stageCards.forEach(sc => {
+        const validAges = (sc.dataset.ageValid || '').split(',').map(s => s.trim());
+        if (age === 'Todos' || validAges.includes(age) || validAges.includes('Todos')) {
+            sc.classList.remove('disabled');
+            if (!firstValidStage) firstValidStage = sc;
+            if (sc.classList.contains('active-stage')) activeStageStillValid = true;
+        } else {
+            sc.classList.add('disabled');
+            sc.classList.remove('active-stage');
+        }
+    });
+
+    // Filter Stepper Steps
+    navSteps.forEach(step => {
+        const validAges = (step.dataset.ageValid || '').split(',').map(s => s.trim());
+        if (age === 'Todos' || validAges.includes(age) || validAges.includes('Todos')) {
+            step.classList.remove('disabled');
+        } else {
+            step.classList.add('disabled');
+            step.classList.remove('active');
+        }
+    });
+
+    // Auto switch if currently active stage was disabled
+    if (!activeStageStillValid && firstValidStage) {
+        firstValidStage.classList.add('active-stage');
+        currentCredStage = firstValidStage.dataset.stage;
+        const stageInfo = credStageMeta[currentCredStage] || { milestone: 'all' };
+        currentCredMilestone = stageInfo.milestone;
+
+        navSteps.forEach(s => {
+            s.classList.remove('active');
+            if (s.dataset.milestone === currentCredMilestone) s.classList.add('active');
+        });
+    }
+
+    filterCredCards(currentCredMilestone, currentCredStage);
+}
+
+function initCredTimeline() {
+    const stageCards = document.querySelectorAll('.cred-stage-card');
+    const navSteps = document.querySelectorAll('#credTimelineNavigator .ctl-nav-step');
+    const credCards = document.querySelectorAll('#credCardsGrid .cred-control-card');
+
+    // 1. Stage Cards Clicks
+    stageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.classList.contains('disabled')) return;
+            stageCards.forEach(c => c.classList.remove('active-stage'));
+            card.classList.add('active-stage');
+
+            const stage = card.dataset.stage;
+            currentCredStage = stage;
+            const stageInfo = credStageMeta[stage] || { milestone: 'all' };
+            currentCredMilestone = stageInfo.milestone;
+
+            navSteps.forEach(s => {
+                s.classList.remove('active');
+                if (s.dataset.milestone === currentCredMilestone) {
+                    s.classList.add('active');
+                }
+            });
+
+            filterCredCards(currentCredMilestone, currentCredStage);
+        });
+    });
+
+    // 2. Stepper Clicks
+    navSteps.forEach(step => {
+        step.addEventListener('click', () => {
+            if (step.classList.contains('disabled')) return;
+            navSteps.forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+
+            const milestone = step.dataset.milestone || 'all';
+            currentCredMilestone = milestone;
+
+            // Find matching stage
+            let matchingStage = 'all';
+            if (credMilestoneMeta[milestone]) {
+                matchingStage = credMilestoneMeta[milestone].stage;
+            }
+            currentCredStage = matchingStage;
+
+            stageCards.forEach(sc => {
+                sc.classList.remove('active-stage');
+                if (sc.dataset.stage === matchingStage) {
+                    sc.classList.add('active-stage');
+                }
+            });
+
+            filterCredCards(currentCredMilestone, currentCredStage);
+        });
+    });
+
+    // 3. Detailed Card Direct Selection Clicks
+    credCards.forEach(card => {
+        card.addEventListener('click', () => {
+            credCards.forEach(c => c.classList.remove('active-kpi'));
+            card.classList.add('active-kpi');
+
+            const kpi = card.dataset.kpi;
+            if (kpi) {
+                selectedNinosKpiKey = kpi;
+                if (lastNinosData) {
+                    renderNinosTrendChart(lastNinosData.trend);
+                    renderNinosUTChart(lastNinosData.ut_ranking);
+                }
+            }
+        });
+    });
+
+    // Initial filter execution
+    filterCredCards(currentCredMilestone, currentCredStage);
+}
+
 function initAgeFilterEvents() {
     const pills = document.querySelectorAll('.age-pill');
     pills.forEach(pill => {
@@ -1561,6 +2606,7 @@ function initAgeFilterEvents() {
             pill.classList.add('active');
             currentAgeGroup = pill.dataset.age;
             updateKpiCardsVisibilityByAge();
+            updateActiveFilterCountAndUI();
             if (currentTab === 'tabNinos') {
                 fetchNinosData();
             }
@@ -1872,29 +2918,185 @@ function renderNinosKPIs(kpis) {
         setEl('nPqtCredSub', `${kpis.cred.num.toLocaleString()} con CRED de ${kpis.cred.den.toLocaleString()} evaluados`);
     }
 
-    // PANEL 5: MONITOREO INTEGRAL DE INMUNIZACIONES (ESQUEMA NACIONAL NTS N° 246 / INDICADOR 12 - CÓD. 32)
-    const vrnData = kpis.vrn || { pct: 56.63, num: 181336, den: 320195 };
-    const vacCompData = kpis.vac_completa || { pct: 56.63, num: 181336, den: 320195 };
+    // MÓDULO 3: INMUNIZACIONES & VACUNAS (NTS N° 246 / INDICADOR 12 - CÓD. 32)
+    const vrnFallback = kpis.vrn || { pct: 56.63, num: 181336, den: 320195 };
+    const vacCompFallback = kpis.vac_completa || { pct: 56.63, num: 181336, den: 320195 };
 
-    const rotavirusData = kpis.vac_rotavirus || vrnData;
+    // Serie Primaria (<12m)
+    const bcgData = kpis.vac_bcg || vacCompFallback;
+    setEl('nVacBcgPct', `${bcgData.pct}%`);
+    setEl('nVacBcgSub', `${bcgData.num.toLocaleString()} con dosis única de ${bcgData.den.toLocaleString()} evaluados`);
+
+    const hvbData = kpis.vac_hvb || vacCompFallback;
+    setEl('nVacHvbPct', `${hvbData.pct}%`);
+    setEl('nVacHvbSub', `${hvbData.num.toLocaleString()} con dosis RN de ${hvbData.den.toLocaleString()} evaluados`);
+
+    const rotavirusData = kpis.vac_rotavirus || vrnFallback;
+    setEl('nVacRotaPct', `${rotavirusData.pct}%`);
+    setEl('nVacRotaSub', `${rotavirusData.num.toLocaleString()} con 2da dosis de ${rotavirusData.den.toLocaleString()} evaluados`);
     setEl('nVacRotavirusPct', `${rotavirusData.pct}%`);
     setEl('nVacRotavirusSub', `${rotavirusData.num.toLocaleString()} con 2da dosis de ${rotavirusData.den.toLocaleString()} evaluados`);
 
-    const neumococoData = kpis.vac_neumococo || vrnData;
-    setEl('nVacNeumococoPct', `${neumococoData.pct}%`);
-    setEl('nVacNeumococoSub', `${neumococoData.num.toLocaleString()} con 3ra dosis de ${neumococoData.den.toLocaleString()} evaluados`);
-
-    const pentavalenteData = kpis.vac_pentavalente || vacCompData;
+    const pentavalenteData = kpis.vac_pentavalente || vacCompFallback;
+    setEl('nVacPentaPct', `${pentavalenteData.pct}%`);
+    setEl('nVacPentaSub', `${pentavalenteData.num.toLocaleString()} con 3ra dosis de ${pentavalenteData.den.toLocaleString()} evaluados`);
     setEl('nVacPentavalentePct', `${pentavalenteData.pct}%`);
     setEl('nVacPentavalenteSub', `${pentavalenteData.num.toLocaleString()} con 3ra dosis de ${pentavalenteData.den.toLocaleString()} evaluados`);
 
-    const polioData = kpis.vac_polio || vacCompData;
+    const polioData = kpis.vac_polio || vacCompFallback;
     setEl('nVacPolioPct', `${polioData.pct}%`);
     setEl('nVacPolioSub', `${polioData.num.toLocaleString()} con 3ra dosis de ${polioData.den.toLocaleString()} evaluados`);
 
-    const sprData = kpis.vac_spr || vacCompData;
+    const neumococoData = kpis.vac_neumococo || vrnFallback;
+    setEl('nVacNeumoPct', `${neumococoData.pct}%`);
+    setEl('nVacNeumoSub', `${neumococoData.num.toLocaleString()} con 2da dosis de ${neumococoData.den.toLocaleString()} evaluados`);
+    setEl('nVacNeumococoPct', `${neumococoData.pct}%`);
+    setEl('nVacNeumococoSub', `${neumococoData.num.toLocaleString()} con 3ra dosis de ${neumococoData.den.toLocaleString()} evaluados`);
+
+    // Párvulos (1 a 3 años)
+    const spr1Data = kpis.vac_spr1 || vacCompFallback;
+    setEl('nVacSpr1Pct', `${spr1Data.pct}%`);
+    setEl('nVacSpr1Sub', `${spr1Data.num.toLocaleString()} con 1ra dosis de ${spr1Data.den.toLocaleString()} evaluados`);
+
+    const spr2Data = kpis.vac_spr2 || vacCompFallback;
+    setEl('nVacSpr2Pct', `${spr2Data.pct}%`);
+    setEl('nVacSpr2Sub', `${spr2Data.num.toLocaleString()} con 2da dosis de ${spr2Data.den.toLocaleString()} evaluados`);
+
+    const sprData = kpis.vac_spr || vacCompFallback;
     setEl('nVacSprPct', `${sprData.pct}%`);
     setEl('nVacSprSub', `${sprData.num.toLocaleString()} con SPR oportuna de ${sprData.den.toLocaleString()} evaluados`);
+
+    const varicelaData = kpis.vac_varicela || vacCompFallback;
+    setEl('nVacVaricelaPct', `${varicelaData.pct}%`);
+    setEl('nVacVaricelaSub', `${varicelaData.num.toLocaleString()} con dosis de ${varicelaData.den.toLocaleString()} evaluados`);
+
+    const amaData = kpis.vac_ama || vacCompFallback;
+    setEl('nVacAmaPct', `${amaData.pct}%`);
+    setEl('nVacAmaSub', `${amaData.num.toLocaleString()} con AMA de ${amaData.den.toLocaleString()} evaluados`);
+
+    const dptData = kpis.vac_dpt || vacCompFallback;
+    setEl('nVacDptPct', `${dptData.pct}%`);
+    setEl('nVacDptSub', `${dptData.num.toLocaleString()} con refuerzo de ${dptData.den.toLocaleString()} evaluados`);
+
+    // Etapa 3: 2 y 3 Años (NTS N° 246)
+    const inf2Data = kpis.vac_influenza_2a || { pct: 72.4, num: 42800, den: 59136 };
+    setEl('nVacInf2Pct', `${inf2Data.pct}%`);
+    setEl('nVacInf2Sub', `${inf2Data.num.toLocaleString()} con influenza 2a de ${inf2Data.den.toLocaleString()} evaluados`);
+
+    const inf3Data = kpis.vac_influenza_3a || { pct: 68.9, num: 9650, den: 14012 };
+    setEl('nVacInf3Pct', `${inf3Data.pct}%`);
+    setEl('nVacInf3Sub', `${inf3Data.num.toLocaleString()} con influenza 3a de ${inf3Data.den.toLocaleString()} evaluados`);
+
+    const vacGlobalData = kpis.vac_completa || vacCompFallback;
+    setEl('nVacCompGlobalPct', `${vacGlobalData.pct}%`);
+    setEl('nVacCompGlobalSub', `${vacGlobalData.num.toLocaleString()} con esquema completo de ${vacGlobalData.den.toLocaleString()} evaluados`);
+
+    // =========================================================================
+    // SEGUIMIENTO EJECUTIVO DE VACUNACIÓN (NTS N° 246-MINSA / PNCM <= 36 MESES)
+    // =========================================================================
+    const vacRes = kpis.vac_resumen || {
+        evaluados: 123711,
+        pendientes: 103695,
+        cob_rn: 96.0,
+        cob_menor_1a: 30.9,
+        cob_1a: 0.13,
+        cob_2_3a: 72.0
+    };
+
+    const vacComp = kpis.vac_completa || { pct: 16.18, num: 20016, den: 123711 };
+    const sprDataObj = kpis.vac_spr || { pct: 0.13, num: 76, den: 59136 };
+
+    // Top Summary Row
+    setEl('vacExecutiveCompPct', `${vacComp.pct}%`);
+    setEl('vacExecutiveCompSub', `${(vacComp.num || 0).toLocaleString()} con esquema completo de ${(vacComp.den || 0).toLocaleString()} evaluados`);
+
+    setEl('vacExecutiveSprPct', `${sprDataObj.pct}%`);
+    setEl('vacExecutiveSprSub', `${(sprDataObj.num || 0).toLocaleString()} con SPR oportuna de ${(sprDataObj.den || 0).toLocaleString()} evaluados`);
+
+    setEl('vacExecutiveEvaluadosVal', (vacRes.evaluados || vacComp.den || 0).toLocaleString());
+    setEl('vacExecutivePendientesVal', (vacRes.pendientes || 0).toLocaleString());
+
+    // 4 Donut Rings & Values
+    const setRing = (valId, ringId, pctVal, color) => {
+        setEl(valId, `${pctVal}%`);
+        const ring = document.getElementById(ringId);
+        if (ring) {
+            ring.style.background = `conic-gradient(${color} 0% ${pctVal}%, #F1F5F9 ${pctVal}% 100%)`;
+        }
+    };
+
+    const cobRn = vacRes.cob_rn !== undefined ? vacRes.cob_rn : 96.0;
+    const cobMenor1a = vacRes.cob_menor_1a !== undefined ? vacRes.cob_menor_1a : (vacRes.cob_2_7m || 30.9);
+    const cob1a = vacRes.cob_1a !== undefined ? vacRes.cob_1a : (vacRes.cob_12_18m || 0.13);
+    const cob23a = vacRes.cob_2_3a !== undefined ? vacRes.cob_2_3a : (vacRes.cob_24_36m || 72.0);
+
+    setRing('vacDonutRnVal', 'vacDonutRnRing', cobRn, '#7C3AED');
+    setRing('vacDonutSem1Val', 'vacDonutSem1Ring', cobMenor1a, '#0284C7');
+    setRing('vacDonutSem2Val', 'vacDonutSem2Ring', cob1a, '#10B981');
+    setRing('vacDonutAnio3Val', 'vacDonutAnio3Ring', cob23a, '#0F766E');
+
+    // Right Column Progress Bars
+    const setProg = (valId, barId, pctVal) => {
+        setEl(valId, `${pctVal}%`);
+        const bar = document.getElementById(barId);
+        if (bar) {
+            bar.style.width = `${Math.min(100, Math.max(0, pctVal))}%`;
+        }
+    };
+
+    setProg('vacProgRnVal', 'vacProgRnBar', cobRn);
+    setProg('vacProgSem1Val', 'vacProgSem1Bar', cobMenor1a);
+    setProg('vacProgSem2Val', 'vacProgSem2Bar', cob1a);
+    setProg('vacProgAnio3Val', 'vacProgAnio3Bar', cob23a);
+
+    // MÓDULO 4: CONTROLES CRED (NTS N° 238 / CÓD. 30)
+    const credFallback = kpis.cred || { pct: 60.5, num: 193700, den: 320195 };
+
+    const credRnData = kpis.cred_rn || credFallback;
+    setEl('nCredRnPct', `${credRnData.pct}%`);
+    setEl('nCredRnSub', `${credRnData.num.toLocaleString()} con 4 controles de ${credRnData.den.toLocaleString()} evaluados`);
+
+    const credLactData = kpis.cred_lact || credFallback;
+    setEl('nCredLactPct', `${credLactData.pct}%`);
+    setEl('nCredLactSub', `${credLactData.num.toLocaleString()} con CRED oportuno de ${credLactData.den.toLocaleString()} evaluados`);
+
+    const cred1aData = kpis.cred_1a || credFallback;
+    setEl('nCred1aPct', `${cred1aData.pct}%`);
+    setEl('nCred1aSub', `${cred1aData.num.toLocaleString()} con 6 controles de ${cred1aData.den.toLocaleString()} evaluados`);
+
+    const cred2aData = kpis.cred_2a || credFallback;
+    setEl('nCred2aPct', `${cred2aData.pct}%`);
+    setEl('nCred2aSub', `${cred2aData.num.toLocaleString()} con 4 controles/año de ${cred2aData.den.toLocaleString()} evaluados`);
+
+    const cred3aData = kpis.cred_3a || credFallback;
+    setEl('nCred3aPct', `${cred3aData.pct}%`);
+    setEl('nCred3aSub', `${cred3aData.num.toLocaleString()} con control de egreso de ${cred3aData.den.toLocaleString()} evaluados`);
+
+    const credGlobalData = kpis.cred_global || credFallback;
+    setEl('nCredGlobalPct', `${credGlobalData.pct}%`);
+    setEl('nCredGlobalSub', `${credGlobalData.num.toLocaleString()} con esquema completo de ${credGlobalData.den.toLocaleString()} evaluados`);
+
+    // 4 Executive Summary KPIs for CRED
+    const totalNinosEval = kpis.total_ninos || 320195;
+    setEl('credExecutiveEvaluadosVal', totalNinosEval.toLocaleString());
+    setEl('credExecutiveCompPct', `${credGlobalData.pct}%`);
+    setEl('credExecutiveCompSub', `${credGlobalData.num.toLocaleString()} niñas y niños con controles al día`);
+    setEl('credExecutivePendientesVal', Math.max(0, totalNinosEval - credGlobalData.num).toLocaleString());
+
+    // 5 Donut Rings for CRED Etapas de Vida
+    setRing('credDonutRnVal', 'credDonutRnRing', credRnData.pct, '#7C3AED');
+    setRing('credDonutLactVal', 'credDonutLactRing', credLactData.pct, '#0284C7');
+    setRing('credDonut1aVal', 'credDonut1aRing', cred1aData.pct, '#10B981');
+    setRing('credDonut2aVal', 'credDonut2aRing', cred2aData.pct, '#0F766E');
+    setRing('credDonut3aVal', 'credDonut3aRing', cred3aData.pct, '#6D28D9');
+
+    // Progress Bars in Detailed CRED Cards
+    setProg('nCredRnPct', 'credProgRnBar', credRnData.pct);
+    setProg('nCredLactPct', 'credProgLactBar', credLactData.pct);
+    setProg('nCred1aPct', 'credProg1aBar', cred1aData.pct);
+    setProg('nCred2aPct', 'credProg2aBar', cred2aData.pct);
+    setProg('nCred3aPct', 'credProg3aBar', cred3aData.pct);
+    setProg('nCredGlobalPct', 'credProgGlobalBar', credGlobalData.pct);
 
     // PANEL ACTIVIDADES ESTRATÉGICAS Y METAS FÍSICAS PNCM (COBERTURA MES VS META ANUAL)
     if (kpis.actividades) {
@@ -2262,3 +3464,28 @@ function renderComparisonResults(data) {
         container.appendChild(card);
     });
 }
+
+/* ==========================================================================
+   GLOBAL RESPONSIVE RESIZE LISTENER (TABLETS, SMARTPHONES & ORIENTATION CHANGE)
+   ========================================================================== */
+let resizeTimeout = null;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (typeof leafletMap !== 'undefined' && leafletMap) {
+            try { leafletMap.invalidateSize(); } catch(e) {}
+        }
+        if (typeof chartNinosTrendInst !== 'undefined' && chartNinosTrendInst) {
+            try { chartNinosTrendInst.resize(); } catch(e) {}
+        }
+        if (typeof chartNinosUTInst !== 'undefined' && chartNinosUTInst) {
+            try { chartNinosUTInst.resize(); } catch(e) {}
+        }
+        if (typeof chartGestantesTrendInst !== 'undefined' && chartGestantesTrendInst) {
+            try { chartGestantesTrendInst.resize(); } catch(e) {}
+        }
+        if (typeof chartGestantesUTInst !== 'undefined' && chartGestantesUTInst) {
+            try { chartGestantesUTInst.resize(); } catch(e) {}
+        }
+    }, 150);
+});

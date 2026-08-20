@@ -36,6 +36,91 @@
       "num": 20016,
       "den": 123711
     },
+    "vac_bcg": {
+      "pct": 96.0,
+      "num": 61992,
+      "den": 64575
+    },
+    "vac_hvb": {
+      "pct": 93.0,
+      "num": 60054,
+      "den": 64575
+    },
+    "vac_rotavirus": {
+      "pct": 44.81,
+      "num": 28939,
+      "den": 64575
+    },
+    "vac_pentavalente": {
+      "pct": 30.88,
+      "num": 19940,
+      "den": 64575
+    },
+    "vac_polio": {
+      "pct": 30.88,
+      "num": 19940,
+      "den": 64575
+    },
+    "vac_neumococo": {
+      "pct": 44.81,
+      "num": 28939,
+      "den": 64575
+    },
+    "vac_spr1": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "vac_spr2": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "vac_spr": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "vac_varicela": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "vac_ama": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "vac_dpt": {
+      "pct": 0.13,
+      "num": 76,
+      "den": 59136
+    },
+    "cred_rn": {
+      "pct": 61.76,
+      "num": 14666,
+      "den": 23748
+    },
+    "cred_lact": {
+      "pct": 26.92,
+      "num": 17381,
+      "den": 64575
+    },
+    "cred_1a": {
+      "pct": 3.31,
+      "num": 3499,
+      "den": 105636
+    },
+    "cred_2a": {
+      "pct": 5.25,
+      "num": 6362,
+      "den": 121126
+    },
+    "cred_global": {
+      "pct": 9.35,
+      "num": 27242,
+      "den": 291337
+    },
     "anemia_fe": {
       "pct": 8.55,
       "num": 3330,

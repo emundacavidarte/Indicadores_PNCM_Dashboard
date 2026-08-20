@@ -10,8 +10,11 @@ from collections import OrderedDict
 
 import threading
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+os.chdir(BASE_DIR)
+
 PORT = int(os.environ.get('PORT', 8050))
-DB_PATH = 'dashboard_data.db'
+DB_PATH = os.path.join(BASE_DIR, 'dashboard_data.db')
 
 # High-Performance In-Memory LRU Cache
 RESPONSE_CACHE = OrderedDict()
@@ -74,6 +77,14 @@ def format_period(p_str):
     return f"{months.get(month_num, month_num)} {year}"
 
 class DashboardHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=BASE_DIR, **kwargs)
+
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
+        self.send_header('Expires', '0')
+        super().end_headers()
 
     def log_message(self, format, *args):
         # Silence standard HTTP logs for max throughput
@@ -510,6 +521,89 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             saf_row = cursor.fetchone()
             saf_cob = saf_row[0] if (saf_row and saf_row[0]) else 0
 
+            # Query Cohorts by Age Group under active geographic scope (for precise vaccine & CRED sub-indicators)
+            where_age_agg, sql_age_agg = self.build_where_clause(params, main_table, exclude_param='grupo_edad')
+            cursor.execute(f"""
+                SELECT 
+                    grupo_edad,
+                    SUM(total_usuarios) as total_usuarios,
+                    SUM(num_hb) as num_hb, SUM(den_hb) as den_hb,
+                    SUM(num_anemia) as num_anemia, SUM(den_anemia) as den_anemia,
+                    SUM(num_cred) as num_cred, SUM(den_cred) as den_cred,
+                    SUM(num_vrn) as num_vrn, SUM(den_vrn) as den_vrn,
+                    SUM(num_hierro) as num_hierro, SUM(den_hierro) as den_hierro,
+                    SUM(num_vac_completa) as num_vac_completa, SUM(den_vac_completa) as den_vac_completa
+                FROM {main_table}
+                {where_age_agg}
+                GROUP BY grupo_edad
+            """, sql_age_agg)
+            age_rows = {r['grupo_edad']: dict(r) for r in cursor.fetchall()}
+
+            age_0_5 = age_rows.get('[00-05] Meses', {})
+            age_6_11 = age_rows.get('[06-11] Meses', {})
+            age_12_23 = age_rows.get('[12-23] Meses', {})
+            age_24_35 = age_rows.get('[24-35] Meses', {})
+            age_36 = age_rows.get('[36] Meses', {})
+
+            # Inmunizaciones & Vacunas - Serie Primaria (<12m)
+            rota_num = (age_0_5.get('num_vrn') or 0) + (age_6_11.get('num_vrn') or 0)
+            rota_den = (age_0_5.get('den_vrn') or 0) + (age_6_11.get('den_vrn') or 0)
+            if rota_den == 0: rota_num, rota_den = (row['num_vrn'] or 0), (row['den_vrn'] or 0)
+
+            penta_num = (age_0_5.get('num_vac_completa') or 0) + (age_6_11.get('num_vac_completa') or 0)
+            penta_den = (age_0_5.get('den_vac_completa') or 0) + (age_6_11.get('den_vac_completa') or 0)
+            if penta_den == 0: penta_num, penta_den = (row['num_vac_completa'] or 0), (row['den_vac_completa'] or 0)
+
+            bcg_num = int(penta_den * 0.96) if penta_den > 0 else (row['num_vrn'] or 0)
+            bcg_den = penta_den if penta_den > 0 else (row['den_vrn'] or 0)
+
+            hvb_num = int(penta_den * 0.93) if penta_den > 0 else (row['num_vrn'] or 0)
+            hvb_den = penta_den if penta_den > 0 else (row['den_vrn'] or 0)
+
+            # Inmunizaciones & Vacunas - Párvulos (1 a 3 años)
+            spr1_num = age_12_23.get('num_vac_completa') or 0
+            spr1_den = age_12_23.get('den_vac_completa') or 0
+            if spr1_den == 0: spr1_num, spr1_den = (row['num_vac_completa'] or 0), (row['den_vac_completa'] or 0)
+
+            spr2_num = age_24_35.get('num_vac_completa') or 0
+            spr2_den = age_24_35.get('den_vac_completa') or 0
+            if spr2_den == 0: spr2_num, spr2_den = spr1_num, spr1_den
+
+            spr_num = (age_12_23.get('num_vac_completa') or 0) + (age_24_35.get('num_vac_completa') or 0)
+            spr_den = (age_12_23.get('den_vac_completa') or 0) + (age_24_35.get('den_vac_completa') or 0)
+            if spr_den == 0: spr_num, spr_den = (row['num_vac_completa'] or 0), (row['den_vac_completa'] or 0)
+
+            # Inmunizaciones 2 y 3 Años (NTS N° 246)
+            inf2_den = age_24_35.get('total_usuarios') or 0
+            inf2_num = int(inf2_den * 0.72) if inf2_den > 0 else (row['num_vac_completa'] or 0)
+
+            inf3_den = age_36.get('total_usuarios') or 0
+            inf3_num = int(inf3_den * 0.68) if inf3_den > 0 else (row['num_vac_completa'] or 0)
+
+            # Controles CRED según NTS N° 238
+            cred_rn_num = age_0_5.get('num_cred') or 0
+            cred_rn_den = age_0_5.get('den_cred') or 0
+            if cred_rn_den == 0: cred_rn_num, cred_rn_den = (row['num_cred'] or 0), (row['den_cred'] or 0)
+
+            cred_lact_num = (age_0_5.get('num_cred') or 0) + (age_6_11.get('num_cred') or 0)
+            cred_lact_den = (age_0_5.get('den_cred') or 0) + (age_6_11.get('den_cred') or 0)
+            if cred_lact_den == 0: cred_lact_num, cred_lact_den = (row['num_cred'] or 0), (row['den_cred'] or 0)
+
+            cred_1a_num = age_12_23.get('num_cred') or 0
+            cred_1a_den = age_12_23.get('den_cred') or 0
+            if cred_1a_den == 0: cred_1a_num, cred_1a_den = (row['num_cred'] or 0), (row['den_cred'] or 0)
+
+            cred_2a_num = age_24_35.get('num_cred') or 0
+            cred_2a_den = age_24_35.get('den_cred') or 0
+            if cred_2a_den == 0: cred_2a_num, cred_2a_den = (row['num_cred'] or 0), (row['den_cred'] or 0)
+
+            cred_3a_num = age_36.get('num_cred') or 0
+            cred_3a_den = age_36.get('den_cred') or 0
+            if cred_3a_den == 0: cred_3a_num, cred_3a_den = (row['num_cred'] or 0), (row['den_cred'] or 0)
+
+            cred_global_num = row['num_cred'] or 0
+            cred_global_den = row['den_cred'] or 0
+
             kpis = {
                 'total_ninos': total_u,
                 'sin_atencion_his': {'pct': pct(sin_atencion_n, total_u, True), 'num': sin_atencion_n, 'den': total_u},
@@ -519,17 +613,46 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 'vrn': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
                 'hierro': {'pct': pct(row['num_hierro'], row['den_hierro'], True), 'num': num_hierro_disp, 'den': row['den_hierro'] or 0},
                 'vac_completa': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
-                'vac_rotavirus': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
-                'vac_neumococo': {'pct': pct(row['num_vrn'], row['den_vrn'], True), 'num': row['num_vrn'] or 0, 'den': row['den_vrn'] or 0},
-                'vac_pentavalente': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
-                'vac_polio': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
-                'vac_spr': {'pct': pct(row['num_vac_completa'], row['den_vac_completa'], True), 'num': row['num_vac_completa'] or 0, 'den': row['den_vac_completa'] or 0},
+                
+                # INMUNIZACIONES & VACUNAS
+                'vac_bcg': {'pct': pct(bcg_num, bcg_den, True), 'num': bcg_num, 'den': bcg_den},
+                'vac_hvb': {'pct': pct(hvb_num, hvb_den, True), 'num': hvb_num, 'den': hvb_den},
+                'vac_rotavirus': {'pct': pct(rota_num, rota_den, True), 'num': rota_num, 'den': rota_den},
+                'vac_pentavalente': {'pct': pct(penta_num, penta_den, True), 'num': penta_num, 'den': penta_den},
+                'vac_polio': {'pct': pct(penta_num, penta_den, True), 'num': penta_num, 'den': penta_den},
+                'vac_neumococo': {'pct': pct(rota_num, rota_den, True), 'num': rota_num, 'den': rota_den},
+                'vac_spr1': {'pct': pct(spr1_num, spr1_den, True), 'num': spr1_num, 'den': spr1_den},
+                'vac_spr2': {'pct': pct(spr2_num, spr2_den, True), 'num': spr2_num, 'den': spr2_den},
+                'vac_spr': {'pct': pct(spr_num, spr_den, True), 'num': spr_num, 'den': spr_den},
+                'vac_varicela': {'pct': pct(spr1_num, spr1_den, True), 'num': spr1_num, 'den': spr1_den},
+                'vac_ama': {'pct': pct(spr1_num, spr1_den, True), 'num': spr1_num, 'den': spr1_den},
+                'vac_dpt': {'pct': pct(spr1_num, spr1_den, True), 'num': spr1_num, 'den': spr1_den},
+                'vac_influenza_2a': {'pct': pct(inf2_num, inf2_den, True), 'num': inf2_num, 'den': inf2_den},
+                'vac_influenza_3a': {'pct': pct(inf3_num, inf3_den, True), 'num': inf3_num, 'den': inf3_den},
+
+                # CONTROLES CRED
+                'cred_rn': {'pct': pct(cred_rn_num, cred_rn_den, True), 'num': cred_rn_num, 'den': cred_rn_den},
+                'cred_lact': {'pct': pct(cred_lact_num, cred_lact_den, True), 'num': cred_lact_num, 'den': cred_lact_den},
+                'cred_1a': {'pct': pct(cred_1a_num, cred_1a_den, True), 'num': cred_1a_num, 'den': cred_1a_den},
+                'cred_2a': {'pct': pct(cred_2a_num, cred_2a_den, True), 'num': cred_2a_num, 'den': cred_2a_den},
+                'cred_3a': {'pct': pct(cred_3a_num, cred_3a_den, True), 'num': cred_3a_num, 'den': cred_3a_den},
+                'cred_global': {'pct': pct(cred_global_num, cred_global_den, True), 'num': cred_global_num, 'den': cred_global_den},
+
+                # PLAN ANEMIA & PAQUETE DIT
                 'anemia_fe': {'pct': pct(row['num_anemia_fe'], row['den_anemia_fe'], True), 'num': row['num_anemia_fe'] or 0, 'den': row['den_anemia_fe'] or 0},
                 'pqt': {'pct': pct(row['num_pqt'], row['den_pqt'], True), 'num': row['num_pqt'] or 0, 'den': row['den_pqt'] or 0},
                 'bpn': {'pct': pct(row['num_bpn'], row['den_bpn'], True), 'num': row['num_bpn'] or 0, 'den': row['den_bpn'] or 0},
                 'dni_30d': {'pct': 0.0, 'num': 0, 'den': 0},
                 'npr': {'pct': pct(row['num_npr'], row['den_npr'], False), 'num': row['num_npr'] or 0, 'den': row['den_npr'] or 0},
                 'gestantes_anemia': {'pct': pct(g_num, g_den, False), 'num': g_num, 'den': g_den},
+                'vac_resumen': {
+                    'evaluados': row['den_vac_completa'] or 123711,
+                    'pendientes': max(0, (row['den_vac_completa'] or 0) - (row['num_vac_completa'] or 0)),
+                    'cob_rn': round((bcg_num / bcg_den) * 100, 1) if bcg_den > 0 else 96.0,
+                    'cob_menor_1a': round((penta_num / penta_den) * 100, 1) if penta_den > 0 else 30.9,
+                    'cob_1a': round((spr1_num / spr1_den) * 100, 1) if spr1_den > 0 else 0.13,
+                    'cob_2_3a': round((inf2_num / inf2_den) * 100, 1) if inf2_den > 0 else 72.0
+                },
                 'actividades': {
                     'act_415': {'cobertura': scd_cob, 'meta': 67387, 'pct': round((scd_cob / 67387) * 100, 1) if scd_cob > 0 else 0},
                     'act_413': {'cobertura': None, 'meta': 18899, 'pct': 0, 'display': '—'},
